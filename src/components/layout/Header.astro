@@ -1,0 +1,277 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+import { CHEESE_CATEGORIES } from '../../data/products';
+
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { label: 'A Lactimonte', href: '/a-lactimonte' },
+  { label: 'Queijos', href: '/queijos', hasCheeseMenu: true },
+  { label: 'Receitas', href: '/receitas' },
+  { label: 'Notícias', href: '/noticias' },
+  { label: 'Contactos', href: '/contactos' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-50 bg-[#ffffff] transition-transform duration-300 ease-in-out will-change-transform"
+>
+  <!-- Main Header Navigation -->
+  <div class="lacti-container py-3.5 flex items-center justify-between gap-4">
+    <!-- Brand Logo (Click to return to homepage) -->
+    <a
+      href="/"
+      class="group inline-flex items-center gap-3 focus-visible:outline-[#169f38] rounded-2xl"
+      aria-label="Lactimonte — Voltar à Página Inicial"
+    >
+      <img
+        src="/assets/logo/logo_lactimonte.png"
+        alt="Logótipo Lactimonte"
+        width="150"
+        height="60"
+        class="h-12 sm:h-14 w-auto object-contain group-hover:scale-[1.02] transition-transform duration-instant"
+        fetchpriority="high"
+      />
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav aria-label="Navegação Principal" class="hidden lg:flex items-center gap-1 xl:gap-2">
+      {navItems.map((item) =>
+        item.hasCheeseMenu ? (
+          <div class="relative group" data-cheese-nav-wrapper>
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class={`inline-flex items-center gap-1.5 min-h-[44px] px-4 rounded-full font-bold text-sm tracking-wide transition-all duration-instant ${
+                isActive(item.href)
+                  ? 'bg-[#169f38] text-[#ffffff] border-2 border-[#169f38]'
+                  : 'text-[#000000] hover:bg-[#169f38] hover:text-[#ffffff]'
+              }`}
+            >
+              <span>{item.label}</span>
+              <Icon name="plus" size={15} class="transition-transform duration-instant group-hover:rotate-45" />
+            </a>
+
+            <!-- Cheese Mega-Menu Dropdown: Only outer submenu border; 3 vertical photos (Curados, Frescos, Requeijão) with bottom-left name & bottom-right arrow -->
+            <div
+              class="invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 group-focus-within:visible group-focus-within:opacity-100 group-focus-within:translate-y-0 transition-all duration-150 absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[620px] z-50"
+            >
+              <div class="bg-[#ffffff] border-2 border-[#169f38] rounded-[28px] p-5">
+                <div class="grid grid-cols-3 gap-5" data-header-cheese-accordion>
+                  {CHEESE_CATEGORIES.map((cat) => (
+                    <a
+                      href={cat.ctaHref}
+                      data-header-acc-item
+                      class="group/card flex flex-col transition-all duration-instant"
+                    >
+                      <div class="aspect-[3/4] w-full rounded-[18px] overflow-hidden bg-[#ffffff]">
+                        <img
+                          src={cat.secondaryImage}
+                          alt={cat.shortTitle}
+                          width="180"
+                          height="240"
+                          loading="lazy"
+                          class="w-full h-full object-cover transition-transform duration-300 group-hover/card:scale-105"
+                        />
+                      </div>
+                      <div class="flex items-center justify-between gap-2 pt-3 px-1">
+                        <span class="font-sans font-black text-sm uppercase tracking-tight text-[#000000] group-hover/card:text-[#169f38] transition-colors duration-instant">
+                          {cat.shortTitle}
+                        </span>
+                        <span class="text-[#169f38] flex items-center justify-center shrink-0 transition-transform duration-instant group-hover/card:translate-x-0.5 group-hover/card:-translate-y-0.5">
+                          <Icon name="arrow-up-right" size={18} />
+                        </span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class={`inline-flex items-center min-h-[44px] px-3.5 xl:px-4 rounded-full font-bold text-sm tracking-wide transition-all duration-instant ${
+              isActive(item.href)
+                ? 'bg-[#169f38] text-[#ffffff] border-2 border-[#169f38]'
+                : 'text-[#000000] hover:bg-[#169f38] hover:text-[#ffffff]'
+            }`}
+          >
+            {item.label}
+          </a>
+        )
+      )}
+    </nav>
+
+    <!-- Right Actions: CTA Button + Mobile Trigger -->
+    <div class="flex items-center gap-3">
+      <div class="hidden sm:block">
+        <Button
+          href="/queijos"
+          variant="primary"
+          size="sm"
+          icon="arrow-up-right"
+          label="Ver Queijos"
+        />
+      </div>
+
+      <!-- Mobile Menu Toggle Button (44x44px minimum target WCAG 2.5.5) -->
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="mobile-nav-drawer"
+        aria-label="Abrir menu de navegação"
+        class="lg:hidden btn-lacti btn-lacti-sm btn-lacti-secondary btn-lacti-icon-only"
+      >
+        <span id="mobile-icon-open">
+          <Icon name="menu" size={20} />
+        </span>
+        <span id="mobile-icon-close" class="hidden">
+          <Icon name="close" size={20} />
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div
+    id="mobile-nav-drawer"
+    class="hidden lg:hidden bg-[#ffffff] border-t-2 border-[#169f38] px-5 py-6 space-y-5"
+  >
+    <nav aria-label="Navegação Mobile" class="flex flex-col gap-2">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+          class={`flex items-center justify-between min-h-[48px] px-4 rounded-2xl font-bold text-base border-2 border-[#169f38] transition-all duration-instant ${
+            isActive(item.href)
+              ? 'bg-[#169f38] text-[#ffffff]'
+              : 'bg-[#ffffff] text-[#000000] hover:bg-[#169f38] hover:text-[#ffffff]'
+          }`}
+        >
+          <span>{item.label}</span>
+          <Icon name="arrow-up-right" size={18} />
+        </a>
+      ))}
+    </nav>
+
+    <div class="pt-3 border-t-2 border-[#169f38] flex flex-col sm:flex-row gap-3">
+      <Button
+        href="/queijos"
+        variant="primary"
+        size="md"
+        icon="arrow-up-right"
+        label="Explorar Gama de Queijos"
+        class="w-full"
+      />
+      <Button
+        href="/receitas"
+        variant="secondary"
+        size="md"
+        icon="book-open"
+        label="Ver Vídeos de Receitas"
+        class="w-full"
+      />
+    </div>
+  </div>
+</header>
+
+<script>
+  function initMobileMenu() {
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const iconOpen = document.getElementById('mobile-icon-open');
+    const iconClose = document.getElementById('mobile-icon-close');
+
+    if (!toggleBtn || !drawer) return;
+
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', (!isExpanded).toString());
+      toggleBtn.setAttribute(
+        'aria-label',
+        !isExpanded ? 'Fechar menu de navegação' : 'Abrir menu de navegação'
+      );
+      drawer.classList.toggle('hidden', isExpanded);
+      iconOpen?.classList.toggle('hidden', !isExpanded);
+      iconClose?.classList.toggle('hidden', isExpanded);
+    });
+  }
+
+  function initSmartHeader() {
+    const header = document.getElementById('site-header');
+    const drawer = document.getElementById('mobile-nav-drawer');
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    function handleScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          const isDrawerOpen = drawer && !drawer.classList.contains('hidden');
+
+          // Always keep header visible if mobile drawer is currently open
+          if (isDrawerOpen) {
+            header.classList.remove('-translate-y-full');
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          // Always keep header visible at the very top of the page
+          if (currentScrollY <= 15) {
+            header.classList.remove('-translate-y-full');
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+          }
+
+          const diff = currentScrollY - lastScrollY;
+
+          // Ignore subtle finger/wheel micro-shifts
+          if (Math.abs(diff) < 8) {
+            ticking = false;
+            return;
+          }
+
+          if (diff > 0 && currentScrollY > 70) {
+            // Scrolling down -> hide header out of view to focus on content
+            header.classList.add('-translate-y-full');
+          } else if (diff < 0) {
+            // Scrolling up ("scroll para trás") -> reveal header smoothly
+            header.classList.remove('-translate-y-full');
+          }
+
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+  }
+
+  function setupHeader() {
+    initMobileMenu();
+    initSmartHeader();
+  }
+
+  setupHeader();
+  document.addEventListener('astro:page-load', setupHeader);
+</script>

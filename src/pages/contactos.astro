@@ -1,0 +1,496 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+import { COMPANY_INFO } from '../data/company';
+---
+
+<BaseLayout
+  title="Contactos & Distribuição | Queijaria Lactimonte (Mafra)"
+  description="Entre em contacto com a Queijaria Lactimonte em Montemuro, Santo Estevão das Galés, Mafra. Telefone (+351) 219 758 120, Telemóvel (+351) 917 048 410 e e-mail geral@lactimonte.pt."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="max-w-3xl space-y-5">
+        <span class="font-script text-3xl md:text-4xl text-[#169f38] block">
+          Estamos em Montemuro · Concelho de Mafra
+        </span>
+        <h1 class="font-sans text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[1.02] text-[#000000]">
+          Fale com a <span class="text-[#169f38]">Lactimonte</span>
+        </h1>
+        <p class="text-base md:text-xl leading-relaxed text-[#000000]">
+          Seja para parcerias comerciais, distribuição Horeca e retalho ou questões sobre os nossos queijos tradicionais, a nossa equipa está pronta para o atender.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Details + Interactive Validated Contact Form -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Left Column: Direct Contacts & Headquarters Info (Green card + White card, zero black background) -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="p-8 rounded-[28px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] space-y-6">
+            <div>
+              <span class="font-script text-2xl text-[#ffffff] block">Sede & Fábrica</span>
+              <h2 class="font-sans text-2xl font-black uppercase mt-1 text-[#ffffff]">
+                {COMPANY_INFO.legalName}
+              </h2>
+            </div>
+
+            <div class="space-y-4 text-sm">
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#ffffff] text-[#169f38] flex items-center justify-center shrink-0">
+                  <Icon name="map-pin" size={18} />
+                </div>
+                <div>
+                  <span class="font-bold uppercase text-[#ffffff] block">Morada</span>
+                  <p class="font-medium text-[#ffffff]">
+                    {COMPANY_INFO.address.street}<br />
+                    {COMPANY_INFO.address.postalCode} {COMPANY_INFO.address.locality}<br />
+                    {COMPANY_INFO.address.municipality}, {COMPANY_INFO.address.country}
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#ffffff] text-[#169f38] flex items-center justify-center shrink-0">
+                  <Icon name="phone" size={18} />
+                </div>
+                <div>
+                  <span class="font-bold uppercase text-[#ffffff] block">Telefone & Telemóvel</span>
+                  <a href={COMPANY_INFO.contacts.phoneFixedHref} class="font-black text-base text-[#ffffff] hover:underline block">
+                    {COMPANY_INFO.contacts.phoneFixed}
+                  </a>
+                  <span class="text-xs block mb-2 text-[#ffffff]">({COMPANY_INFO.contacts.phoneFixedNote})</span>
+                  <a href={COMPANY_INFO.contacts.phoneMobileHref} class="font-black text-base text-[#ffffff] hover:underline block">
+                    {COMPANY_INFO.contacts.phoneMobile}
+                  </a>
+                  <span class="text-xs block text-[#ffffff]">({COMPANY_INFO.contacts.phoneMobileNote})</span>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-[#ffffff] text-[#169f38] flex items-center justify-center shrink-0">
+                  <Icon name="mail" size={18} />
+                </div>
+                <div>
+                  <span class="font-bold uppercase text-[#ffffff] block">E-mail Geral</span>
+                  <a href={COMPANY_INFO.contacts.emailHref} class="font-black text-base text-[#ffffff] underline">
+                    {COMPANY_INFO.contacts.email}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 border-t-2 border-[#ffffff]">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#ffffff] block mb-3">
+                Redes Sociais Oficiais
+              </span>
+              <div class="flex flex-wrap gap-3">
+                <a
+                  href={COMPANY_INFO.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-lacti btn-lacti-sm btn-lacti-secondary"
+                  aria-label="Facebook Oficial Lactimonte"
+                >
+                  <span class="btn-label">Facebook</span>
+                  <span class="btn-icon icon-default"><Icon name="facebook" size={16} /></span>
+                  <span class="btn-icon icon-confirmed"><Icon name="check-circle" size={16} /></span>
+                </a>
+                <a
+                  href={COMPANY_INFO.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-lacti btn-lacti-sm btn-lacti-secondary"
+                  aria-label="Instagram Oficial Lactimonte"
+                >
+                  <span class="btn-label">Instagram</span>
+                  <span class="btn-icon icon-default"><Icon name="instagram" size={16} /></span>
+                  <span class="btn-icon icon-confirmed"><Icon name="check-circle" size={16} /></span>
+                </a>
+                <a
+                  href={COMPANY_INFO.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-lacti btn-lacti-sm btn-lacti-secondary"
+                  aria-label="LinkedIn Oficial Lactimonte"
+                >
+                  <span class="btn-label">LinkedIn</span>
+                  <span class="btn-icon icon-default"><Icon name="linkedin" size={16} /></span>
+                  <span class="btn-icon icon-confirmed"><Icon name="check-circle" size={16} /></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- OpenStreetMap / Coordinates Card for Montemuro, Mafra -->
+          <div class="p-6 rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] space-y-3">
+            <span class="text-xs font-black uppercase text-[#169f38] block">
+              Coordenadas GPS · Montemuro (Mafra)
+            </span>
+            <p class="font-sans text-lg font-black text-[#000000]">
+              38°55'07.0"N 9°14'12.1"W (38.9186, -9.2367)
+            </p>
+            <p class="text-xs leading-relaxed text-[#000000]">
+              A 25 minutos de Lisboa e a 15 minutos da Vila de Mafra, no coração da Região Saloia.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right Column: Accessible Contact Form with All Design System Error Messages -->
+        <div class="lg:col-span-7">
+          <div class="p-8 md:p-10 rounded-[32px] border-2 border-[#169f38] bg-[#ffffff]">
+            <span class="font-script text-3xl text-[#169f38] block mb-1">
+              Formulário Direto
+            </span>
+            <h2 class="font-sans text-2xl md:text-4xl font-black uppercase tracking-tight text-[#000000] mb-6">
+              Envie-nos uma <span class="text-[#169f38]">Mensagem</span>
+            </h2>
+
+            <form id="lacti-contact-form" class="space-y-5" novalidate>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- Nome -->
+                <div>
+                  <label for="contact-name" class="lacti-label">
+                    Nome *
+                  </label>
+                  <input
+                    type="text"
+                    id="contact-name"
+                    name="name"
+                    required
+                    minlength="2"
+                    autocomplete="given-name"
+                    placeholder="Ex: João"
+                    class="lacti-input"
+                    aria-describedby="err-contact-name"
+                  />
+                  <div id="err-contact-name" class="lacti-error-msg hidden" role="alert">
+                    <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                    <span>Por favor, indique o seu nome (mínimo 2 caracteres).</span>
+                  </div>
+                </div>
+
+                <!-- Apelido -->
+                <div>
+                  <label for="contact-surname" class="lacti-label">
+                    Apelido *
+                  </label>
+                  <input
+                    type="text"
+                    id="contact-surname"
+                    name="surname"
+                    required
+                    minlength="2"
+                    autocomplete="family-name"
+                    placeholder="Ex: Marques"
+                    class="lacti-input"
+                    aria-describedby="err-contact-surname"
+                  />
+                  <div id="err-contact-surname" class="lacti-error-msg hidden" role="alert">
+                    <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                    <span>Por favor, indique o seu apelido.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <!-- Email -->
+                <div>
+                  <label for="contact-email" class="lacti-label">
+                    E-mail *
+                  </label>
+                  <input
+                    type="email"
+                    id="contact-email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    placeholder="nome@dominio.pt"
+                    class="lacti-input"
+                    aria-describedby="err-contact-email"
+                  />
+                  <div id="err-contact-email" class="lacti-error-msg hidden" role="alert">
+                    <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                    <span id="err-contact-email-text">Introduza um endereço de e-mail válido (exemplo: nome@dominio.pt).</span>
+                  </div>
+                </div>
+
+                <!-- Telemóvel / Telefone -->
+                <div>
+                  <label for="contact-phone" class="lacti-label">
+                    Telemóvel / Telefone *
+                  </label>
+                  <input
+                    type="tel"
+                    id="contact-phone"
+                    name="phone"
+                    required
+                    pattern="[0-9+ ]{9,15}"
+                    autocomplete="tel"
+                    placeholder="Ex: 917 048 410"
+                    class="lacti-input"
+                    aria-describedby="err-contact-phone"
+                  />
+                  <div id="err-contact-phone" class="lacti-error-msg hidden" role="alert">
+                    <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                    <span>Introduza um número nacional válido de 9 dígitos (ex: 917 048 410 ou 219 758 120).</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Assunto -->
+              <div>
+                <label for="contact-subject" class="lacti-label">
+                  Assunto / Departamento *
+                </label>
+                <select
+                  id="contact-subject"
+                  name="subject"
+                  required
+                  class="lacti-input"
+                  aria-describedby="err-contact-subject"
+                >
+                  <option value="">Selecione o assunto...</option>
+                  <option value="comercial">Parceria Comercial / Distribuição Horeca & Retalho</option>
+                  <option value="qualidade">Qualidade & Certificação de Produto</option>
+                  <option value="consumidor">Apoio ao Consumidor & Sugestões</option>
+                  <option value="outro">Outro Assunto</option>
+                </select>
+                <div id="err-contact-subject" class="lacti-error-msg hidden" role="alert">
+                  <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                  <span>Selecione o assunto da sua mensagem (Comercial, Distribuição ou Consumidor).</span>
+                </div>
+              </div>
+
+              <!-- Mensagem -->
+              <div>
+                <label for="contact-message" class="lacti-label">
+                  A Sua Mensagem *
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows="4"
+                  required
+                  minlength="10"
+                  placeholder="Escreva aqui o seu pedido ou questão..."
+                  class="lacti-input"
+                  aria-describedby="err-contact-message"
+                ></textarea>
+                <div id="err-contact-message" class="lacti-error-msg hidden" role="alert">
+                  <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                  <span>Por favor, detalhe a sua mensagem (mínimo de 10 caracteres).</span>
+                </div>
+              </div>
+
+              <!-- Consentimento RGPD -->
+              <div>
+                <label class="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    id="contact-gdpr"
+                    name="gdpr"
+                    required
+                    class="mt-1 w-5 h-5 accent-[#169f38] border-2 border-[#169f38] rounded"
+                    aria-describedby="err-contact-gdpr"
+                  />
+                  <span class="text-xs font-medium leading-relaxed text-[#000000]">
+                    Autorizo o tratamento dos meus dados pessoais pela Queijaria Lactimonte – Fernando Marques, Lda. para resposta a este pedido, de acordo com a <a href="#privacidade" class="underline font-bold text-[#169f38]">Política de Privacidade</a>. *
+                  </span>
+                </label>
+                <div id="err-contact-gdpr" class="lacti-error-msg hidden" role="alert">
+                  <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0 mt-0.5" />
+                  <span>É necessário aceitar a Política de Privacidade para submeter os seus dados.</span>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-2">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  icon="send"
+                  label="Enviar Mensagem à Lactimonte"
+                />
+              </div>
+
+              <!-- Success Banner -->
+              <div id="contact-success-banner" class="lacti-success-msg hidden" role="status" aria-live="polite">
+                <Icon name="check-circle" size={20} class="text-[#ffffff] shrink-0 mt-0.5" />
+                <span>Mensagem recebida com sucesso! A equipa da Lactimonte responderá com a maior brevidade.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Sections Referenced in Footer (#privacidade, #termos, #litigios, #cookies) -->
+  <section class="py-16 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container space-y-8">
+      <div class="max-w-3xl">
+        <span class="font-script text-3xl text-[#169f38] block">Transparência & Conformidade</span>
+        <h2 class="font-sans text-3xl font-black uppercase text-[#000000]">Informação Legal & <span class="text-[#169f38]">Consumidor</span></h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div id="privacidade" class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-2">
+          <h3 class="font-sans text-lg font-black uppercase text-[#169f38]">Política de Privacidade (RGPD)</h3>
+          <p class="text-xs leading-relaxed text-[#000000]">
+            A Queijaria Lactimonte – Fernando Marques, Lda. recolhe apenas os dados estritamente necessários para resposta a pedidos comerciais e envio voluntário de newsletter, garantindo o direito de acesso, retificação e eliminação através de geral@lactimonte.pt.
+          </p>
+        </div>
+
+        <div id="termos" class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-2">
+          <h3 class="font-sans text-lg font-black uppercase text-[#169f38]">Termos e Condições</h3>
+          <p class="text-xs leading-relaxed text-[#000000]">
+            Todos os conteúdos, marcas, fotografias de produtos e receitas presentes neste website são propriedade da Queijaria Lactimonte – Fernando Marques, Lda., com sede em Rua Escola Montemuro, 2665-410 Santo Estevão das Galés, Mafra.
+          </p>
+        </div>
+
+        <div id="litigios" class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-2">
+          <h3 class="font-sans text-lg font-black uppercase text-[#169f38]">Resolução Alternativa de Litígios</h3>
+          <p class="text-xs leading-relaxed text-[#000000]">
+            Em caso de litígio de consumo, o consumidor pode recorrer ao Centro de Arbitragem de Conflitos de Consumo de Lisboa (CACCL) ou ao Portal Oficial do Livro de Reclamações Eletrónico.
+          </p>
+        </div>
+
+        <div id="cookies" class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-2">
+          <h3 class="font-sans text-lg font-black uppercase text-[#169f38]">Política de Cookies</h3>
+          <p class="text-xs leading-relaxed text-[#000000]">
+            Utilizamos apenas cookies técnicos essenciais ao funcionamento rápido, seguro e acessível da experiência digital Lactimonte, respeitando integralmente a privacidade do utilizador.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <NewsletterSection />
+</BaseLayout>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('lacti-contact-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    const nameInput = document.getElementById('contact-name') as HTMLInputElement | null;
+    const surnameInput = document.getElementById('contact-surname') as HTMLInputElement | null;
+    const emailInput = document.getElementById('contact-email') as HTMLInputElement | null;
+    const phoneInput = document.getElementById('contact-phone') as HTMLInputElement | null;
+    const subjectInput = document.getElementById('contact-subject') as HTMLSelectElement | null;
+    const messageInput = document.getElementById('contact-message') as HTMLTextAreaElement | null;
+    const gdprInput = document.getElementById('contact-gdpr') as HTMLInputElement | null;
+
+    const errName = document.getElementById('err-contact-name');
+    const errSurname = document.getElementById('err-contact-surname');
+    const errEmail = document.getElementById('err-contact-email');
+    const errEmailText = document.getElementById('err-contact-email-text');
+    const errPhone = document.getElementById('err-contact-phone');
+    const errSubject = document.getElementById('err-contact-subject');
+    const errMessage = document.getElementById('err-contact-message');
+    const errGdpr = document.getElementById('err-contact-gdpr');
+    const successBanner = document.getElementById('contact-success-banner');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      // Validate Name
+      if (!nameInput || nameInput.value.trim().length < 2) {
+        nameInput?.setAttribute('aria-invalid', 'true');
+        errName?.classList.remove('hidden');
+        valid = false;
+      } else {
+        nameInput.setAttribute('aria-invalid', 'false');
+        errName?.classList.add('hidden');
+      }
+
+      // Validate Surname
+      if (!surnameInput || surnameInput.value.trim().length < 2) {
+        surnameInput?.setAttribute('aria-invalid', 'true');
+        errSurname?.classList.remove('hidden');
+        valid = false;
+      } else {
+        surnameInput.setAttribute('aria-invalid', 'false');
+        errSurname?.classList.add('hidden');
+      }
+
+      // Validate Email
+      const emailVal = emailInput?.value.trim() || '';
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal) {
+        emailInput?.setAttribute('aria-invalid', 'true');
+        if (errEmailText) errEmailText.textContent = 'O endereço de e-mail é obrigatório para concluirmos o pedido.';
+        errEmail?.classList.remove('hidden');
+        valid = false;
+      } else if (!emailRegex.test(emailVal)) {
+        emailInput?.setAttribute('aria-invalid', 'true');
+        if (errEmailText) errEmailText.textContent = 'Introduza um endereço de e-mail válido (exemplo: nome@dominio.pt).';
+        errEmail?.classList.remove('hidden');
+        valid = false;
+      } else {
+        emailInput?.setAttribute('aria-invalid', 'false');
+        errEmail?.classList.add('hidden');
+      }
+
+      // Validate Phone
+      const phoneDigits = (phoneInput?.value || '').replace(/\D/g, '');
+      if (phoneDigits.length < 9) {
+        phoneInput?.setAttribute('aria-invalid', 'true');
+        errPhone?.classList.remove('hidden');
+        valid = false;
+      } else {
+        phoneInput?.setAttribute('aria-invalid', 'false');
+        errPhone?.classList.add('hidden');
+      }
+
+      // Validate Subject
+      if (!subjectInput || !subjectInput.value) {
+        subjectInput?.setAttribute('aria-invalid', 'true');
+        errSubject?.classList.remove('hidden');
+        valid = false;
+      } else {
+        subjectInput.setAttribute('aria-invalid', 'false');
+        errSubject?.classList.add('hidden');
+      }
+
+      // Validate Message
+      if (!messageInput || messageInput.value.trim().length < 10) {
+        messageInput?.setAttribute('aria-invalid', 'true');
+        errMessage?.classList.remove('hidden');
+        valid = false;
+      } else {
+        messageInput.setAttribute('aria-invalid', 'false');
+        errMessage?.classList.add('hidden');
+      }
+
+      // Validate GDPR
+      if (!gdprInput || !gdprInput.checked) {
+        gdprInput?.setAttribute('aria-invalid', 'true');
+        errGdpr?.classList.remove('hidden');
+        valid = false;
+      } else {
+        gdprInput.setAttribute('aria-invalid', 'false');
+        errGdpr?.classList.add('hidden');
+      }
+
+      if (valid) {
+        successBanner?.classList.remove('hidden');
+        form.reset();
+      } else {
+        successBanner?.classList.add('hidden');
+      }
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:after-swap', initContactForm);
+</script>

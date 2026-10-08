@@ -1,0 +1,79 @@
+---
+import Icon from './Icon.astro';
+
+export interface Props {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  icon?: string;
+  label?: string;
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+  class?: string;
+  id?: string;
+  demoState?: 'normal' | 'hover' | 'active';
+  dataAttributes?: Record<string, string>;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  icon = 'arrow-up-right',
+  label,
+  ariaLabel,
+  target,
+  rel,
+  class: className = '',
+  id,
+  demoState,
+  dataAttributes = {},
+} = Astro.props;
+
+const sizeClass =
+  size === 'sm' ? 'btn-lacti-sm' : size === 'lg' ? 'btn-lacti-lg' : 'btn-lacti-md';
+const variantClass =
+  variant === 'secondary' ? 'btn-lacti-secondary' : 'btn-lacti-primary';
+const iconSize = size === 'sm' ? 18 : size === 'lg' ? 22 : 20;
+
+const isSafeHref =
+  !href ||
+  href.startsWith('/') ||
+  href.startsWith('#') ||
+  href.startsWith('https://') ||
+  href.startsWith('mailto:') ||
+  href.startsWith('tel:');
+
+const safeHref = isSafeHref ? href : '/';
+const isExternal = Boolean(safeHref && safeHref.startsWith('https://'));
+const safeRel =
+  target === '_blank' || isExternal
+    ? Array.from(new Set([...(rel ? rel.split(/\s+/) : []), 'noopener', 'noreferrer'])).join(' ')
+    : rel;
+
+const Tag = safeHref ? 'a' : 'button';
+---
+
+<Tag
+  id={id}
+  href={safeHref}
+  type={!safeHref ? type : undefined}
+  target={target}
+  rel={safeRel}
+  aria-label={ariaLabel}
+  data-demo-state={demoState}
+  data-lacti-btn="true"
+  class={`btn-lacti ${sizeClass} ${variantClass} ${className}`}
+  {...dataAttributes}
+>
+  {label ? <span class="btn-label"><slot>{label}</slot></span> : <slot />}
+  <span class="btn-icon icon-default" aria-hidden="true">
+    <Icon name={icon} size={iconSize} />
+  </span>
+  <span class="btn-icon icon-confirmed" aria-hidden="true">
+    <Icon name="check-circle" size={iconSize} />
+  </span>
+</Tag>

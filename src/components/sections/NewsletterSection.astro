@@ -1,0 +1,225 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import { FORM_ERROR_MESSAGES } from '../../data/design-system';
+
+const errName = FORM_ERROR_MESSAGES.find((e) => e.code === 'ERR_NAME_REQUIRED')?.message;
+const errEmail = FORM_ERROR_MESSAGES.find((e) => e.code === 'ERR_EMAIL_FORMAT')?.message;
+const errGdpr = FORM_ERROR_MESSAGES.find((e) => e.code === 'ERR_GDPR_REQUIRED')?.message;
+const okNewsletter = FORM_ERROR_MESSAGES.find((e) => e.code === 'OK_NEWSLETTER')?.message;
+---
+
+<section
+  id="newsletter"
+  aria-labelledby="newsletter-heading"
+  class="relative overflow-hidden bg-[#ffffff] text-[#000000] py-16 md:py-24"
+>
+  <div class="lacti-container relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center bg-[#ffffff] rounded-[32px] p-0 sm:p-2">
+      <!-- Left Column: Brand Editorial Copy -->
+      <div class="lg:col-span-6 space-y-4">
+        <p class="font-script text-3xl md:text-4xl text-[#169f38]">
+          Saiba sempre tudo em primeira mão
+        </p>
+        <h2 id="newsletter-heading" class="text-3xl sm:text-4xl xl:text-5xl font-black tracking-tight text-[#000000]">
+          Fique a par das novidades, receitas e feiras gastronómicas.
+        </h2>
+        <p class="text-base sm:text-lg text-[#000000] leading-relaxed">
+          Seja o primeiro a receber novidades sobre os nossos queijos frescos, curados e requeijão, sugestões de receitas tradicionais saloias e pontos de venda onde encontrar a Lactimonte.
+        </p>
+      </div>
+
+      <!-- Right Column: Accessible Form with :user-invalid & complete error messages -->
+      <div class="lg:col-span-6">
+        <form
+          id="lacti-newsletter-form"
+          class="space-y-5 bg-[#ffffff] p-6 sm:p-8 rounded-2xl border-2 border-[#169f38]"
+          novalidate
+        >
+          <div>
+            <label for="nl-name" class="block text-sm font-bold uppercase tracking-wider text-[#000000] mb-2">
+              Nome Completo <span class="text-[#169f38]" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="text"
+              id="nl-name"
+              name="subscriber_name"
+              required
+              minlength="2"
+              autocomplete="name"
+              placeholder="Ex: Maria Marques"
+              aria-describedby="nl-name-error"
+              class="input-lacti"
+            />
+            <div id="nl-name-error" class="form-error-msg" role="alert">
+              <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0" />
+              <span>{errName}</span>
+            </div>
+          </div>
+
+          <div>
+            <label for="nl-email" class="block text-sm font-bold uppercase tracking-wider text-[#000000] mb-2">
+              Endereço de E-mail <span class="text-[#169f38]" aria-hidden="true">*</span>
+            </label>
+            <input
+              type="email"
+              id="nl-email"
+              name="subscriber_email"
+              required
+              autocomplete="email"
+              placeholder="exemplo@dominio.pt"
+              aria-describedby="nl-email-error"
+              class="input-lacti"
+            />
+            <div id="nl-email-error" class="form-error-msg" role="alert">
+              <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0" />
+              <span>{errEmail}</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="flex items-start gap-3 cursor-pointer select-none min-h-[44px] py-1">
+              <input
+                type="checkbox"
+                id="nl-gdpr"
+                name="gdpr_consent"
+                required
+                aria-describedby="nl-gdpr-error"
+                class="mt-1 w-5 h-5 accent-[#169f38] border-2 border-[#169f38] rounded cursor-pointer shrink-0"
+              />
+              <span class="text-sm text-[#000000] leading-snug">
+                Aceito receber comunicações da Lactimonte e concordo com a
+                <a href="/contactos#privacidade" class="underline font-bold text-[#169f38]">Política de Privacidade</a>.
+              </span>
+            </label>
+            <div id="nl-gdpr-error" class="form-error-msg" role="alert">
+              <Icon name="alert-circle" size={18} class="text-[#169f38] shrink-0" />
+              <span>{errGdpr}</span>
+            </div>
+          </div>
+
+          <div class="pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <Button
+              type="submit"
+              variant="primary"
+              size="lg"
+              icon="send"
+              label="Subscrever Newsletter"
+              class="w-full sm:w-auto"
+            />
+            <span class="text-xs font-medium text-[#000000]">
+              * Campos de preenchimento obrigatório
+            </span>
+          </div>
+
+          <!-- Status Banner (Success / Global Feedback — Green card, zero black background) -->
+          <div
+            id="nl-status-banner"
+            class="hidden p-4 rounded-xl bg-[#169f38] text-[#ffffff] border-2 border-[#169f38] items-center gap-3 text-sm font-bold"
+            role="status"
+            aria-live="polite"
+          >
+            <Icon name="check-circle" size={22} class="text-[#ffffff] shrink-0" />
+            <span id="nl-status-text">{okNewsletter}</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initNewsletterForm() {
+    const form = document.getElementById('lacti-newsletter-form') as HTMLFormElement | null;
+    if (!form) return;
+
+    const inputs = Array.from(form.querySelectorAll('input')) as HTMLInputElement[];
+    const statusBanner = document.getElementById('nl-status-banner');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    const validateField = (input: HTMLInputElement) => {
+      const errorEl = input.id ? document.getElementById(`${input.id}-error`) : null;
+      const isValid = input.checkValidity();
+
+      if (!isValid) {
+        input.classList.add('is-invalid');
+        input.setAttribute('aria-invalid', 'true');
+        errorEl?.classList.add('is-visible');
+      } else {
+        input.classList.remove('is-invalid');
+        input.setAttribute('aria-invalid', 'false');
+        errorEl?.classList.remove('is-visible');
+      }
+      return isValid;
+    };
+
+    inputs.forEach((input) => {
+      input.addEventListener('blur', () => {
+        if (input.value.trim().length > 0 || input.hasAttribute('data-touched')) {
+          validateField(input);
+        }
+      });
+      input.addEventListener('input', () => {
+        input.setAttribute('data-touched', 'true');
+        if (input.getAttribute('aria-invalid') === 'true') {
+          validateField(input);
+        }
+      });
+      input.addEventListener('change', () => {
+        input.setAttribute('data-touched', 'true');
+        validateField(input);
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let allValid = true;
+      let firstInvalid: HTMLInputElement | null = null;
+
+      inputs.forEach((input) => {
+        input.setAttribute('data-touched', 'true');
+        const valid = validateField(input);
+        if (!valid && !firstInvalid) {
+          firstInvalid = input;
+          allValid = false;
+        } else if (!valid) {
+          allValid = false;
+        }
+      });
+
+      if (!allValid && firstInvalid) {
+        (firstInvalid as HTMLInputElement).focus();
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.setAttribute('data-state', 'pressed');
+        const labelEl = submitBtn.querySelector('.btn-label');
+        if (labelEl) labelEl.textContent = 'Subscrição Confirmada!';
+      }
+
+      if (statusBanner) {
+        statusBanner.classList.remove('hidden');
+        statusBanner.classList.add('flex');
+      }
+
+      form.reset();
+      inputs.forEach((input) => {
+        input.removeAttribute('data-touched');
+        input.removeAttribute('aria-invalid');
+        input.classList.remove('is-invalid');
+      });
+
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.removeAttribute('data-state');
+          const labelEl = submitBtn.querySelector('.btn-label');
+          if (labelEl) labelEl.textContent = 'Subscrever Newsletter';
+        }
+      }, 3500);
+    });
+  }
+
+  initNewsletterForm();
+  document.addEventListener('astro:page-load', initNewsletterForm);
+</script>

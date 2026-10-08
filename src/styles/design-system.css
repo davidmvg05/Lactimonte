@@ -1,0 +1,550 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   LACTIMONTE DESIGN SYSTEM — TOKENS & WCAG 2.2 ARCHITECTURE
+   Palette strictly limited to: #ffffff, #000000, #169f38
+   - #ffffff (Branco): Background geral e superfície luminosa
+   - #169f38 (Verde): Títulos de destaque, cards, bordas, botões e acentos
+   - #000000 (Preto): Exclusivamente para títulos e descrições (NUNCA background)
+   Typography: Dancing Script & Roboto
+   ========================================================================== */
+
+:root {
+  --color-lacti-white: #ffffff;
+  --color-lacti-black: #000000;
+  --color-lacti-green: #169f38;
+
+  --font-script: 'Dancing Script', cursive;
+  --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
+
+  /* 100ms (0.1s) response time — instant perception threshold */
+  --transition-instant: 100ms cubic-bezier(0.2, 0, 0, 1);
+  --transition-smooth: 350ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Container responsive widths */
+  --container-max: 100%;
+  --section-py: 4rem;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: var(--color-lacti-white);
+    color: var(--color-lacti-black);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Modern Web Guidance: Balanced headings & Pretty paragraphs */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p, li, blockquote {
+    text-wrap: pretty;
+  }
+
+  /* High-contrast visible focus ring for keyboard navigation (WCAG 2.4.7 / 2.4.11) */
+  :focus-visible {
+    outline: 3px solid var(--color-lacti-green);
+    outline-offset: 3px;
+  }
+}
+
+/* ==========================================================================
+   BUTTON SYSTEM (WCAG 2.2)
+   - Target size >= 44x44px (SM: 44px, MD: 52px, LG: 60px)
+   - Sem profundidade (box-shadow: none)
+   - Hover nas duas variações: troca direta de cor (o background passa a ser
+     a cor do texto e o texto passa a ser a cor do background)
+   - Estado ativo/carregado: NUNCA tem background preto (#000000)
+   - Detalhe: Raio = metade da altura (22px, 26px, 30px) e 1 único ícone
+   - Movimento: 100ms (0.1s)
+   ========================================================================== */
+
+.btn-lacti {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-width: 44px;
+  min-height: 44px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: none;
+  /* Response in 1/10th of a second (100ms) */
+  transition:
+    transform var(--transition-instant),
+    background-color var(--transition-instant),
+    color var(--transition-instant),
+    border-color var(--transition-instant);
+}
+
+/* 3 Button Formats (Sizes) — Radius equals exactly half of height */
+.btn-lacti-sm {
+  height: 44px;
+  min-height: 44px;
+  min-width: 44px;
+  padding-inline: 1.25rem; /* 20px */
+  border-radius: 22px;     /* Half of 44px */
+  font-size: 0.875rem;     /* 14px */
+}
+
+.btn-lacti-md {
+  height: 52px;
+  min-height: 52px;
+  min-width: 52px;
+  padding-inline: 1.75rem; /* 28px */
+  border-radius: 26px;     /* Half of 52px */
+  font-size: 1rem;         /* 16px */
+}
+
+.btn-lacti-lg {
+  height: 60px;
+  min-height: 60px;
+  min-width: 60px;
+  padding-inline: 2.25rem; /* 36px */
+  border-radius: 30px;     /* Half of 60px */
+  font-size: 1.125rem;     /* 18px */
+}
+
+/* Icon-only square/circle button helper (strictly >= 44x44px) */
+.btn-lacti-icon-only {
+  padding-inline: 0 !important;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+}
+
+/* Variação 1: Primário
+   - Normal: Background Verde (#169f38), Texto Branco (#ffffff), Borda Verde (#169f38)
+   - Hover: Troca de cor -> Background Branco (#ffffff), Texto Verde (#169f38)
+   - Ativo/Carregado: Background Verde (#169f38) (nunca preto!), Texto Branco (#ffffff) + ícone de confirmação */
+.btn-lacti-primary {
+  background-color: var(--color-lacti-green);
+  color: var(--color-lacti-white);
+  border: 2px solid var(--color-lacti-green);
+  box-shadow: none;
+}
+
+.btn-lacti-primary:hover,
+.btn-lacti-primary[data-demo-state="hover"] {
+  background-color: var(--color-lacti-white);
+  color: var(--color-lacti-green);
+  border-color: var(--color-lacti-green);
+  box-shadow: none;
+}
+
+.btn-lacti-primary:active,
+.btn-lacti-primary[data-state="pressed"],
+.btn-lacti-primary[data-demo-state="active"] {
+  background-color: var(--color-lacti-green);
+  color: var(--color-lacti-white);
+  border-color: var(--color-lacti-green);
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* Variação 2: Secundário
+   - Normal: Background Branco (#ffffff), Texto Verde (#169f38), Borda Verde (#169f38)
+   - Hover: Troca de cor -> Background Verde (#169f38), Texto Branco (#ffffff)
+   - Ativo/Carregado: Background Branco (#ffffff) (nunca preto!), Texto Verde (#169f38) + ícone de confirmação */
+.btn-lacti-secondary {
+  background-color: var(--color-lacti-white);
+  color: var(--color-lacti-green);
+  border: 2px solid var(--color-lacti-green);
+  box-shadow: none;
+}
+
+.btn-lacti-secondary:hover,
+.btn-lacti-secondary[data-demo-state="hover"] {
+  background-color: var(--color-lacti-green);
+  color: var(--color-lacti-white);
+  border-color: var(--color-lacti-green);
+  box-shadow: none;
+}
+
+.btn-lacti-secondary:active,
+.btn-lacti-secondary[data-state="pressed"],
+.btn-lacti-secondary[data-demo-state="active"] {
+  background-color: var(--color-lacti-white);
+  color: var(--color-lacti-green);
+  border-color: var(--color-lacti-green);
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* Single Icon animation inside buttons (100ms) */
+.btn-lacti .btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--transition-instant);
+}
+
+.btn-lacti:hover .btn-icon,
+.btn-lacti[data-demo-state="hover"] .btn-icon {
+  transform: translateX(2px);
+}
+
+.btn-lacti:active .btn-icon,
+.btn-lacti[data-state="pressed"] .btn-icon,
+.btn-lacti[data-demo-state="active"] .btn-icon {
+  transform: scale(0.95);
+}
+
+/* State confirmation Swap: default icon vs confirmed icon */
+.btn-lacti .icon-confirmed {
+  display: none;
+}
+.btn-lacti[data-state="pressed"] .icon-default,
+.btn-lacti[data-demo-state="active"] .icon-default {
+  display: none;
+}
+.btn-lacti[data-state="pressed"] .icon-confirmed,
+.btn-lacti[data-demo-state="active"] .icon-confirmed {
+  display: inline-flex;
+}
+
+/* ==========================================================================
+   ACCESSIBLE FORM CONTROLS & ERROR MESSAGES (:user-invalid + WCAG 2.2)
+   Sem fundos pretos: fundo branco (#ffffff), bordas e destaques verdes (#169f38),
+   texto preto (#000000).
+   ========================================================================== */
+
+.lacti-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-lacti-black);
+  margin-bottom: 0.5rem;
+}
+
+.input-lacti,
+.lacti-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1.125rem;
+  border-radius: 14px;
+  background-color: var(--color-lacti-white);
+  color: var(--color-lacti-black);
+  border: 2px solid var(--color-lacti-green);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  transition:
+    border-color var(--transition-instant),
+    transform var(--transition-instant);
+}
+
+.input-lacti::placeholder,
+.lacti-input::placeholder {
+  color: var(--color-lacti-black);
+  opacity: 0.6;
+}
+
+.input-lacti:focus,
+.lacti-input:focus {
+  outline: 2px solid var(--color-lacti-green);
+  outline-offset: 2px;
+  border-color: var(--color-lacti-green);
+}
+
+/* Valid State after interaction */
+.input-lacti:user-valid,
+.lacti-input:user-valid,
+.input-lacti[data-validation="valid"],
+.lacti-input[data-validation="valid"] {
+  border-color: var(--color-lacti-green);
+}
+
+/* Invalid State after interaction (:user-invalid + explicit class fallback) */
+.input-lacti:user-invalid,
+.lacti-input:user-invalid,
+.input-lacti.is-invalid,
+.lacti-input.is-invalid,
+.input-lacti[aria-invalid="true"],
+.lacti-input[aria-invalid="true"] {
+  border-color: var(--color-lacti-green);
+  background-color: var(--color-lacti-white);
+}
+
+.form-error-msg {
+  display: none;
+  margin-top: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 12px;
+  background-color: var(--color-lacti-white);
+  color: var(--color-lacti-black);
+  border: 2px solid var(--color-lacti-green);
+  border-left: 6px solid var(--color-lacti-green);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lacti-error-msg {
+  display: flex;
+  margin-top: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 12px;
+  background-color: var(--color-lacti-white);
+  color: var(--color-lacti-black);
+  border: 2px solid var(--color-lacti-green);
+  border-left: 6px solid var(--color-lacti-green);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1.4;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.lacti-error-msg.hidden {
+  display: none;
+}
+
+.lacti-success-msg {
+  display: flex;
+  margin-top: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: 14px;
+  background-color: var(--color-lacti-green);
+  color: var(--color-lacti-white);
+  border: 2px solid var(--color-lacti-green);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.4;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+
+.lacti-success-msg.hidden {
+  display: none;
+}
+
+.input-lacti:user-invalid ~ .form-error-msg,
+.input-lacti.is-invalid ~ .form-error-msg,
+.input-lacti[aria-invalid="true"] ~ .form-error-msg,
+.form-error-msg.is-visible {
+  display: flex;
+}
+
+/* ==========================================================================
+   PERFORMANCE & SCROLL REVEAL UTILITIES
+   ========================================================================== */
+
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
+/* ==========================================================================
+   360° VIDEOREEL CAROUSEL (Open Hand 'grab' / Closed Hand 'grabbing')
+   Inspired by https://videoreelpro.framer.website/
+   ========================================================================== */
+
+.videoreel-360-stage {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1400px;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.videoreel-360-stage:active,
+.videoreel-360-stage.is-dragging,
+.videoreel-360-stage.is-dragging * {
+  cursor: grabbing !important;
+}
+
+.videoreel-360-card {
+  position: absolute;
+  width: 320px;
+  aspect-ratio: 9 / 14;
+  border-radius: 28px;
+  overflow: hidden;
+  background-color: var(--color-lacti-white);
+  border: 2px solid var(--color-lacti-green);
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+  transition:
+    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 420ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 150ms ease;
+}
+
+.videoreel-360-stage.is-dragging .videoreel-360-card {
+  transition: none !important;
+  cursor: grabbing !important;
+}
+
+.videoreel-360-card img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@keyframes lactiReelKenBurns {
+  0% {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.1) translate3d(-1.5%, -1.5%, 0);
+  }
+  100% {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+}
+
+.videoreel-360-card[data-active="true"] .videoreel-media {
+  animation: lactiReelKenBurns 12s ease-in-out infinite;
+}
+
+@media (max-width: 991px) {
+  .videoreel-360-stage {
+    height: 460px;
+  }
+  .videoreel-360-card {
+    width: 270px;
+  }
+}
+
+@media (max-width: 576px) {
+  .videoreel-360-stage {
+    height: 390px;
+  }
+  .videoreel-360-card {
+    width: 220px;
+    border-radius: 22px;
+  }
+}
+
+/* ==========================================================================
+   MANDATORY RESPONSIVE MEDIA QUERIES
+   @media (max-width: 480px)
+   @media (max-width: 576px)
+   @media (min-width: 768px)
+   @media (min-width: 992px)
+   @media (min-width: 1200px)
+   @media (min-width: 1400px)
+   ========================================================================== */
+
+/* 1. @media (max-width: 480px) */
+@media (max-width: 480px) {
+  :root {
+    --section-py: 2.75rem;
+  }
+  .lacti-container {
+    width: 100%;
+    padding-inline: 1rem;
+  }
+  .btn-lacti-lg {
+    height: 52px;
+    min-height: 52px;
+    border-radius: 26px;
+    padding-inline: 1.5rem;
+    font-size: 1rem;
+  }
+  .footer-giant-word {
+    font-size: 13.2vw;
+    letter-spacing: -0.04em;
+  }
+}
+
+/* 2. @media (max-width: 576px) */
+@media (max-width: 576px) {
+  .lacti-container {
+    width: 100%;
+    padding-inline: 1.25rem;
+  }
+  .hide-on-mobile {
+    display: none !important;
+  }
+  .video-reel-card {
+    aspect-ratio: 9 / 14;
+  }
+}
+
+/* 3. @media (min-width: 768px) */
+@media (min-width: 768px) {
+  :root {
+    --section-py: 4.5rem;
+  }
+  .lacti-container {
+    max-width: 736px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+}
+
+/* 4. @media (min-width: 992px) */
+@media (min-width: 992px) {
+  :root {
+    --section-py: 5.5rem;
+  }
+  .lacti-container {
+    max-width: 960px;
+    margin-inline: auto;
+    padding-inline: 2rem;
+  }
+}
+
+/* 5. @media (min-width: 1200px) */
+@media (min-width: 1200px) {
+  :root {
+    --section-py: 6.5rem;
+  }
+  .lacti-container {
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-inline: 2rem;
+  }
+}
+
+/* 6. @media (min-width: 1400px) */
+@media (min-width: 1400px) {
+  :root {
+    --section-py: 7.5rem;
+  }
+  .lacti-container {
+    max-width: 1360px;
+    margin-inline: auto;
+    padding-inline: 2.5rem;
+  }
+}

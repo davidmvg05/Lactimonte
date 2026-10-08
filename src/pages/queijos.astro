@@ -1,0 +1,1188 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import { PRODUCTS, CHEESE_CATEGORIES } from '../data/products';
+
+const frescos = PRODUCTS.filter((p) => p.category === 'frescos');
+const curados = PRODUCTS.filter((p) => p.category === 'curados');
+const requeijoes = PRODUCTS.filter((p) => p.category === 'requeijao');
+
+const categoriesWithProducts = [
+  {
+    ...CHEESE_CATEGORIES.find((c) => c.id === 'curados')!,
+    products: curados,
+    ctaText: 'Pedir Informação Comercial',
+    ctaLink: '/contactos',
+    ctaIcon: 'send' as const,
+    sensoryDetails:
+      'Ao corte revela uma estrutura equilibrada e olhos naturais discretos, resultado do volteio manual e do tempo de repouso nas nossas câmaras.',
+    servingDetails:
+      'Retire do frio 20 a 30 minutos antes de servir para libertar todos os aromas da maturação e a untuosidade natural da pasta. Harmoniza na perfeição com vinhos tintos encorpados ou brancos estruturados.',
+    pairingHighlight: 'Ideal para Tábuas Saloias, Pão de Mafra, Frutos Secos & Vinhos Portugueses',
+  },
+  {
+    ...CHEESE_CATEGORIES.find((c) => c.id === 'frescos')!,
+    products: frescos,
+    ctaText: 'Pedir Informação',
+    ctaLink: '/contactos',
+    ctaIcon: 'send' as const,
+    sensoryDetails:
+      'Cada queijo mantém a humidade natural do soro fresco e uma coalhada delicada que se desfaz suavemente no paladar, preservando a pureza do leite.',
+    servingDetails:
+      'Sirva bem fresco, acabado de desenformar, com um fio de azeite virgem extra e orégãos, ou acompanhe com mel multifloral, nozes e fruta da época para um momento leve e nutritivo.',
+    pairingHighlight: 'Perfeito ao Pequeno-Almoço, Saladas Mediterrânicas & Lanches Saudáveis',
+  },
+  {
+    ...CHEESE_CATEGORIES.find((c) => c.id === 'requeijao')!,
+    products: requeijoes,
+    ctaText: 'Ver Receitas com Requeijão',
+    ctaLink: '/receitas',
+    ctaIcon: 'book-open' as const,
+    sensoryDetails:
+      'A fervura lenta do soro doce cria flocos lácteos macios e cremosos, sem acidez, proporcionando uma experiência reconfortante e genuinamente artesanal.',
+    servingDetails:
+      'Desfrute simples, polvilhado com canela e mel a acompanhar um café acabado de fazer, barrado em tostas rústicas ou como ingrediente nobre em queijadas e tartes tradicionais.',
+    pairingHighlight: 'Sublime ao Natural, com Doce Extra de Abóbora, Figo ou Frutos Vermelhos',
+  },
+];
+---
+
+<BaseLayout
+  title="Os Nossos Queijos | Queijos Frescos, Curados e Requeijão Lactimonte"
+  description="Catálogo completo da Queijaria Lactimonte: explore a nossa tábua de queijos interativa com Queijos Curados, Queijos Frescos e Requeijão."
+>
+  <!-- Interactive Hand-Drawn Cheese Board & Category Cards -->
+  <section
+    id="tabua-queijos"
+    class="py-12 md:py-20 bg-[#ffffff] text-[#000000]"
+    aria-labelledby="cheese-board-heading"
+  >
+    <div class="lacti-container">
+      <!-- Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16 md:mb-24">
+        <div>
+          <span class="font-script text-3xl md:text-4xl text-[#169f38] block mb-4 md:mb-5">
+            A Arte Queijeira desde 1980
+          </span>
+          <h1
+            id="cheese-board-heading"
+            class="font-sans text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.2] text-[#000000]"
+          >
+            <span class="block">Três Especialidades.</span>
+            <span class="block mt-1.5 sm:mt-2 text-[#169f38]">Uma Tradição Saloia.</span>
+          </h1>
+        </div>
+        <p class="max-w-md text-base md:text-lg font-normal text-[#000000]">
+          Passe o cursor ou selecione na tábua os <strong>Queijos Curados</strong>, <strong>Queijos Frescos</strong> ou <strong>Requeijão</strong> para revelar em baixo os cartões dessa categoria.
+        </p>
+      </div>
+
+      <!-- Realistic Hand-Drawn SVG Cheese Board -->
+      <div class="bg-[#ffffff] pt-6 md:pt-10 mb-8">
+        <div class="relative w-full overflow-hidden">
+          <svg
+            viewBox="0 0 1240 590"
+            class="w-full h-auto select-none"
+            role="img"
+            aria-label="Tábua de queijos realista desenhada à mão com Queijo Curado, Queijo Fresco e Requeijão Meio Gordo Lactimonte"
+          >
+            <defs>
+              <!-- Realistic Warm Wood Gradients for the Board -->
+              <linearGradient id="wood-top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e8be82" />
+                <stop offset="40%" stop-color="#d79f59" />
+                <stop offset="80%" stop-color="#c4863e" />
+                <stop offset="100%" stop-color="#b3742e" />
+              </linearGradient>
+              <linearGradient id="wood-side-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#7a4612" />
+                <stop offset="35%" stop-color="#9e5f20" />
+                <stop offset="70%" stop-color="#854d16" />
+                <stop offset="100%" stop-color="#63360b" />
+              </linearGradient>
+
+              <!-- Image 2 Inspiration: Golden Dimpled Queijo Curado Top & Paste + White Cinta -->
+              <radialGradient id="curado-top-realistic" cx="45%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#ffea8a" />
+                <stop offset="55%" stop-color="#f7cb52" />
+                <stop offset="88%" stop-color="#e5a929" />
+                <stop offset="100%" stop-color="#cc8d18" />
+              </radialGradient>
+              <linearGradient id="curado-paste-realistic" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff6bd" />
+                <stop offset="60%" stop-color="#f7dc74" />
+                <stop offset="100%" stop-color="#e3be46" />
+              </linearGradient>
+              <linearGradient id="curado-cinta-white" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#e8e6df" />
+                <stop offset="25%" stop-color="#ffffff" />
+                <stop offset="65%" stop-color="#faf9f5" />
+                <stop offset="100%" stop-color="#dedad0" />
+              </linearGradient>
+
+              <!-- Image 1 Inspiration: White Cup & Textured Curd Queijo Fresco -->
+              <linearGradient id="fresco-cup-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#e6ebe8" />
+                <stop offset="30%" stop-color="#ffffff" />
+                <stop offset="75%" stop-color="#f7faf8" />
+                <stop offset="100%" stop-color="#d8e0dc" />
+              </linearGradient>
+              <radialGradient id="fresco-curd-top" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="70%" stop-color="#f9fbf9" />
+                <stop offset="100%" stop-color="#e8eee9" />
+              </radialGradient>
+
+              <!-- Image 3 Inspiration: Requeijão Meio Gordo Fluffy Mound & Tub + Orange Doce -->
+              <radialGradient id="requeijao-mound-grad" cx="45%" cy="38%" r="60%">
+                <stop offset="0%" stop-color="#ffffff" />
+                <stop offset="55%" stop-color="#fdfbf2" />
+                <stop offset="85%" stop-color="#f3ead2" />
+                <stop offset="100%" stop-color="#e3d5b3" />
+              </radialGradient>
+              <linearGradient id="requeijao-tub-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#e3e6e4" />
+                <stop offset="35%" stop-color="#ffffff" />
+                <stop offset="75%" stop-color="#f5f7f6" />
+                <stop offset="100%" stop-color="#cfd6d2" />
+              </linearGradient>
+              <linearGradient id="compota-orange-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffc233" />
+                <stop offset="55%" stop-color="#f29f05" />
+                <stop offset="100%" stop-color="#c47100" />
+              </linearGradient>
+
+              <!-- Wood grain texture pattern -->
+              <pattern id="sketch-wood-hatch" width="12" height="12" patternTransform="rotate(25 0 0)" patternUnits="userSpaceOnUse">
+                <line x1="0" y1="0" x2="0" y2="12" stroke="#5c330a" stroke-width="1" stroke-opacity="0.18" />
+              </pattern>
+            </defs>
+
+            <!-- ============================================================ -->
+            <!-- 1. REALISTIC WOODEN CHEESE BOARD & SMALL ACCOMPANIMENTS      -->
+            <!-- ============================================================ -->
+            <g class="board-wood-base" pointer-events="none">
+              <!-- Soft Board Drop Shadow on Table -->
+              <ellipse cx="600" cy="372" rx="520" ry="188" fill="#000000" fill-opacity="0.12" />
+
+              <!-- 3D Wooden Rim / Side Thickness -->
+              <path
+                d="M 95 348 C 92 432, 235 525, 585 532 C 920 538, 1065 458, 1088 372 L 1096 346 L 1185 350 C 1212 352, 1226 332, 1222 308 L 1218 282 L 98 320 Z"
+                fill="url(#wood-side-grad)"
+                stroke="#2b1704"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <!-- Hand-drawn vertical bark/wood grain strokes along the 3D edge -->
+              <path
+                d="M 135 388 L 135 415 M 175 410 L 175 440 M 220 432 L 220 462 M 275 452 L 275 482 M 335 468 L 335 498 M 405 480 L 405 512 M 480 488 L 480 520 M 555 494 L 555 526 M 635 494 L 635 526 M 715 490 L 715 520 M 790 482 L 790 512 M 865 468 L 865 496 M 935 450 L 935 478 M 995 425 L 995 452 M 1048 395 L 1048 420"
+                stroke="#4a2808"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+
+              <!-- Main Colored Top Surface of the Wooden Paddle Board -->
+              <path
+                d="M 90 318 C 78 195, 225 112, 580 108 C 915 104, 1062 185, 1092 268 C 1118 270, 1165 266, 1195 268 C 1220 270, 1230 294, 1220 316 C 1210 335, 1180 338, 1094 334 C 1060 432, 905 498, 580 494 C 230 490, 105 415, 90 318 Z"
+                fill="url(#wood-top-grad)"
+                stroke="#2b1704"
+                stroke-width="3.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M 90 318 C 78 195, 225 112, 580 108 C 915 104, 1062 185, 1092 268 C 1118 270, 1165 266, 1195 268 C 1220 270, 1230 294, 1220 316 C 1210 335, 1180 338, 1094 334 C 1060 432, 905 498, 580 494 C 230 490, 105 415, 90 318 Z"
+                fill="url(#sketch-wood-hatch)"
+              />
+
+              <!-- Recessed Inner Juice Groove of the Cheese Board -->
+              <path
+                d="M 118 316 C 108 210, 248 132, 580 128 C 895 124, 1038 196, 1066 274 M 1064 330 C 1030 416, 882 474, 580 470 C 250 466, 130 398, 118 316"
+                fill="none"
+                stroke="#754210"
+                stroke-width="2.2"
+                stroke-dasharray="18 6 5 6"
+                stroke-linecap="round"
+              />
+
+              <!-- Organic Wood Grain Lines & Knots -->
+              <path
+                d="M 155 245 C 310 220, 480 232, 660 224 C 820 218, 945 238, 1035 260"
+                fill="none"
+                stroke="#8c5319"
+                stroke-width="1.5"
+                stroke-opacity="0.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M 140 355 C 295 378, 465 362, 635 375 C 815 388, 940 365, 1045 342"
+                fill="none"
+                stroke="#8c5319"
+                stroke-width="1.5"
+                stroke-opacity="0.5"
+                stroke-linecap="round"
+              />
+              <path
+                d="M 240 420 C 390 438, 540 425, 710 432 C 745 434, 770 422, 748 415 C 728 408, 695 418, 718 426"
+                fill="none"
+                stroke="#5c330a"
+                stroke-width="1.4"
+                stroke-opacity="0.42"
+                stroke-linecap="round"
+              />
+
+              <!-- Board Handle Hole & Rustic Twine Cord -->
+              <ellipse
+                cx="1168"
+                cy="302"
+                rx="16"
+                ry="12"
+                fill="#5c330a"
+                stroke="#2b1704"
+                stroke-width="2.5"
+              />
+              <path
+                d="M 1180 296 C 1205 282, 1232 292, 1230 316 C 1228 338, 1198 330, 1178 308"
+                fill="none"
+                stroke="#754210"
+                stroke-width="3.5"
+                stroke-linecap="round"
+              />
+
+              <!-- ========================================================== -->
+              <!-- SMALL NON-INTERACTIVE ACCOMPANIMENTS ON THE BOARD          -->
+              <!-- ========================================================== -->
+
+              <!-- A. Red/Purple Grapes Cluster (Top Left-Center) -->
+              <g transform="translate(415, 148) scale(0.82)">
+                <path d="M 35 12 C 42 -5, 58 -8, 68 2" fill="none" stroke="#3b5e18" stroke-width="2.8" stroke-linecap="round" />
+                <path d="M 28 15 C 10 2, 2 18, 16 28 C 6 34, 18 46, 32 34 C 42 42, 52 28, 38 18 Z" fill="#4f9e34" stroke="#1f3b08" stroke-width="2" />
+                <circle cx="45" cy="24" r="11" fill="#6b2346" stroke="#290817" stroke-width="2" />
+                <circle cx="62" cy="28" r="11" fill="#822b56" stroke="#290817" stroke-width="2" />
+                <circle cx="34" cy="36" r="11" fill="#822b56" stroke="#290817" stroke-width="2" />
+                <circle cx="52" cy="40" r="12" fill="#9c3869" stroke="#290817" stroke-width="2" />
+                <circle cx="70" cy="44" r="10.5" fill="#6b2346" stroke="#290817" stroke-width="2" />
+                <circle cx="42" cy="54" r="11" fill="#6b2346" stroke="#290817" stroke-width="2" />
+                <circle cx="59" cy="56" r="11" fill="#822b56" stroke="#290817" stroke-width="2" />
+                <circle cx="50" cy="68" r="10" fill="#9c3869" stroke="#290817" stroke-width="2" />
+                <circle cx="49" cy="36" r="2.5" fill="#ffffff" fill-opacity="0.7" />
+                <circle cx="31" cy="33" r="2" fill="#ffffff" fill-opacity="0.7" />
+                <circle cx="59" cy="25" r="2" fill="#ffffff" fill-opacity="0.7" />
+              </g>
+
+              <!-- B. Green Muscat Grapes Cluster (Top Right-Center) -->
+              <g transform="translate(712, 145) scale(0.8)">
+                <path d="M 40 8 C 35 -6, 20 -6, 12 4" fill="none" stroke="#4a3212" stroke-width="2.5" stroke-linecap="round" />
+                <path d="M 45 12 C 62 0, 72 16, 56 26 C 65 34, 50 44, 38 30 Z" fill="#52a336" stroke="#1f3b08" stroke-width="2" />
+                <circle cx="28" cy="24" r="10.5" fill="#a7c947" stroke="#2f4209" stroke-width="2" />
+                <circle cx="44" cy="26" r="11" fill="#bdd95b" stroke="#2f4209" stroke-width="2" />
+                <circle cx="20" cy="38" r="10.5" fill="#bdd95b" stroke="#2f4209" stroke-width="2" />
+                <circle cx="36" cy="40" r="11.5" fill="#cce374" stroke="#2f4209" stroke-width="2" />
+                <circle cx="54" cy="40" r="10.5" fill="#a7c947" stroke="#2f4209" stroke-width="2" />
+                <circle cx="28" cy="54" r="10" fill="#a7c947" stroke="#2f4209" stroke-width="2" />
+                <circle cx="45" cy="54" r="10.5" fill="#bdd95b" stroke="#2f4209" stroke-width="2" />
+                <circle cx="36" cy="66" r="9.5" fill="#cce374" stroke="#2f4209" stroke-width="2" />
+                <circle cx="33" cy="36" r="2.2" fill="#ffffff" fill-opacity="0.75" />
+                <circle cx="42" cy="23" r="2" fill="#ffffff" fill-opacity="0.75" />
+              </g>
+
+              <!-- C. Rustic Mafra Bread Slices & Artisanal Toasts (Bottom Left-Center) -->
+              <g transform="translate(388, 376) scale(0.82)">
+                <path
+                  d="M 0 32 C -6 12, 18 -4, 48 2 C 78 8, 92 26, 82 44 C 74 58, 12 50, 0 32 Z"
+                  fill="#cfa166"
+                  stroke="#3b2006"
+                  stroke-width="2.5"
+                />
+                <path
+                  d="M 8 30 C 4 16, 22 4, 46 8 C 70 12, 82 26, 74 40 C 66 50, 16 44, 8 30 Z"
+                  fill="#f2DFB6"
+                  stroke="#8a5a24"
+                  stroke-width="1.5"
+                />
+                <circle cx="32" cy="24" r="2.5" fill="#b8894f" />
+                <circle cx="52" cy="28" r="3" fill="#b8894f" />
+                <circle cx="42" cy="34" r="2" fill="#b8894f" />
+
+                <g transform="translate(58, 16) rotate(14)">
+                  <ellipse cx="32" cy="22" rx="30" ry="18" fill="#ebc278" stroke="#4a2a08" stroke-width="2.2" />
+                  <circle cx="20" cy="18" r="2" fill="#6b3e0e" />
+                  <circle cx="32" cy="15" r="2" fill="#6b3e0e" />
+                  <circle cx="44" cy="19" r="2" fill="#6b3e0e" />
+                  <circle cx="26" cy="26" r="2" fill="#6b3e0e" />
+                  <circle cx="38" cy="27" r="2" fill="#6b3e0e" />
+                </g>
+              </g>
+
+              <!-- D. Fresh Cut Figs & Berries (Bottom Right-Center) -->
+              <g transform="translate(710, 372) scale(0.82)">
+                <path
+                  d="M 18 28 C 18 12, 34 6, 40 0 C 46 6, 62 12, 62 28 C 62 44, 48 52, 40 52 C 32 52, 18 44, 18 28 Z"
+                  fill="#592248"
+                  stroke="#24081c"
+                  stroke-width="2.4"
+                />
+                <g transform="translate(46, 18)">
+                  <ellipse cx="28" cy="24" rx="26" ry="20" fill="#4a193b" stroke="#24081c" stroke-width="2.4" />
+                  <ellipse cx="28" cy="24" rx="21" ry="15" fill="#f7e3c8" />
+                  <ellipse cx="28" cy="24" rx="15" ry="10.5" fill="#d9435f" stroke="#a3223b" stroke-width="1.5" />
+                  <circle cx="23" cy="21" r="1.2" fill="#fff3b0" />
+                  <circle cx="28" cy="19" r="1.2" fill="#fff3b0" />
+                  <circle cx="33" cy="22" r="1.2" fill="#fff3b0" />
+                  <circle cx="25" cy="26" r="1.2" fill="#fff3b0" />
+                  <circle cx="31" cy="27" r="1.2" fill="#fff3b0" />
+                </g>
+                <circle cx="12" cy="48" r="7" fill="#c9222b" stroke="#3d0609" stroke-width="1.8" />
+                <circle cx="26" cy="56" r="6.5" fill="#e0313b" stroke="#3d0609" stroke-width="1.8" />
+                <circle cx="98" cy="22" r="6.5" fill="#c9222b" stroke="#3d0609" stroke-width="1.8" />
+              </g>
+
+              <!-- E. Walnuts & Almonds Scattered on Board -->
+              <g transform="translate(456, 298) scale(0.78)">
+                <ellipse cx="22" cy="18" rx="16" ry="12" fill="#b87b3b" stroke="#3d2206" stroke-width="2.2" />
+                <path d="M 10 18 C 16 12, 28 12, 34 18 M 14 22 C 20 26, 26 26, 30 22 M 22 8 L 22 28" fill="none" stroke="#4a2a08" stroke-width="1.6" />
+                <ellipse cx="52" cy="26" rx="15" ry="11" transform="rotate(-18 52 26)" fill="#c98a47" stroke="#3d2206" stroke-width="2.2" />
+                <path d="M 42 26 C 48 21, 56 21, 62 26 M 52 17 L 52 35" fill="none" stroke="#4a2a08" stroke-width="1.5" />
+                <path d="M 28 38 C 36 30, 50 34, 46 44 C 42 50, 22 46, 28 38 Z" fill="#a86428" stroke="#3d2206" stroke-width="2" />
+                <path d="M 66 10 C 74 2, 88 6, 84 16 C 80 22, 60 18, 66 10 Z" fill="#b87333" stroke="#3d2206" stroke-width="2" />
+              </g>
+
+              <!-- F. Olives (Left Edge) & Dried Apricots (Bottom Center) -->
+              <g transform="translate(125, 225) scale(0.8)">
+                <ellipse cx="18" cy="16" rx="11" ry="8" transform="rotate(-25 18 16)" fill="#6b8e23" stroke="#223006" stroke-width="2" />
+                <circle cx="22" cy="14" r="2.5" fill="#d94e28" />
+                <ellipse cx="36" cy="24" rx="10.5" ry="7.5" transform="rotate(15 36 24)" fill="#7da32b" stroke="#223006" stroke-width="2" />
+                <ellipse cx="22" cy="34" rx="10" ry="7.5" transform="rotate(-10 22 34)" fill="#2e2930" stroke="#110e12" stroke-width="2" />
+              </g>
+              <g transform="translate(555, 418) scale(0.8)">
+                <ellipse cx="22" cy="18" rx="18" ry="12" fill="#f28c28" stroke="#5c2c06" stroke-width="2" />
+                <ellipse cx="48" cy="22" rx="17" ry="11" fill="#ffa343" stroke="#5c2c06" stroke-width="2" />
+                <path d="M 72 14 C 80 6, 94 10, 90 20 C 86 26, 66 22, 72 14 Z" fill="#a86428" stroke="#3d2206" stroke-width="2" />
+              </g>
+
+              <!-- G. Small Artisanal Pumpkin Jam Pot on Right Board Edge -->
+              <g transform="translate(1018, 262) scale(0.76)">
+                <ellipse cx="34" cy="52" rx="28" ry="12" fill="#d99b26" stroke="#3b2306" stroke-width="2" />
+                <path d="M 10 26 C 6 44, 14 58, 34 58 C 54 58, 62 44, 58 26 Z" fill="#f5eedc" stroke="#3b2306" stroke-width="2.4" />
+                <ellipse cx="34" cy="26" rx="24" ry="9" fill="#ffffff" stroke="#3b2306" stroke-width="2.2" />
+                <ellipse cx="34" cy="27" rx="19" ry="6.5" fill="url(#compota-orange-grad)" stroke="#9e6000" stroke-width="1.5" />
+              </g>
+
+              <!-- H. Rosemary Sprigs Adorning the Board -->
+              <g stroke="#2d6e1e" stroke-width="2.2" fill="none" stroke-linecap="round">
+                <path d="M 535 352 C 565 339, 600 334, 635 338" />
+                <path d="M 550 346 L 542 332 M 556 344 L 566 354 M 574 339 L 568 326 M 580 338 L 590 348 M 598 336 L 594 323 M 604 336 L 615 346" />
+              </g>
+            </g>
+
+            <!-- ============================================================ -->
+            <!-- INTERACTIVE ZONE 1: QUEIJOS CURADOS (INSPIRED BY IMAGE 2)    -->
+            <!-- Realistic golden dimpled cheese top wrapped all around in    -->
+            <!-- its white paper wrapper (papel branco à volta de todo o      -->
+            <!-- queijo).                                                     -->
+            <!-- Normal: Fatia partida encostada junto ao queijo.             -->
+            <!-- Hover: A fatia anda para trás/fora para notar-se!            -->
+            <!-- ============================================================ -->
+            <g
+              class="cheese-board-zone zone-curados cursor-pointer"
+              data-board-category="curados"
+              data-active="false"
+              role="button"
+              tabindex="0"
+              aria-label="Queijos Curados. Passe o rato para afastar a fatia partida e ver os queijos curados em baixo."
+            >
+              <!-- Generous invisible hover target for Curados -->
+              <rect x="115" y="25" width="310" height="390" rx="28" fill="transparent" />
+
+              <g class="curados-wheel-group">
+                <!-- Realistic Drop Shadow under Curado Wheel -->
+                <ellipse cx="278" cy="314" rx="124" ry="58" fill="#2b1704" fill-opacity="0.26" />
+
+                <!-- Outer White Paper Collar/Wrapper around the Back & Right of the Wheel
+                     (ensures the white paper wraps 360° around the entire cheese!) -->
+                <path
+                  d="M 162 238 A 118 56 0 1 1 398 238 L 398 304 A 118 56 0 0 1 390 324 L 390 258 A 118 56 0 1 0 162 238 Z"
+                  fill="url(#curado-cinta-white)"
+                  stroke="#2b1704"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"
+                />
+                <!-- Back White Paper Rim Band encircling the top perimeter of the wheel -->
+                <path
+                  d="M 280 240 L 315 292 A 118 56 0 1 1 390 258 Z"
+                  fill="#ffffff"
+                  stroke="#2b1704"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"
+                />
+                <!-- Subtle paper pleat lines along the back white paper rim -->
+                <g stroke="#d4d0c5" stroke-width="1.4" stroke-linecap="round">
+                  <line x1="176" y1="215" x2="184" y2="220" />
+                  <line x1="198" y1="199" x2="205" y2="205" />
+                  <line x1="226" y1="189" x2="231" y2="196" />
+                  <line x1="258" y1="184" x2="260" y2="192" />
+                  <line x1="292" y1="184" x2="290" y2="192" />
+                  <line x1="324" y1="188" x2="320" y2="196" />
+                  <line x1="354" y1="197" x2="348" y2="204" />
+                  <line x1="378" y1="211" x2="370" y2="217" />
+                  <line x1="392" y1="229" x2="383" y2="233" />
+                </g>
+
+                <!-- Cut Interior Paste Cavity inside the Wheel (revealed when the slice slides out on hover!) -->
+                <!-- Right inner paste wall: from center (280,240) to (390,258) -->
+                <polygon
+                  points="280,240 390,258 390,324 280,306"
+                  fill="url(#curado-paste-realistic)"
+                  stroke="#2b1704"
+                  stroke-width="2.4"
+                  stroke-linejoin="round"
+                />
+                <!-- Subtle natural cheese eyes on the inner cut paste -->
+                <circle cx="318" cy="270" r="4" fill="#d9a126" fill-opacity="0.65" />
+                <circle cx="348" cy="286" r="5" fill="#d9a126" fill-opacity="0.65" />
+                <circle cx="366" cy="275" r="3" fill="#d9a126" fill-opacity="0.65" />
+                <circle cx="332" cy="298" r="3.5" fill="#d9a126" fill-opacity="0.65" />
+
+                <!-- Left inner paste wall: from center (280,240) to (315,292) -->
+                <polygon
+                  points="280,240 315,292 315,358 280,306"
+                  fill="#e8c352"
+                  stroke="#2b1704"
+                  stroke-width="2.4"
+                  stroke-linejoin="round"
+                />
+
+                <!-- Top Mound of Golden Dimpled Queijo Curado nestled inside the white paper wrapper -->
+                <path
+                  d="M 280 240 L 312 286 A 106 48 0 1 1 380 256 Z"
+                  fill="url(#curado-top-realistic)"
+                  stroke="#b87d14"
+                  stroke-width="2.2"
+                  stroke-linejoin="round"
+                />
+                <!-- Realistic artisanal dimpled/pebbled curd texture on the golden top -->
+                <g fill="#d9951a" fill-opacity="0.38">
+                  <ellipse cx="235" cy="215" rx="7" ry="3.5" />
+                  <ellipse cx="265" cy="206" rx="8" ry="4" />
+                  <ellipse cx="300" cy="208" rx="7" ry="3.5" />
+                  <ellipse cx="335" cy="216" rx="8" ry="4" />
+                  <ellipse cx="205" cy="232" rx="7" ry="3.5" />
+                  <ellipse cx="248" cy="234" rx="9" ry="4" />
+                  <ellipse cx="288" cy="224" rx="8" ry="3.8" />
+                  <ellipse cx="325" cy="234" rx="7" ry="3.5" />
+                  <ellipse cx="358" cy="238" rx="6" ry="3" />
+                  <ellipse cx="218" cy="256" rx="8" ry="4" />
+                  <ellipse cx="255" cy="258" rx="7" ry="3.5" />
+                  <ellipse cx="245" cy="272" rx="6.5" ry="3" />
+                </g>
+                <g fill="#fff6bd" fill-opacity="0.55">
+                  <ellipse cx="242" cy="212" rx="5" ry="2.2" />
+                  <ellipse cx="275" cy="204" rx="6" ry="2.5" />
+                  <ellipse cx="312" cy="212" rx="5" ry="2.2" />
+                  <ellipse cx="225" cy="242" rx="6" ry="2.5" />
+                  <ellipse cx="268" cy="238" rx="5.5" ry="2.4" />
+                  <ellipse cx="342" cy="226" rx="5" ry="2.2" />
+                </g>
+
+                <!-- Front-Left Cylinder Wall: White Paper Wrapper around the Wheel -->
+                <path
+                  d="M 162 238 L 162 304 A 118 56 0 0 0 315 358 L 315 292 A 118 56 0 0 1 162 238 Z"
+                  fill="url(#curado-cinta-white)"
+                  stroke="#2b1704"
+                  stroke-width="2.6"
+                  stroke-linejoin="round"
+                />
+                <!-- Subtle vertical paper folds along the front-left white paper wrapper -->
+                <g stroke="#dedad0" stroke-width="1.5" stroke-linecap="round">
+                  <line x1="178" y1="262" x2="178" y2="320" />
+                  <line x1="204" y1="276" x2="204" y2="336" />
+                  <line x1="234" y1="286" x2="234" y2="346" />
+                  <line x1="266" y1="292" x2="266" y2="352" />
+                  <line x1="296" y1="294" x2="296" y2="355" />
+                </g>
+
+                <!-- PARTED CHEESE SLICE / WEDGE (.curado-slice):
+                     Normal state: Fits flush right inside the wheel cut (junto do queijo, mas já partida)!
+                     Hover state: Slides backward/outward (anda para trás para notar-se)! -->
+                <g class="curado-slice">
+                  <!-- Left Paste Face of the Slice (visible as it slides out) -->
+                  <polygon
+                    points="280,240 315,292 315,358 280,306"
+                    fill="url(#curado-paste-realistic)"
+                    stroke="#2b1704"
+                    stroke-width="2.5"
+                    stroke-linejoin="round"
+                  />
+                  <!-- Subtle Cheese Eyes on the Slice Paste Face -->
+                  <circle cx="294" cy="286" r="3.5" fill="#d9a126" fill-opacity="0.65" />
+                  <circle cx="305" cy="308" r="4.5" fill="#d9a126" fill-opacity="0.65" />
+                  <circle cx="296" cy="322" r="2.8" fill="#d9a126" fill-opacity="0.65" />
+
+                  <!-- White Paper Rim on the Outer Edge of the Slice Top -->
+                  <path
+                    d="M 280 240 L 390 258 A 118 56 0 0 1 315 292 Z"
+                    fill="#ffffff"
+                    stroke="#2b1704"
+                    stroke-width="2.5"
+                    stroke-linejoin="round"
+                  />
+
+                  <!-- Top Golden Dimpled Surface of the Parted Slice -->
+                  <path
+                    d="M 280 240 L 380 256 A 106 48 0 0 1 312 286 Z"
+                    fill="url(#curado-top-realistic)"
+                    stroke="#b87d14"
+                    stroke-width="2.2"
+                    stroke-linejoin="round"
+                  />
+                  <ellipse cx="328" cy="264" rx="6.5" ry="3" fill="#d9951a" fill-opacity="0.38" />
+                  <ellipse cx="352" cy="262" rx="6" ry="2.8" fill="#d9951a" fill-opacity="0.38" />
+                  <ellipse cx="322" cy="274" rx="5.5" ry="2.5" fill="#fff6bd" fill-opacity="0.55" />
+
+                  <!-- Outer Curved White Paper Wall of the Slice -->
+                  <path
+                    d="M 390 258 L 390 324 A 118 56 0 0 1 315 358 L 315 292 A 118 56 0 0 0 390 258 Z"
+                    fill="url(#curado-cinta-white)"
+                    stroke="#2b1704"
+                    stroke-width="2.6"
+                    stroke-linejoin="round"
+                  />
+                  <!-- Paper fold lines on the slice's white paper wrapper -->
+                  <line x1="340" y1="286" x2="340" y2="350" stroke="#dedad0" stroke-width="1.5" stroke-linecap="round" />
+                  <line x1="368" y1="274" x2="368" y2="338" stroke="#dedad0" stroke-width="1.5" stroke-linecap="round" />
+                </g>
+              </g>
+
+              <!-- Callout Pointer Line -->
+              <path
+                d="M 275 182 L 275 106"
+                fill="none"
+                stroke="#169f38"
+                stroke-width="2.5"
+                stroke-dasharray="5 4"
+                stroke-linecap="round"
+              />
+              <circle cx="275" cy="182" r="5" fill="#169f38" stroke="#ffffff" stroke-width="2" />
+
+              <!-- Interactive Callout Tag Badge (Top Left - starts unselected) -->
+              <g class="zone-badge" transform="translate(165, 30)">
+                <rect
+                  class="badge-bg"
+                  x="0"
+                  y="0"
+                  width="220"
+                  height="70"
+                  rx="35"
+                  fill="#ffffff"
+                  stroke="#169f38"
+                  stroke-width="2.5"
+                />
+                <text class="badge-sub" x="110" y="28" text-anchor="middle" fill="#169f38" font-family="Dancing Script, cursive" font-size="18" font-weight="700">
+                  Maturação Saloia
+                </text>
+                <text class="badge-title" x="110" y="51" text-anchor="middle" fill="#000000" font-family="Roboto, sans-serif" font-size="17" font-weight="900" letter-spacing="0.5">
+                  QUEIJOS CURADOS
+                </text>
+              </g>
+            </g>
+
+            <!-- ============================================================ -->
+            <!-- INTERACTIVE ZONE 2: QUEIJOS FRESCOS (INSPIRED BY IMAGE 1)    -->
+            <!-- O queijo fresco está DENTRO da caixa/forma branca e, quando  -->
+            <!-- há hover, o queijo que está lá dentro levanta!               -->
+            <!-- ============================================================ -->
+            <g
+              class="cheese-board-zone zone-frescos cursor-pointer"
+              data-board-category="frescos"
+              data-active="false"
+              role="button"
+              tabindex="0"
+              aria-label="Queijos Frescos. Passe o rato para elevar o queijo fresco de dentro da forma e ver os queijos frescos em baixo."
+            >
+              <!-- Generous invisible hover target for Frescos -->
+              <rect x="450" y="20" width="300" height="360" rx="28" fill="transparent" />
+
+              <!-- LAYER 1: BACK OF THE WHITE CUP/BOX (behind the rising cheese) -->
+              <g class="frescos-cup-back">
+                <!-- Realistic Drop Shadow on the wooden board -->
+                <ellipse cx="600" cy="312" rx="98" ry="42" fill="#2b1704" fill-opacity="0.25" />
+
+                <!-- Outer Back Rim Lip of the White Cup -->
+                <ellipse
+                  cx="600"
+                  cy="228"
+                  rx="92"
+                  ry="32"
+                  fill="#f2f6f3"
+                  stroke="#2b1704"
+                  stroke-width="2.5"
+                />
+                <!-- Interior Cavity of the White Cup (visible behind the cheese as it lifts out) -->
+                <ellipse
+                  cx="600"
+                  cy="229"
+                  rx="85"
+                  ry="27"
+                  fill="#dde6e0"
+                  stroke="#b8c7be"
+                  stroke-width="1.5"
+                />
+                <!-- Interior shadow cast inside the cup -->
+                <ellipse
+                  class="fresco-drop-shadow"
+                  cx="600"
+                  cy="233"
+                  rx="78"
+                  ry="22"
+                  fill="#9eb0a5"
+                  fill-opacity="0.45"
+                />
+              </g>
+
+              <!-- LAYER 2: THE FRESH CHEESE NESTLED INSIDE THE CUP (.fresco-rising-cheese)
+                   Rendered between the back rim and front wall so it sits genuinely INSIDE
+                   the box and lifts out from inside when hovered! -->
+              <g class="fresco-rising-cheese">
+                <!-- Fresh Cheese Cylinder Body (hidden inside the cup in normal state, revealed as it lifts up on hover!) -->
+                <path
+                  d="M 517 220 L 519 278 C 519 296, 555 312, 600 312 C 645 312, 681 296, 681 278 L 683 220 Z"
+                  fill="url(#fresco-cup-grad)"
+                  stroke="#2b1704"
+                  stroke-width="2.4"
+                  stroke-linejoin="round"
+                />
+                <!-- Subtle traditional vertical basket-mold ridges on the side of the fresh cheese -->
+                <path
+                  d="M 538 232 L 539 282 M 558 238 L 559 290 M 579 242 L 579 296 M 600 244 L 600 298 M 621 242 L 621 296 M 642 238 L 641 290 M 662 232 L 661 282"
+                  stroke="#d5e0d9"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+
+                <!-- Curdled, Textured White Fresh Cheese Top Surface nestled inside the cup rim -->
+                <path
+                  d="M 517 220 C 515 202, 552 188, 600 188 C 648 188, 685 202, 683 220 C 681 238, 646 252, 600 252 C 554 252, 519 238, 517 220 Z"
+                  fill="url(#fresco-curd-top)"
+                  stroke="#2b1704"
+                  stroke-width="2.5"
+                />
+                <!-- Realistic white curd texture bumps across the top of the fresh cheese -->
+                <g fill="#e3ebe5" stroke="#cad4cd" stroke-width="1">
+                  <path d="M 526 216 Q 534 210 542 217 Q 550 222 538 226 Z" />
+                  <path d="M 542 230 Q 552 226 560 233 Q 550 240 540 235 Z" />
+                  <path d="M 567 238 Q 580 234 588 241 Q 577 247 566 243 Z" />
+                  <path d="M 612 240 Q 625 235 634 242 Q 622 248 612 244 Z" />
+                  <path d="M 646 232 Q 658 226 666 233 Q 656 240 646 236 Z" />
+                  <path d="M 658 214 Q 668 208 674 216 Q 666 222 658 218 Z" />
+                  <path d="M 548 198 Q 559 193 567 198 Q 558 203 548 198 Z" />
+                  <path d="M 630 197 Q 642 192 650 198 Q 640 203 630 197 Z" />
+                  <path d="M 582 214 Q 596 208 608 215 Q 596 222 582 214 Z" />
+                  <path d="M 594 226 Q 608 220 618 227 Q 606 233 594 226 Z" />
+                </g>
+              </g>
+
+              <!-- LAYER 3: FRONT WALL & FRONT RIM OF THE WHITE CUP/BOX (in front of the cheese!) -->
+              <g class="frescos-cup-front">
+                <!-- Front Exterior Cylinder Wall of the White Cup -->
+                <path
+                  d="M 510 228 C 510 246, 550 260, 600 260 C 650 260, 690 246, 690 228 L 686 296 C 686 320, 648 338, 600 338 C 552 338, 514 320, 514 296 Z"
+                  fill="url(#fresco-cup-grad)"
+                  stroke="#2b1704"
+                  stroke-width="2.6"
+                  stroke-linejoin="round"
+                />
+                <!-- Front Rim Lip of the White Cup -->
+                <path
+                  d="M 508 228 C 508 247, 549 262, 600 262 C 651 262, 692 247, 692 228 C 692 224, 688 223, 685 226 C 682 242, 645 255, 600 255 C 555 255, 518 242, 515 226 C 512 223, 508 224, 508 228 Z"
+                  fill="#ffffff"
+                  stroke="#2b1704"
+                  stroke-width="2.4"
+                  stroke-linejoin="round"
+                />
+                <!-- Subtle curd crumbs at bottom edge of cup -->
+                <circle cx="526" cy="318" r="2.5" fill="#ffffff" stroke="#b5c2ba" stroke-width="0.8" />
+                <circle cx="676" cy="314" r="3" fill="#ffffff" stroke="#b5c2ba" stroke-width="0.8" />
+                <circle cx="682" cy="306" r="2" fill="#ffffff" stroke="#b5c2ba" stroke-width="0.8" />
+              </g>
+
+              <!-- Callout Pointer Line -->
+              <path
+                d="M 600 174 L 600 98"
+                fill="none"
+                stroke="#169f38"
+                stroke-width="2.5"
+                stroke-dasharray="5 4"
+                stroke-linecap="round"
+              />
+              <circle cx="600" cy="174" r="5" fill="#169f38" stroke="#ffffff" stroke-width="2" />
+
+              <!-- Interactive Callout Tag Badge (Top Center - starts unselected) -->
+              <g class="zone-badge" transform="translate(490, 22)">
+                <rect
+                  class="badge-bg"
+                  x="0"
+                  y="0"
+                  width="220"
+                  height="70"
+                  rx="35"
+                  fill="#ffffff"
+                  stroke="#169f38"
+                  stroke-width="2.5"
+                />
+                <text class="badge-sub" x="110" y="28" text-anchor="middle" fill="#169f38" font-family="Dancing Script, cursive" font-size="18" font-weight="700">
+                  Frescura Diária
+                </text>
+                <text class="badge-title" x="110" y="51" text-anchor="middle" fill="#000000" font-family="Roboto, sans-serif" font-size="17" font-weight="900" letter-spacing="0.5">
+                  QUEIJOS FRESCOS
+                </text>
+              </g>
+            </g>
+
+            <!-- ============================================================ -->
+            <!-- INTERACTIVE ZONE 3: REQUEIJÃO (INSPIRED BY IMAGE 3)          -->
+            <!-- Taça branca construída a toda a volta do Requeijão e doce!   -->
+            <!-- Hover: A colher vem com um pouco de requeijão!               -->
+            <!-- ============================================================ -->
+            <g
+              class="cheese-board-zone zone-requeijao cursor-pointer"
+              data-board-category="requeijao"
+              data-active="false"
+              role="button"
+              tabindex="0"
+              aria-label="Requeijão. Passe o rato para retirar uma colherada de requeijão e ver os requeijões em baixo."
+            >
+              <!-- Generous invisible hover target for Requeijão -->
+              <rect x="770" y="25" width="315" height="395" rx="28" fill="transparent" />
+
+              <!-- Main Requeijão & Full 3D Bowl (Taça à volta) -->
+              <g class="requeijao-base-group">
+                <!-- Drop shadow on wooden board -->
+                <ellipse cx="912" cy="346" rx="105" ry="40" fill="#2b1704" fill-opacity="0.25" />
+
+                <!-- 1. BACK OF THE TAÇA (BOWL RIM GOING ALL AROUND THE BACK) -->
+                <ellipse
+                  cx="912"
+                  cy="260"
+                  rx="106"
+                  ry="32"
+                  fill="#ffffff"
+                  stroke="#2b1704"
+                  stroke-width="2.6"
+                />
+                <ellipse
+                  cx="912"
+                  cy="262"
+                  rx="96"
+                  ry="25"
+                  fill="#dfe6e2"
+                  stroke="#9aa8a0"
+                  stroke-width="1.5"
+                />
+
+                <!-- 2. FLUFFY MOUND OF REQUEIJÃO SITTING INSIDE THE TAÇA -->
+                <path
+                  d="M 820 264 C 814 244, 828 226, 845 218 C 856 198, 882 188, 912 188 C 942 188, 968 200, 980 220 C 998 228, 1010 244, 1004 264 C 998 278, 960 288, 912 288 C 864 288, 826 278, 820 264 Z"
+                  fill="url(#requeijao-mound-grad)"
+                  stroke="#2b1704"
+                  stroke-width="2.6"
+                  stroke-linejoin="round"
+                />
+                <!-- Realistic Fluffy Curd/Granular Texture across the Requeijão Mound -->
+                <g fill="#e8dec3" stroke="#d4c59e" stroke-width="1">
+                  <path d="M 848 238 Q 860 230 872 238 Q 862 245 848 238 Z" />
+                  <path d="M 885 215 Q 900 206 914 215 Q 900 222 885 215 Z" />
+                  <path d="M 926 222 Q 942 214 954 224 Q 940 232 926 222 Z" />
+                  <path d="M 835 254 Q 850 246 864 255 Q 850 262 835 254 Z" />
+                  <path d="M 955 248 Q 970 240 984 250 Q 970 258 955 248 Z" />
+                  <path d="M 895 248 Q 912 240 926 248 Q 912 256 895 248 Z" />
+                </g>
+
+                <!-- Orange Doce Topping Swirl on the Requeijão Mound -->
+                <path
+                  d="M 862 218 C 874 202, 902 198, 926 204 C 948 200, 966 210, 962 222 C 958 234, 936 236, 916 232 C 912 244, 900 252, 894 240 C 888 232, 850 230, 862 218 Z"
+                  fill="url(#compota-orange-grad)"
+                  stroke="#2b1704"
+                  stroke-width="2"
+                  stroke-linejoin="round"
+                />
+                <circle cx="894" cy="216" r="3.5" fill="#ffe17d" />
+                <circle cx="924" cy="218" r="4" fill="#ffcf56" />
+
+                <!-- 3. FRONT BODY & CURVED RIM OF THE TAÇA WRAPPING AROUND THE REQUEIJÃO -->
+                <path
+                  d="M 812 262 C 812 278, 856 290, 912 290 C 968 290, 1012 278, 1012 262 L 994 334 C 989 352, 954 364, 912 364 C 870 364, 835 352, 830 334 Z"
+                  fill="url(#requeijao-tub-grad)"
+                  stroke="#2b1704"
+                  stroke-width="2.8"
+                  stroke-linejoin="round"
+                />
+                <!-- Subtle curved contour line on the front of the Taça -->
+                <path
+                  d="M 834 308 C 862 320, 962 320, 990 308"
+                  fill="none"
+                  stroke="#d5ded9"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <!-- Front Rim Lip of the Taça wrapping smoothly around the front -->
+                <path
+                  d="M 806 260 C 806 278, 853 292, 912 292 C 971 292, 1018 278, 1018 260 C 1018 255, 1011 253, 1006 257 C 998 272, 960 284, 912 284 C 864 284, 826 272, 818 257 C 813 253, 806 255, 806 260 Z"
+                  fill="#ffffff"
+                  stroke="#2b1704"
+                  stroke-width="2.5"
+                  stroke-linejoin="round"
+                />
+
+                <!-- THE SPOON THAT LIFTS UP WITH A SCOOP OF REQUEIJÃO ON HOVER (.requeijao-spoon-scoop) -->
+                <g class="requeijao-spoon-scoop">
+                  <!-- Wooden Spoon Handle -->
+                  <path
+                    d="M 962 216 L 1044 172"
+                    stroke="#5c330a"
+                    stroke-width="6.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M 962 216 L 1044 172"
+                    stroke="#d49b54"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  />
+                  <!-- Spoon Bowl -->
+                  <ellipse
+                    cx="954"
+                    cy="220"
+                    rx="20"
+                    ry="11"
+                    transform="rotate(-24 954 220)"
+                    fill="#d49b54"
+                    stroke="#2b1704"
+                    stroke-width="2.5"
+                  />
+                  <!-- Fluffy Scoop of White Requeijão + Orange Jam inside the Spoon (Shown on Hover!) -->
+                  <g class="spoon-requeijao-portion">
+                    <path
+                      d="M 935 220 C 933 202, 950 192, 965 200 C 978 206, 975 220, 958 226 C 944 230, 936 226, 935 220 Z"
+                      fill="url(#requeijao-mound-grad)"
+                      stroke="#2b1704"
+                      stroke-width="2.2"
+                      stroke-linejoin="round"
+                    />
+                    <!-- Little swirl of orange jam on top of the spoonful of requeijão -->
+                    <path
+                      d="M 946 208 C 950 202, 960 202, 962 209 C 964 214, 952 216, 946 208 Z"
+                      fill="url(#compota-orange-grad)"
+                      stroke="#2b1704"
+                      stroke-width="1.4"
+                    />
+                  </g>
+                </g>
+              </g>
+
+              <!-- Callout Pointer Line -->
+              <path
+                d="M 912 184 L 912 106"
+                fill="none"
+                stroke="#169f38"
+                stroke-width="2.5"
+                stroke-dasharray="5 4"
+                stroke-linecap="round"
+              />
+              <circle cx="912" cy="184" r="5" fill="#169f38" stroke="#ffffff" stroke-width="2" />
+
+              <!-- Interactive Callout Tag Badge (Top Right - starts unselected) -->
+              <g class="zone-badge" transform="translate(802, 30)">
+                <rect
+                  class="badge-bg"
+                  x="0"
+                  y="0"
+                  width="220"
+                  height="70"
+                  rx="35"
+                  fill="#ffffff"
+                  stroke="#169f38"
+                  stroke-width="2.5"
+                />
+                <text class="badge-sub" x="110" y="28" text-anchor="middle" fill="#169f38" font-family="Dancing Script, cursive" font-size="18" font-weight="700">
+                  Soro Fervido com Arte
+                </text>
+                <text class="badge-title" x="110" y="51" text-anchor="middle" fill="#000000" font-family="Roboto, sans-serif" font-size="17" font-weight="900" letter-spacing="0.5">
+                  REQUEIJÃO
+                </text>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- =================================================================== -->
+      <!-- DYNAMIC CATEGORY CARDS DISPLAY (Nothing selected initially!)        -->
+      <!-- =================================================================== -->
+      <div id="categoria-cards-stage" aria-live="polite">
+        {
+          categoriesWithProducts.map((cat) => {
+            // Position the 3 informative cards spread across the rows:
+            // Card 1: before product 0 (Row 1, Col 1)
+            // Card 2: after product 3 for 6-item categories (Row 2, Col 3), or after product 6 for 15-item categories (Row 3, Col 3)
+            // Card 3: after product 4 for 6-item categories (Row 3, Col 2), or after product 11 for 15-item categories (Row 5, Col 2)
+            const card2AfterIdx = cat.products.length > 6 ? 6 : 3;
+            const card3AfterIdx = cat.products.length > 6 ? 11 : 4;
+
+            return (
+              <div
+                data-category-panel={cat.id}
+                class="hidden"
+              >
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                  {/* CARD INFORMATIVO 1: Até Leite 100% Nacional Selecionado (Vaca e Cabra) — Linha 1 */}
+                  <div class="rounded-tl-[64px] sm:rounded-tl-[76px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-8 sm:p-9 flex flex-col justify-between gap-6 h-full">
+                    <div class="space-y-4 sm:space-y-5">
+                      <span class="font-script text-[clamp(1.05rem,4.2vw,1.55rem)] sm:text-[clamp(1.15rem,2.4vw,1.6rem)] lg:text-[clamp(1.1rem,1.55vw,1.5rem)] whitespace-nowrap leading-normal text-[#ffffff] block">
+                        {cat.scriptSubtitle}
+                      </span>
+                      <h3 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.22] text-[#ffffff]">
+                        {cat.name}
+                      </h3>
+                    </div>
+                    <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+                      {cat.description}
+                    </p>
+                    <p class="text-sm sm:text-base text-[#ffffff] leading-snug font-black">
+                      {cat.milkOrigin}.
+                    </p>
+                  </div>
+
+                  {cat.products.map((product, idx) => (
+                    <>
+                      <article
+                        class="rounded-[26px] border-2 border-[#169f38] bg-[#ffffff] text-[#000000] overflow-hidden flex flex-col justify-between h-full transition-transform duration-100 hover:-translate-y-1"
+                      >
+                        <div>
+                          <div class="relative aspect-[4/3] bg-[#ffffff] border-b-2 border-[#169f38] p-5 flex items-center justify-center">
+                            <img
+                              src={product.image}
+                              alt={product.name}
+                              class="max-h-full max-w-full object-contain"
+                              loading="lazy"
+                            />
+                            {product.badge && (
+                              <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] border border-[#169f38] text-[11px] font-black uppercase">
+                                {product.badge}
+                              </span>
+                            )}
+                          </div>
+                          <div class="p-6 space-y-3">
+                            <div class="flex items-center justify-between text-[11px] font-black uppercase text-[#169f38]">
+                              <span>{product.format}</span>
+                              <span>Leite de {product.milkType}</span>
+                            </div>
+                            <h4 class="font-sans text-lg font-black uppercase leading-[1.3] text-[#169f38] pt-0.5">
+                              {product.name}
+                            </h4>
+                            <p class="text-xs leading-relaxed text-[#000000]">
+                              {product.description}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="px-6 pb-6">
+                          <Button
+                            href={cat.ctaLink}
+                            variant="secondary"
+                            size="sm"
+                            icon={cat.ctaIcon}
+                            label={cat.ctaText}
+                            class="w-full"
+                          />
+                        </div>
+                      </article>
+
+                      {/* CARD INFORMATIVO 2: Textura & Carácter — Espalhado na linha intermédia */}
+                      {idx === card2AfterIdx && (
+                        <div class="rounded-tl-[64px] sm:rounded-tl-[76px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-8 sm:p-9 flex flex-col justify-between gap-6 h-full">
+                          <div class="space-y-4 sm:space-y-5">
+                            <span class="font-script text-[clamp(1.05rem,4.2vw,1.55rem)] sm:text-[clamp(1.15rem,2.4vw,1.6rem)] lg:text-[clamp(1.1rem,1.55vw,1.5rem)] whitespace-nowrap leading-normal text-[#ffffff] block">
+                              Arte & Sabedoria Queijeira
+                            </span>
+                            <h3 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.22] text-[#ffffff]">
+                              Textura & Carácter
+                            </h3>
+                          </div>
+                          <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+                            {cat.textureNotes}. {cat.sensoryDetails}
+                          </p>
+                          <p class="text-sm sm:text-base text-[#ffffff] leading-snug font-black">
+                            {cat.processDetail}.
+                          </p>
+                        </div>
+                      )}
+
+                      {/* CARD INFORMATIVO 3: Sugestão à Mesa — Espalhado na linha seguinte */}
+                      {idx === card3AfterIdx && (
+                        <div class="rounded-tl-[64px] sm:rounded-tl-[76px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-8 sm:p-9 flex flex-col justify-between gap-6 h-full">
+                          <div class="space-y-4 sm:space-y-5">
+                            <span class="font-script text-[clamp(1.05rem,4.2vw,1.55rem)] sm:text-[clamp(1.15rem,2.4vw,1.6rem)] lg:text-[clamp(1.1rem,1.55vw,1.5rem)] whitespace-nowrap leading-normal text-[#ffffff] block">
+                              Harmonização & Tradição à Mesa
+                            </span>
+                            <h3 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.22] text-[#ffffff]">
+                              Sugestão à Mesa
+                            </h3>
+                          </div>
+                          <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+                            {cat.pairingSuggestion} {cat.servingDetails}
+                          </p>
+                          <p class="text-sm sm:text-base text-[#ffffff] leading-snug font-black">
+                            {cat.pairingHighlight}.
+                          </p>
+                        </div>
+                      )}
+                    </>
+                  ))}
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Remove any browser focus box / rectangle around SVG interactive zones */
+  .cheese-board-zone,
+  .cheese-board-zone:focus,
+  .cheese-board-zone:focus-visible {
+    outline: none !important;
+  }
+
+  /* 1. QUEIJOS CURADOS:
+     Normal state: Fatia já está partida mas encostada junto ao queijo (translate(0, 0)).
+     Hover state: A fatia anda para trás/fora para notar-se! */
+  .zone-curados .curado-slice {
+    transform: translate(0, 0);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .zone-curados:hover .curado-slice {
+    transform: translate(34px, 22px);
+  }
+
+  /* 2. QUEIJOS FRESCOS:
+     Normal state: Queijo fresco está dentro da caixa/forma branca.
+     Hover state: O queijo fresco que está lá dentro levanta para cima! */
+  .zone-frescos .fresco-rising-cheese {
+    transform: translateY(0);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .zone-frescos .fresco-drop-shadow {
+    transform-origin: 600px 233px;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 320ms ease;
+  }
+
+  .zone-frescos:hover .fresco-rising-cheese {
+    transform: translateY(-42px);
+  }
+
+  .zone-frescos:hover .fresco-drop-shadow {
+    transform: scale(0.88);
+    opacity: 0.3;
+  }
+
+  /* 3. REQUEIJÃO:
+     Normal state: Colher pousada junto ao requeijão.
+     Hover state: A colher vem com um pouco de requeijão! */
+  .zone-requeijao .requeijao-spoon-scoop {
+    transform: translate(0, 0) rotate(0deg);
+    transform-origin: 990px 200px;
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .zone-requeijao .spoon-requeijao-portion {
+    opacity: 0;
+    transform: scale(0.5) translateY(6px);
+    transform-origin: 954px 214px;
+    transition: opacity 220ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .zone-requeijao:hover .requeijao-spoon-scoop {
+    transform: translate(22px, -28px) rotate(-10deg);
+  }
+
+  .zone-requeijao:hover .spoon-requeijao-portion {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+</style>
+
+<script>
+  function initCheeseBoard() {
+    const zones = document.querySelectorAll<SVGGElement>('[data-board-category]');
+    const panels = document.querySelectorAll<HTMLElement>('[data-category-panel]');
+
+    if (!zones.length || !panels.length) return;
+
+    function activateCategory(categoryId: string) {
+      // 1. Update SVG zones (badge colors & active state)
+      zones.forEach((zone) => {
+        const isMatch = zone.getAttribute('data-board-category') === categoryId;
+        zone.setAttribute('data-active', isMatch ? 'true' : 'false');
+
+        const badgeBg = zone.querySelector<SVGRectElement>('.badge-bg');
+        const badgeSub = zone.querySelector<SVGTextElement>('.badge-sub');
+        const badgeTitle = zone.querySelector<SVGTextElement>('.badge-title');
+
+        if (isMatch) {
+          badgeBg?.setAttribute('fill', '#169f38');
+          badgeSub?.setAttribute('fill', '#ffffff');
+          badgeTitle?.setAttribute('fill', '#ffffff');
+        } else {
+          badgeBg?.setAttribute('fill', '#ffffff');
+          badgeSub?.setAttribute('fill', '#169f38');
+          badgeTitle?.setAttribute('fill', '#000000');
+        }
+      });
+
+      // 2. Show corresponding cheese cards below
+      panels.forEach((panel) => {
+        const isMatch = panel.getAttribute('data-category-panel') === categoryId;
+        panel.classList.toggle('block', isMatch);
+        panel.classList.toggle('hidden', !isMatch);
+      });
+    }
+
+    zones.forEach((zone) => {
+      const cat = zone.getAttribute('data-board-category');
+      if (!cat) return;
+
+      zone.addEventListener('mouseenter', () => activateCategory(cat));
+      zone.addEventListener('click', () => activateCategory(cat));
+      zone.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          activateCategory(cat);
+        }
+      });
+    });
+
+    // Support explicit URL hash (#frescos, #curados, #requeijao) if navigated directly or via header menu
+    function checkHashAndActivate(shouldScroll = false) {
+      const hash = window.location.hash.replace('#', '');
+      if (hash === 'frescos' || hash === 'curados' || hash === 'requeijao') {
+        activateCategory(hash);
+        if (shouldScroll) {
+          const stage = document.getElementById('categoria-cards-stage');
+          stage?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+
+    checkHashAndActivate(false);
+    window.addEventListener('hashchange', () => checkHashAndActivate(true));
+  }
+
+  initCheeseBoard();
+  document.addEventListener('astro:after-swap', initCheeseBoard);
+</script>

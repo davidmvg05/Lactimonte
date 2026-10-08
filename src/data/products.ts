@@ -1,0 +1,393 @@
+export type CheeseCategorySlug = 'frescos' | 'curados' | 'requeijao';
+
+export interface CheeseCategoryAccordion {
+  id: CheeseCategorySlug;
+  indexNumber: string;
+  name: string;
+  shortTitle: string;
+  scriptSubtitle: string;
+  tagline: string;
+  description: string;
+  processDetail: string;
+  milkOrigin: string;
+  textureNotes: string;
+  pairingSuggestion: string;
+  heroImage: string;
+  secondaryImage: string;
+  productCount: number;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface ProductItem {
+  id: string;
+  name: string;
+  category: CheeseCategorySlug;
+  categoryLabel: string;
+  format: string;
+  milkType: 'Vaca' | 'Cabra' | 'Mistura Vaca e Ovelha';
+  image: string;
+  highlight?: boolean;
+  badge?: string;
+  description: string;
+}
+
+export const CHEESE_CATEGORIES: CheeseCategoryAccordion[] = [
+  {
+    id: 'curados',
+    indexNumber: '01',
+    name: 'Os Nossos Queijos Curados',
+    shortTitle: 'Queijos Curados',
+    scriptSubtitle: 'Maturação lenta e carácter saloio',
+    tagline: 'Cura controlada que desperta aromas ricos e uma pasta de excelência.',
+    description:
+      'Produzido a partir de leite nacional selecionado e pasteurizado, obtido através de um processo de maturação com temperatura e humidade rigorosamente controladas que respeitam a boa tradição saloia e a sabedoria regional.',
+    processDetail: 'Maturação controlada em câmara de cura tradicional',
+    milkOrigin: 'Leite 100% Nacional Selecionado (Vaca, Cabra e Ovelha)',
+    textureNotes: 'Pasta consistente, amanteigada a firme, aroma intenso e final prolongado',
+    pairingSuggestion: 'Perfeito em tábuas de queijos, pão rústico de Mafra, frutos secos e vinhos portugueses.',
+    heroImage: '/assets/imagem/queijos-curados/conjunto-queijo-curados.jpg',
+    secondaryImage: '/assets/imagem/queijos-curados/conjunto-queijo-curados.jpg',
+    productCount: 6,
+    ctaLabel: 'Ver Gama de Curados',
+    ctaHref: '/queijos#curados',
+  },
+  {
+    id: 'frescos',
+    indexNumber: '02',
+    name: 'Os Nossos Queijos Frescos',
+    shortTitle: 'Queijos Frescos',
+    scriptSubtitle: 'Frescura diária da região Saloia',
+    tagline: 'Textura suave, dessoramento lento e sabor puro de leite pasteurizado.',
+    description:
+      'Queijo fresco tradicional, produzido exclusivamente a partir de leite pasteurizado selecionado e obtido por dessoramento lento após coagulação enzimática, num processo multimoldes higienicamente controlado.',
+    processDetail: 'Coagulação enzimática suave & dessoramento lento em molde tradicional',
+    milkOrigin: 'Leite de Vaca, Cabra e Mistura Vaca & Ovelha',
+    textureNotes: 'Meio-gordo ou magro, cor branca imaculada, formato cilíndrico, cremoso e firme',
+    pairingSuggestion: 'Ideal ao pequeno-almoço, em saladas frescas, com pimenta preta moída ou ervas aromáticas.',
+    heroImage: '/assets/imagem/queijo-frescos/conjunto-queijo-fresco.jpg',
+    secondaryImage: '/assets/imagem/queijo-frescos/conjunto-queijo-fresco.jpg',
+    productCount: 15,
+    ctaLabel: 'Ver Gama de Frescos',
+    ctaHref: '/queijos#frescos',
+  },
+  {
+    id: 'requeijao',
+    indexNumber: '03',
+    name: 'Os Nossos Requeijões',
+    shortTitle: 'Requeijão',
+    scriptSubtitle: 'A nobreza do soro fervido com arte',
+    tagline: 'Puro, de cabra ou acompanhado com doces extra de abóbora, figo e frutos vermelhos.',
+    description:
+      'Obtido a partir do soro resultante do processamento do queijo fresco, após floculação por ação do calor (fervura lenta). À primeira vista pode parecer semelhante, mas na boca revela uma textura aveludada inconfundível.',
+    processDetail: 'Floculação térmica tradicional por fervura do soro doce',
+    milkOrigin: 'Soro lácteo selecionado de Vaca e Cabra',
+    textureNotes: 'Textura aveludada, granulometria delicada e paladar naturalmente adocicado',
+    pairingSuggestion: 'Irresistível ao natural, com café, mel ou nas nossas versões com Doce Extra de Abóbora, Figo ou Frutos Vermelhos.',
+    heroImage: '/assets/imagem/requeijoes/conjunto-requeijao-doce.jpg',
+    secondaryImage: '/assets/imagem/requeijoes/conjunto-requeijao-doce.jpg',
+    productCount: 6,
+    ctaLabel: 'Ver Gama de Requeijão',
+    ctaHref: '/queijos#requeijao',
+  },
+];
+
+export const PRODUCTS: ProductItem[] = [
+  // ======================== QUEIJOS CURADOS ========================
+  {
+    id: 'curado-flor-montemuro',
+    name: 'Queijo Curado Flor de Montemuro',
+    category: 'curados',
+    categoryLabel: 'Queijo Curado',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijos-curados/queijo-curado-flor-de-montemuro.jpg',
+    highlight: true,
+    badge: 'Especialidade Montemuro',
+    description: 'O ex-líbris da queijaria em Montemuro: maturação cuidada, crosta natural e pasta rica.',
+  },
+  {
+    id: 'curado-ovelha',
+    name: 'Queijo Curado Tipo Alentejano / Ovelha',
+    category: 'curados',
+    categoryLabel: 'Queijo Curado',
+    format: 'Vendido à unidade',
+    milkType: 'Mistura Vaca e Ovelha',
+    image: '/assets/imagem/queijos-curados/queijo-curado-ovelha.jpg',
+    highlight: true,
+    badge: 'Mais Procurado',
+    description: 'Queijo curado tradicional de formato individual, intenso e cheio de carácter.',
+  },
+  {
+    id: 'curado-alentejano-pack4',
+    name: 'Queijo Curado Tipo Alentejano (Pack 4 Unidades)',
+    category: 'curados',
+    categoryLabel: 'Queijo Curado',
+    format: 'Pack 4 unidades',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijos-curados/queijo-curado-alentejano-pack-quatro-unidades.jpg',
+    highlight: true,
+    badge: 'Pack Familiar',
+    description: 'Pack prático de 4 queijos curados tipo alentejano para partilhar à mesa.',
+  },
+  {
+    id: 'curado-de-cabra-tradicional',
+    name: 'Queijo Curado de Cabra Tradicional',
+    category: 'curados',
+    categoryLabel: 'Queijo Curado',
+    format: 'Vendido à unidade',
+    milkType: 'Cabra',
+    image: '/assets/imagem/queijos-curados/queijo-curado-de -cabra.jpg',
+    highlight: true,
+    badge: 'Tradição Saloia',
+    description: 'Formato clássico curado de cabra, maturação equilibrada e corte perfeito.',
+  },
+  {
+    id: 'curado-cabra',
+    name: 'Queijo Curado de Cabra Selecionado',
+    category: 'curados',
+    categoryLabel: 'Queijo Curado',
+    format: 'Vendido à unidade',
+    milkType: 'Cabra',
+    image: '/assets/imagem/queijos-curados/queijo-curado-cabra.jpg',
+    description: 'Elaborado com leite de cabra selecionado, oferecendo notas aromáticas distintas e textura firme.',
+  },
+  {
+    id: 'curado-tipo-rolha',
+    name: 'Queijo Curado Tipo Rolha',
+    category: 'curados',
+    categoryLabel: 'Queijo Curado',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijos-curados/queijo-curado-tipo-rolha.jpg',
+    description: 'Formato cilíndrico tradicional tipo rolha, ideal para entradas e petiscos.',
+  },
+
+  // ======================== QUEIJOS FRESCOS ========================
+  {
+    id: 'fresco-grande',
+    name: 'Queijo Fresco Grande',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-grande.jpg',
+    highlight: true,
+    badge: 'Clássico Fresco',
+    description: 'Queijo fresco meio-gordo em formato familiar grande, cremoso e suave.',
+  },
+  {
+    id: 'fresco-grande-vaca-ovelha',
+    name: 'Queijo Fresco Grande Vaca e Ovelha',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Mistura Vaca e Ovelha',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-grande-vaca-e-ovelha.jpg',
+    badge: 'Formato Grande',
+    description: 'Queijo fresco grande elaborado com uma seleção equilibrada de leite de vaca e ovelha.',
+  },
+  {
+    id: 'fresco-cabra-oregaos',
+    name: 'Queijo Fresco de Cabra com Orégãos',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco Aromatizado',
+    format: 'Vendido à unidade',
+    milkType: 'Cabra',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-com-oregaos-de-cabra-com-oregaos.jpg',
+    badge: 'Com Orégãos',
+    description: 'A frescura do queijo de cabra combinada com o aroma mediterrânico dos orégãos.',
+  },
+  {
+    id: 'fresco-cabra',
+    name: 'Queijo Fresco de Cabra',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Cabra',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-de-cabra.jpg',
+    description: 'Textura delicada e sabor autêntico a partir de leite de cabra pasteurizado.',
+  },
+  {
+    id: 'fresco-cabra-embalado',
+    name: 'Queijo Fresco de Cabra Embalado',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Cabra',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-de-cabra-embalado.jpg',
+    description: 'Proteção e frescura prolongada em embalagem prática pronta a servir.',
+  },
+  {
+    id: 'fresco-magro',
+    name: 'Queijo Fresco Magro',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-magro.jpg',
+    badge: 'Equilíbrio & Leveza',
+    description: 'Todo o sabor do queijo fresco tradicional com teor reduzido de matéria gorda.',
+  },
+  {
+    id: 'fresco-mistura-vaca-ovelha',
+    name: 'Queijo Fresco Mistura Vaca e Ovelha',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Mistura Vaca e Ovelha',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-mistura-vaca-e-ovelha.jpg',
+    description: 'Combinação harmoniosa entre a suavidade do leite de vaca e a riqueza do leite de ovelha.',
+  },
+  {
+    id: 'fresco-mistura-vaca-ovelha-embalado',
+    name: 'Queijo Fresco Mistura Vaca e Ovelha Embalado',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Mistura Vaca e Ovelha',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-mistura-vaca-e-ovelha-embalado.jpg',
+    description: 'Formato embalado que preserva toda a suculência da mistura de leites.',
+  },
+  {
+    id: 'fresco-copos-2',
+    name: 'Queijo Fresco “Copos” Pack 2',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Pack 2 unidades',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-copos-dois.jpg',
+    description: 'Doses individuais práticas em pack duplo para consumo diário.',
+  },
+  {
+    id: 'fresco-copos-6',
+    name: 'Queijo Fresco “Copos” Pack 6',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Pack 6 unidades',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-copos-seis.jpg',
+    description: 'Formato multipack de 6 unidades para toda a semana.',
+  },
+  {
+    id: 'fresco-medio-grande',
+    name: 'Queijo Fresco Médio Grande',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-medio-grande.jpg',
+    description: 'Equilíbrio ideal de tamanho para refeições em família.',
+  },
+  {
+    id: 'fresco-medio-pequeno',
+    name: 'Queijo Fresco Médio Pequeno',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-medio-pequeno.jpg',
+    description: 'Formato versátil com a consistência firme e suave característica da Lactimonte.',
+  },
+  {
+    id: 'fresco-pequeno-embalado',
+    name: 'Queijo Fresco Pequeno Embalado',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-pequeno-embalado.jpg',
+    description: 'Dose individual embalada com máxima higiene e frescura.',
+  },
+  {
+    id: 'fresco-pequeno',
+    name: 'Queijo Fresco Pequeno Tradicional',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-pequeno.jpg',
+    description: 'O clássico queijo fresco individual presente nas mesas portuguesas.',
+  },
+  {
+    id: 'fresco-pequeno-pack6',
+    name: 'Queijo Fresco Pequeno (Pack 6 Unidades)',
+    category: 'frescos',
+    categoryLabel: 'Queijo Fresco',
+    format: 'Pack 6 unidades',
+    milkType: 'Vaca',
+    image: '/assets/imagem/queijo-frescos/queijo-fresco-pequeno-seis-unidades.jpg',
+    description: 'Pack familiar de 6 unidades para famílias e hotelaria.',
+  },
+
+  // ======================== REQUEIJÃO ========================
+  {
+    id: 'requeijao-meio-gordo-grande',
+    name: 'Requeijão Meio Gordo — Grande',
+    category: 'requeijao',
+    categoryLabel: 'Requeijão Tradicional',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/requeijoes/requeijao-meio-gordo-grande.jpg',
+    highlight: true,
+    badge: 'Receita Original',
+    description: 'Requeijão tradicional obtido da fervura lenta do soro, cremoso e irresistível.',
+  },
+  {
+    id: 'requeijao-meio-gordo-pequeno',
+    name: 'Requeijão Meio Gordo — Pequeno',
+    category: 'requeijao',
+    categoryLabel: 'Requeijão Tradicional',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/requeijoes/requeijao-meio-gordo-pequeno.jpg',
+    description: 'Formato compacto ideal para degustar simples, com mel ou canela.',
+  },
+  {
+    id: 'requeijao-cabra',
+    name: 'Requeijão de Cabra',
+    category: 'requeijao',
+    categoryLabel: 'Requeijão',
+    format: 'Vendido à unidade',
+    milkType: 'Cabra',
+    image: '/assets/imagem/requeijoes/requeijao-requeijao-de-cabra.jpg',
+    badge: '100% Cabra',
+    description: 'Textura rica e sabor distinto obtido a partir de soro de leite de cabra.',
+  },
+  {
+    id: 'requeijao-doce-abobora',
+    name: 'Requeijão com Doce Extra de Abóbora',
+    category: 'requeijao',
+    categoryLabel: 'Requeijão Sobremesa',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/requeijoes/requeijao-com-doce-extra-de- abobora.jpg',
+    highlight: true,
+    badge: 'Novidade Doce',
+    description: 'A combinação clássica portuguesa de requeijão fresco com doce extra de abóbora.',
+  },
+  {
+    id: 'requeijao-doce-frutos-vermelhos',
+    name: 'Requeijão com Doce Extra de Frutos Vermelhos',
+    category: 'requeijao',
+    categoryLabel: 'Requeijão Sobremesa',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/requeijoes/requeijao-com-doce-extra-de-frutos-vermelhos.jpg',
+    highlight: true,
+    badge: 'Novidade Doce',
+    description: 'Contraste vibrante entre a suavidade do requeijão e a frescura dos frutos vermelhos.',
+  },
+  {
+    id: 'requeijao-doce-figo',
+    name: 'Requeijão com Doce Extra de Figo',
+    category: 'requeijao',
+    categoryLabel: 'Requeijão Sobremesa',
+    format: 'Vendido à unidade',
+    milkType: 'Vaca',
+    image: '/assets/imagem/requeijoes/requeijao-com- doce-extra-de-figo.jpeg',
+    highlight: true,
+    badge: 'Novidade Doce',
+    description: 'A sobremesa ideal quando precisamos de algo doce e genuinamente português.',
+  },
+];

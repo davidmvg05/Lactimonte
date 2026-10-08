@@ -1,0 +1,407 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import {
+  COLOR_PALETTE,
+  TYPOGRAPHY_SPECS,
+  BUTTON_SIZES,
+  BUTTON_VARIATIONS,
+  ICON_CATALOG,
+  FORM_ERROR_MESSAGES,
+  RESPONSIVE_BREAKPOINTS,
+} from '../data/design-system';
+---
+
+<BaseLayout
+  title="Design System Oficial | Lactimonte (WCAG 2.2)"
+  description="Documentação interativa do Design System da Lactimonte: paleta de 3 cores (#ffffff background geral, #169f38 títulos/cards/bordas, #000000 exclusivo para títulos e descrições), tipografia Dancing Script & Roboto, 3 formatos e 2 variações de botões sem profundidade com troca de cor no hover."
+>
+  <!-- Hero Banner (White background, Green & Black typography) -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="max-w-4xl">
+        <span class="font-script text-3xl md:text-4xl text-[#169f38] block mb-3">
+          Arquitetura Visual & Acessibilidade WCAG 2.2
+        </span>
+        <h1 class="font-sans text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[1.02] text-[#000000] mb-6">
+          Design System <span class="text-[#169f38]">Lactimonte</span>
+        </h1>
+        <p class="text-lg md:text-xl text-[#000000] leading-relaxed mb-8">
+          Antes da construção de qualquer página, definimos todas as fundações visuais, ergonómicas e semânticas da Queijaria Lactimonte: <strong>Branco (#ffffff) como background geral</strong>, <strong>Verde (#169f38) para títulos, cards e bordas</strong>, e <strong>Preto (#000000) exclusivamente para títulos e descrições</strong> (nunca como fundo).
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <Button href="#paleta-cores" variant="primary" size="md" icon="arrow-up-right" label="1. Paleta de Cores" />
+          <Button href="#tipografia" variant="secondary" size="md" icon="arrow-up-right" label="2. Tipografia" />
+          <Button href="#botoes-wcag" variant="primary" size="md" icon="check-circle" label="3. Botões (3 Tamanhos × 2 Variações × 3 Estados)" />
+          <Button href="#icones-catalogo" variant="secondary" size="md" icon="award" label="4. Ícones (icones.js.org)" />
+          <Button href="#erros-formularios" variant="primary" size="md" icon="alert-circle" label="5. Mensagens de Erro & Newsletter" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. PALETA DE 3 CORES ESTRITA -->
+  <section id="paleta-cores" class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">Fundação Cromática</span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          1. Paleta de Três Cores (<span class="text-[#169f38]">Sem Fundos Pretos</span>)
+        </h2>
+        <p class="mt-3 max-w-3xl text-base md:text-lg text-[#000000]">
+          O sistema utiliza <code>#ffffff</code> para o background geral, <code>#169f38</code> para títulos, cards e bordas, e <code>#000000</code> apenas para títulos e descrições.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {
+          COLOR_PALETTE.map((token) => (
+            <article class="rounded-[28px] border-2 border-[#169f38] overflow-hidden bg-[#ffffff] flex flex-col justify-between">
+              <div
+                class={`h-44 p-6 flex flex-col justify-between border-b-2 border-[#169f38] ${
+                  token.hex === '#169f38'
+                    ? 'bg-[#169f38] text-[#ffffff]'
+                    : 'bg-[#ffffff] text-[#000000]'
+                }`}
+              >
+                <span class="inline-block self-start px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider border-2 border-[#169f38]">
+                  {token.cssVar}
+                </span>
+                <div
+                  class="font-sans text-3xl font-black uppercase tracking-wider"
+                  style={token.hex === '#000000' ? 'color: #000000;' : undefined}
+                >
+                  {token.hex} {token.hex === '#000000' ? '(Apenas Texto)' : ''}
+                </div>
+              </div>
+
+              <div class="p-6 space-y-4 text-[#000000]">
+                <h3 class="font-sans text-xl font-black uppercase text-[#169f38]">{token.name}</h3>
+                <p class="text-sm leading-relaxed">{token.usage}</p>
+
+                <div class="pt-4 border-t-2 border-[#169f38] space-y-2 text-xs font-bold">
+                  <div class="flex justify-between">
+                    <span>RGB:</span>
+                    <code>{token.rgb}</code>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Contraste c/ #000000:</span>
+                    <span class="text-[#169f38]">{token.contrastVsBlack}</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>Contraste c/ #ffffff:</span>
+                    <span>{token.contrastVsWhite}</span>
+                  </div>
+                  <div class="pt-2 text-[#169f38] uppercase tracking-wider">
+                    {token.wcagCompliance}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TIPOGRAFIA (DANCING SCRIPT & ROBOTO) -->
+  <section id="tipografia" class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">Voz Editorial & Funcional</span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          2. Tipografia Oficial: <span class="text-[#169f38]">Dancing Script & Roboto</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {
+          TYPOGRAPHY_SPECS.map((typo) => (
+            <div class="p-8 rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] space-y-6">
+              <div class="flex items-center justify-between border-b-2 border-[#169f38] pb-4">
+                <div>
+                  <span class="text-xs font-bold uppercase tracking-widest text-[#169f38]">
+                    {typo.role}
+                  </span>
+                  <h3 class="text-3xl font-black uppercase mt-1 text-[#000000]">{typo.family}</h3>
+                </div>
+                <code class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black">
+                  .{typo.cssClass}
+                </code>
+              </div>
+
+              <div
+                class={`p-6 rounded-[20px] border-2 border-[#169f38] bg-[#ffffff] ${
+                  typo.cssClass === 'font-script'
+                    ? 'font-script text-3xl md:text-4xl text-[#169f38]'
+                    : 'font-sans text-2xl md:text-3xl font-black uppercase text-[#000000]'
+                }`}
+              >
+                {typo.sample}
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                {typo.weights.map((w) => (
+                  <span class="px-3 py-1 rounded-full border-2 border-[#169f38] text-[#169f38] text-xs font-bold">
+                    Peso: {w}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SISTEMA DE BOTÕES WCAG 2.2 (3 FORMATOS × 2 VARIAÇÕES × 3 ESTADOS) -->
+  <section id="botoes-wcag" class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">
+          Sem Profundidade · Troca de Cor no Hover · Resposta em 0,1s
+        </span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          3. Sistema de Botões (<span class="text-[#169f38]">3 Tamanhos × 2 Variações × 3 Estados</span>)
+        </h2>
+      </div>
+
+      <!-- Key Rules Banner -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">1. Tamanho (WCAG 2.5.5)</span>
+          <p class="text-sm font-bold text-[#000000]">Alvo mínimo de 44×44px (SM: 44px, MD: 52px, LG: 60px).</p>
+        </div>
+        <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">2. Hover = Troca de Cor</span>
+          <p class="text-sm font-bold text-[#000000]">Sem profundidade: no hover o background passa a ser a cor do texto e vice-versa.</p>
+        </div>
+        <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">3. Ativo Nunca Preto</span>
+          <p class="text-sm font-bold text-[#000000]">No estado ativo o background nunca é preto (#169f38 ou #ffffff) e o ícone único confirma a ação.</p>
+        </div>
+        <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">4. Raio & Movimento 0,1s</span>
+          <p class="text-sm font-bold text-[#000000]">Raio igual a metade da altura (22/26/30px) e resposta em 100ms (0,1s).</p>
+        </div>
+      </div>
+
+      <!-- Size Specifications Table -->
+      <div class="mb-14 overflow-x-auto rounded-[24px] border-2 border-[#169f38]">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#169f38] text-[#ffffff] text-xs uppercase tracking-wider">
+              <th class="p-4">Formato / Tamanho</th>
+              <th class="p-4">Altura × Largura Mín.</th>
+              <th class="p-4">Raio (1/2 Altura)</th>
+              <th class="p-4">Padding Horizontal</th>
+              <th class="p-4">Ícone Único</th>
+              <th class="p-4">Regra WCAG 2.2</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#169f38] text-sm font-medium text-[#000000]">
+            {
+              BUTTON_SIZES.map((sz) => (
+                <tr>
+                  <td class="p-4 font-black uppercase text-[#169f38]">{sz.label}</td>
+                  <td class="p-4 font-bold">{sz.heightPx}px × {sz.minWidthPx}px</td>
+                  <td class="p-4 font-bold text-[#169f38]">{sz.borderRadiusPx}px</td>
+                  <td class="p-4">{sz.paddingX}</td>
+                  <td class="p-4">{sz.iconSizePx}px</td>
+                  <td class="p-4 font-bold">{sz.wcagTargetRule}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Interactive Matrix: 2 Variations × 3 Sizes × 3 States (Normal, Hover, Carregado/Active) -->
+      <div class="space-y-12">
+        {
+          BUTTON_VARIATIONS.map((variation) => (
+            <div class="p-8 rounded-[32px] border-2 border-[#169f38] bg-[#ffffff] space-y-8">
+              <div class="border-b-2 border-[#169f38] pb-4">
+                <h3 class="font-sans text-2xl md:text-3xl font-black uppercase text-[#169f38]">
+                  {variation.name}
+                </h3>
+                <p class="text-sm md:text-base mt-1 text-[#000000]">{variation.description}</p>
+              </div>
+
+              <!-- Matrix of 3 Sizes across 3 States -->
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Estado 1: NORMAL -->
+                <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-5">
+                  <div>
+                    <span class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black uppercase">
+                      Estado 1: Normal
+                    </span>
+                    <p class="text-xs font-bold mt-2 text-[#000000]">
+                      Fundo: {variation.normalState.background} | Texto: {variation.normalState.text}
+                    </p>
+                  </div>
+                  <div class="flex flex-col items-start gap-4">
+                    <Button variant={variation.id} size="sm" demoState="normal" icon="arrow-up-right" label="Formato SM (44px)" />
+                    <Button variant={variation.id} size="md" demoState="normal" icon="arrow-up-right" label="Formato MD (52px)" />
+                    <Button variant={variation.id} size="lg" demoState="normal" icon="arrow-up-right" label="Formato LG (60px)" />
+                  </div>
+                </div>
+
+                <!-- Estado 2: HOVER (Troca de cor background <-> texto) -->
+                <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-5">
+                  <div>
+                    <span class="px-3 py-1 rounded-full bg-[#ffffff] text-[#169f38] border-2 border-[#169f38] text-xs font-black uppercase">
+                      Estado 2: Hover (Troca de Cor)
+                    </span>
+                    <p class="text-xs font-bold mt-2 text-[#000000]">
+                      Fundo: {variation.hoverState.background} | Texto: {variation.hoverState.text}
+                    </p>
+                  </div>
+                  <div class="flex flex-col items-start gap-4">
+                    <Button variant={variation.id} size="sm" demoState="hover" icon="arrow-up-right" label="Hover SM (44px)" />
+                    <Button variant={variation.id} size="md" demoState="hover" icon="arrow-up-right" label="Hover MD (52px)" />
+                    <Button variant={variation.id} size="lg" demoState="hover" icon="arrow-up-right" label="Hover LG (60px)" />
+                  </div>
+                </div>
+
+                <!-- Estado 3: CARREGADO / ACTIVE (Nunca fundo preto!) -->
+                <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-5">
+                  <div>
+                    <span class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black uppercase">
+                      Estado 3: Ativo / Carregado
+                    </span>
+                    <p class="text-xs font-bold mt-2 text-[#000000]">
+                      {variation.activeState.confirmationFeedback}
+                    </p>
+                  </div>
+                  <div class="flex flex-col items-start gap-4">
+                    <Button variant={variation.id} size="sm" demoState="active" icon="arrow-up-right" label="Ativo SM (44px)" />
+                    <Button variant={variation.id} size="md" demoState="active" icon="arrow-up-right" label="Ativo MD (52px)" />
+                    <Button variant={variation.id} size="lg" demoState="active" icon="arrow-up-right" label="Ativo LG (60px)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CATÁLOGO DE ÍCONES (ICONES.JS.ORG) -->
+  <section id="icones-catalogo" class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">
+          Fonte Oficial: https://icones.js.org/ (Coleção Lucide)
+        </span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          4. Base de Dados de <span class="text-[#169f38]">Ícones Utilizados</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {
+          ICON_CATALOG.map((item) => (
+            <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff] flex items-start gap-4">
+              <div class="w-12 h-12 rounded-full bg-[#169f38] text-[#ffffff] flex items-center justify-center shrink-0">
+                <Icon name={item.id} size={22} />
+              </div>
+              <div>
+                <h3 class="font-sans text-sm font-black uppercase text-[#000000]">{item.label}</h3>
+                <code class="text-xs font-bold text-[#169f38] block mt-0.5">{item.iconesJsId}</code>
+                <p class="text-xs text-[#000000] mt-1.5 leading-snug">{item.usageContext}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. CATÁLOGO DE MENSAGENS DE ERRO DE FORMULÁRIOS E NEWSLETTER -->
+  <section id="erros-formularios" class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">
+          Prevenção e Recuperação de Erros (WCAG 3.3.1, 3.3.3 e 4.1.3)
+        </span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          5. Mensagens de Erro de <span class="text-[#169f38]">Formulários & Newsletter</span>
+        </h2>
+        <p class="mt-3 max-w-3xl text-base text-[#000000]">
+          Todas as mensagens utilizam fundo branco (<code>#ffffff</code>) ou verde (<code>#169f38</code>), bordas verdes e texto preto/branco com ícones explícitos, sem qualquer fundo preto.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {
+          FORM_ERROR_MESSAGES.map((err) => {
+            const isSuccess = err.code.startsWith('OK_');
+            return (
+              <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] flex flex-col justify-between gap-4">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black uppercase">
+                    {err.field} • {err.formType}
+                  </span>
+                  <code class="text-xs font-bold text-[#169f38]">{err.code}</code>
+                </div>
+
+                <p class="text-xs font-bold uppercase tracking-wider text-[#000000]">
+                  Gatilho: <span class="font-normal normal-case">{err.triggerCondition}</span>
+                </p>
+
+                <!-- Live Rendered Banner Preview -->
+                <div
+                  class={isSuccess ? 'lacti-success-msg' : 'lacti-error-msg'}
+                  role={isSuccess ? 'status' : 'alert'}
+                >
+                  <Icon
+                    name={isSuccess ? 'check-circle' : 'alert-circle'}
+                    size={20}
+                    class={isSuccess ? 'text-[#ffffff] shrink-0 mt-0.5' : 'text-[#169f38] shrink-0 mt-0.5'}
+                  />
+                  <span>{err.message}</span>
+                </div>
+
+                <div class="text-[11px] font-bold text-[#169f38] uppercase tracking-wider">
+                  {err.wcagCriterion}
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. GRELHA DE BREAKPOINTS RESPONSIVOS -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
+    <div class="lacti-container">
+      <div class="mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">
+          Responsividade Total em Todos os Dispositivos
+        </span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          6. Media Queries <span class="text-[#169f38]">Obrigatórias Configuradas</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {
+          RESPONSIVE_BREAKPOINTS.map((bp) => (
+            <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-3">
+              <code class="inline-block px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black">
+                {bp.query}
+              </code>
+              <h3 class="font-sans text-xl font-black uppercase text-[#169f38]">{bp.label}</h3>
+              <p class="text-sm leading-relaxed text-[#000000]">{bp.layout}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

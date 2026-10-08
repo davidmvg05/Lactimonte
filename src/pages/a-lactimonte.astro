@@ -1,0 +1,296 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+import { COMPANY_INFO } from '../data/company';
+---
+
+<BaseLayout
+  title="A Lactimonte | História, Produção e Qualidade desde 1980"
+  description="Conheça a história da Queijaria Lactimonte – Fernando Marques, Lda., fundada em 1980 em Montemuro, Mafra. Produção tradicional, controlo sanitário rigoroso e sustentabilidade com ETAR própria."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <span class="font-script text-3xl md:text-4xl text-[#169f38] block">
+            Montemuro · Concelho de Mafra · Desde 1980
+          </span>
+          <h1 class="font-sans text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[1.02] text-[#000000]">
+            Uma Família Dedicada à <span class="text-[#169f38]">Arte Queijeira</span> Portuguesa.
+          </h1>
+          <p class="text-base md:text-xl leading-relaxed text-[#000000]">
+            A <strong>Queijaria Lactimonte – Fernando Marques, Lda.</strong> nasceu em 1980 do espírito empreendedor de <strong>Fernando Marques</strong> e de sua esposa <strong>Maria Adelina Amaro Marques</strong>. Enraizada na região Saloia, em Montemuro (Mafra), alia há mais de quatro décadas a sabedoria tradicional às mais modernas exigências de segurança alimentar.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <Button href="#qualidade" variant="primary" size="md" icon="shield-check" label="Produção & Qualidade" />
+            <Button href="/queijos" variant="secondary" size="md" icon="arrow-up-right" label="Ver Gama de Queijos" />
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-[32px] overflow-hidden border-2 border-[#169f38] aspect-[4/3] bg-[#ffffff]">
+            <img
+              src="/assets/imagem/fabrica/lactimonte-um.jpg"
+              alt="Instalações da Queijaria Lactimonte em Montemuro, Mafra"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline & Heritage -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="max-w-3xl mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">O Nosso Percurso</span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          Da Tradição Saloia à <span class="text-[#169f38]">Liderança Nacional</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <article class="p-8 rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] space-y-4">
+          <span class="inline-block px-4 py-1 rounded-full bg-[#169f38] text-[#ffffff] font-black text-sm uppercase">
+            1980 · Fundação
+          </span>
+          <h3 class="font-sans text-2xl font-black uppercase text-[#169f38]">Raízes em Montemuro, Mafra</h3>
+          <p class="text-sm leading-relaxed text-[#000000]">
+            Fernando Marques e Maria Adelina Amaro Marques iniciam a produção artesanal de queijos frescos e requeijão na aldeia de Montemuro, Santo Estevão das Galés, valorizando o leite das pastagens saloias.
+          </p>
+        </article>
+
+        <article class="p-8 rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] space-y-4">
+          <span class="inline-block px-4 py-1 rounded-full bg-[#169f38] text-[#ffffff] font-black text-sm uppercase">
+            Expansão & Rigor
+          </span>
+          <h3 class="font-sans text-2xl font-black uppercase text-[#169f38]">Modernização e Sustentabilidade</h3>
+          <p class="text-sm leading-relaxed text-[#000000]">
+            Ampliação da unidade industrial com linhas multimoldes higienicamente controladas, frota própria de distribuição refrigerada e construção de uma moderna ETAR própria para proteção ambiental.
+          </p>
+        </article>
+
+        <article class="p-8 rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] space-y-4">
+          <span class="inline-block px-4 py-1 rounded-full bg-[#169f38] text-[#ffffff] font-black text-sm uppercase">
+            Presente & Futuro
+          </span>
+          <h3 class="font-sans text-2xl font-black uppercase text-[#169f38]">Distinção Cinco Estrelas</h3>
+          <p class="text-sm leading-relaxed text-[#000000]">
+            Premiada consecutivamente com o Prémio Cinco Estrelas, Sabor do Ano e estatuto PME Líder há mais de 10 anos, a Lactimonte leva o sabor genuíno de Mafra a todo o país.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produção & Qualidade (#qualidade) -->
+  <section id="qualidade" class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6 space-y-6">
+          <span class="font-script text-3xl md:text-4xl text-[#169f38] block">
+            Segurança Alimentar & Meio Ambiente
+          </span>
+          <h2 class="font-sans text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-[#000000]">
+            Produção e Controlo de <span class="text-[#169f38]">Qualidade sem Compromissos</span>
+          </h2>
+          <p class="text-base leading-relaxed text-[#000000]">
+            A qualidade de um grande queijo começa na origem do leite. Na Lactimonte, todas as recolhas são provenientes de produtores rigorosamente selecionados e controlados a nível sanitário pelas Organizações de Produtores Pecuários (OPP) locais.
+          </p>
+          <p class="text-base leading-relaxed text-[#000000]">
+            À chegada à nossa queijaria em Montemuro, o leite é submetido a análises laboratoriais físico-químicas e microbiológicas antes da pasteurização, coagulação enzimática, dessoramento lento ou maturação em câmaras de cura controlada.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
+              <Icon name="shield-check" size={24} class="text-[#169f38] mb-2" />
+              <h3 class="font-sans text-base font-black uppercase text-[#169f38]">Controlo OPP & HACCP</h3>
+              <p class="text-xs mt-1 leading-relaxed text-[#000000]">
+                Rastreabilidade integral desde a exploração leiteira até à distribuição refrigerada.
+              </p>
+            </div>
+            <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
+              <Icon name="leaf" size={24} class="text-[#169f38] mb-2" />
+              <h3 class="font-sans text-base font-black uppercase text-[#169f38]">ETAR Própria em Mafra</h3>
+              <p class="text-xs mt-1 leading-relaxed text-[#000000]">
+                Estação de Tratamento de Águas Residuais dedicada para preservar os ecossistemas da região Saloia.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+          <img
+            src="/assets/imagem/fabrica/lactimonte-quatro.jpg"
+            alt="Laboratório e controlo de qualidade Lactimonte"
+            class="rounded-[24px] border-2 border-[#169f38] w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <img
+            src="/assets/imagem/fabrica/lactimonte-cinco.jpg"
+            alt="Câmaras de maturação e cura Lactimonte"
+            class="rounded-[24px] border-2 border-[#169f38] w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <img
+            src="/assets/imagem/fabrica/lactimonte-seis.jpg"
+            alt="Frota de distribuição refrigerada Lactimonte"
+            class="rounded-[24px] border-2 border-[#169f38] w-full h-64 object-cover col-span-2"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards Section (Imagem 1 Card Style + Imagem 2 Bento Layout) -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="font-script text-3xl text-[#169f38] block mb-1">Confiança Comprovada</span>
+        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          Prémios & <span class="text-[#169f38]">Certificações</span>
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        {COMPANY_INFO.awards[0] && (
+          <article class="lg:row-span-2 rounded-tl-[26px] rounded-tr-[64px] sm:rounded-tr-[84px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-6 sm:p-7 flex flex-col justify-between gap-5">
+            <div class="space-y-2">
+              <span class="font-script text-2xl sm:text-3xl text-[#ffffff] block">
+                {COMPANY_INFO.awards[0].years}
+              </span>
+              <h3 class="font-sans text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight leading-[1.12] text-[#ffffff]">
+                {COMPANY_INFO.awards[0].title}
+              </h3>
+            </div>
+
+            <!-- Single inner white card in the middle space: 2 on top, 1 in middle, 2 on bottom -->
+            <div class="w-full flex-1 rounded-[22px] bg-[#ffffff] p-5 sm:p-6 flex flex-col justify-center gap-4 sm:gap-5">
+              <!-- Top Row: 2 Stars -->
+              <div class="flex items-center justify-around w-full px-4 sm:px-8">
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[0]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2020`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[1]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2021`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- Middle Row: 1 Star Centered -->
+              <div class="flex items-center justify-center w-full">
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[2]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2022`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- Bottom Row: 2 Stars -->
+              <div class="flex items-center justify-around w-full px-4 sm:px-8">
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[3]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2023`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[4]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2024`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <p class="text-base sm:text-lg text-[#ffffff] leading-relaxed">
+              {COMPANY_INFO.awards[0].subtitle}
+            </p>
+          </article>
+        )}
+
+        {COMPANY_INFO.awards[1] && (
+          <article class="rounded-tl-[64px] sm:rounded-tl-[76px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-6 sm:p-7 flex flex-col justify-between gap-4">
+            <div class="space-y-2">
+              <span class="font-script text-2xl sm:text-3xl text-[#ffffff] block">
+                {COMPANY_INFO.awards[1].years}
+              </span>
+              <h3 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.15] text-[#ffffff]">
+                {COMPANY_INFO.awards[1].title}
+              </h3>
+            </div>
+
+            <!-- Single inner white card framed by the green card contour -->
+            <div class="w-full rounded-[20px] bg-[#ffffff] px-5 py-5 sm:px-6 sm:py-6 flex items-center justify-around gap-4 sm:gap-6">
+              {COMPANY_INFO.awards[1].images.map((imgSrc, idx) => (
+                <img
+                  src={imgSrc}
+                  alt={`${COMPANY_INFO.awards[1].title} (${idx + 1})`}
+                  class="h-20 sm:h-26 md:h-28 w-auto max-w-[28%] object-contain rounded-lg transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+
+            <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+              {COMPANY_INFO.awards[1].subtitle}
+            </p>
+          </article>
+        )}
+
+        {COMPANY_INFO.awards[2] && (
+          <article class="rounded-tl-[26px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[64px] sm:rounded-bl-[84px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-6 sm:p-7 flex flex-col justify-between gap-4">
+            <div class="space-y-2">
+              <span class="font-script text-2xl sm:text-3xl text-[#ffffff] block">
+                {COMPANY_INFO.awards[2].years}
+              </span>
+              <h3 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.15] text-[#ffffff]">
+                {COMPANY_INFO.awards[2].title}
+              </h3>
+            </div>
+
+            <!-- Single inner white card framed by the green card contour -->
+            <div class="w-full rounded-[20px] bg-[#ffffff] px-5 py-5 sm:px-6 sm:py-6 flex items-center justify-around gap-6 sm:gap-8 overflow-hidden">
+              {COMPANY_INFO.awards[2].images.map((imgSrc, idx) => (
+                <div class="h-18 sm:h-24 md:h-26 flex-1 flex items-center justify-center max-w-[45%] overflow-hidden">
+                  <img
+                    src={imgSrc}
+                    alt={`${COMPANY_INFO.awards[2].title} (${idx + 1})`}
+                    class="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+              {COMPANY_INFO.awards[2].subtitle}
+            </p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <NewsletterSection />
+</BaseLayout>

@@ -1,0 +1,622 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import CheeseAccordion from '../components/sections/CheeseAccordion.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+import { COMPANY_INFO } from '../data/company';
+import { NEWS_ITEMS } from '../data/news';
+
+const featuredNews = NEWS_ITEMS.slice(0, 3);
+---
+
+<BaseLayout
+  title="Lactimonte | Queijaria Tradicional de Mafra desde 1980"
+  description="Queijaria Lactimonte: produção e distribuição de queijos frescos, queijos curados e requeijão tradicional em Montemuro, Mafra desde 1980. Prémio Cinco Estrelas e Sabor do Ano."
+>
+  <!-- Inline script: executes before paint to avoid flash of content on every load/reload -->
+  <script is:inline>
+    try {
+      document.documentElement.classList.add('hero-anim-pending');
+    } catch (e) {}
+  </script>
+
+  <!-- ===================================================================== -->
+  <!-- HERO SECTION (White general background, Green cards/borders, Black/Green titles & descriptions) -->
+  <!-- ===================================================================== -->
+  <section class="relative bg-[#ffffff] text-[#000000] overflow-hidden">
+    <div class="lacti-container py-14 md:py-24 lg:py-28">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <!-- Left Editorial Copy -->
+        <div class="lg:col-span-7 space-y-6">
+          <div>
+            <!-- Typewriter Animated Script Phrase (Executes once per session) -->
+            <span
+              id="hero-typewriter-text"
+              class="font-script text-3xl sm:text-4xl md:text-5xl text-[#169f38] block mb-2 min-h-[1.3em]"
+              data-text="A Arte Queijeira desde 1980"
+            >
+              A Arte Queijeira desde 1980
+            </span>
+
+            <!-- Delayed Content Container: Heading, Description & Button fade in AFTER typing completes -->
+            <div id="hero-delayed-content" class="space-y-6">
+              <h1 class="font-sans text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black uppercase tracking-tight leading-[0.98] text-[#000000]">
+                O Sabor Puro da <span class="text-[#169f38]">Região Saloia</span> em Cada Mesa.
+              </h1>
+
+              <p class="text-base sm:text-lg md:text-xl text-[#000000] max-w-2xl leading-relaxed font-normal">
+                Fundada em 1980 pela família Marques em Montemuro, Mafra, a <strong>Lactimonte</strong> alia o saber ancestral queijeiro ao mais rigoroso controlo de qualidade nos nossos premiados <strong>Queijos Frescos</strong>, <strong>Queijos Curados</strong> e <strong>Requeijão</strong>.
+              </p>
+
+              <!-- Primary WCAG 2.2 CTA Button -->
+              <div class="flex flex-wrap items-center gap-4 pt-2">
+                <Button
+                  href="/queijos"
+                  variant="primary"
+                  size="lg"
+                  icon="arrow-up-right"
+                  label="Explorar Os Nossos Queijos"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Composition: Fades in CONCURRENTLY with the typing animation -->
+        <div id="hero-image-col" class="lg:col-span-5 relative">
+          <div class="relative rounded-[36px] overflow-hidden border-2 border-[#169f38] aspect-[4/5] bg-[#ffffff]">
+            <img
+              src="/assets/imagem/queijos-curados/conjunto-queijo-curados.jpg"
+              alt="Queijos Tradicionais Lactimonte produzidos em Mafra"
+              class="w-full h-full object-cover"
+              fetchpriority="high"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- TRUST & AWARDS BENTO GRID (Imagem 1 Card Style + Imagem 2 Layout)     -->
+  <!-- ===================================================================== -->
+  <section class="py-12 md:py-20 bg-[#ffffff] text-[#000000]" aria-label="Distinções e Prémios">
+    <div class="lacti-container">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        <!-- LEFT TALL CARD: Prémio Cinco Estrelas (2020, 2021, 2022, 2023, 2024) -->
+        {COMPANY_INFO.awards[0] && (
+          <article class="lg:row-span-2 rounded-tl-[26px] rounded-tr-[64px] sm:rounded-tr-[84px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-6 sm:p-7 flex flex-col justify-between gap-5">
+            <div class="space-y-2">
+              <span class="font-script text-2xl sm:text-3xl text-[#ffffff] block">
+                {COMPANY_INFO.awards[0].years}
+              </span>
+              <h2 class="font-sans text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight leading-[1.12] text-[#ffffff]">
+                {COMPANY_INFO.awards[0].title}
+              </h2>
+            </div>
+
+            <!-- Single inner white card in the middle space: 2 on top, 1 in middle, 2 on bottom -->
+            <div class="w-full flex-1 rounded-[22px] bg-[#ffffff] p-5 sm:p-6 flex flex-col justify-center gap-4 sm:gap-5">
+              <!-- Top Row: 2 Stars -->
+              <div class="flex items-center justify-around w-full px-4 sm:px-8">
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[0]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2020`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[1]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2021`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- Middle Row: 1 Star Centered -->
+              <div class="flex items-center justify-center w-full">
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[2]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2022`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- Bottom Row: 2 Stars -->
+              <div class="flex items-center justify-around w-full px-4 sm:px-8">
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[3]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2023`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="h-24 sm:h-28 md:h-32 flex items-center justify-center">
+                  <img
+                    src={COMPANY_INFO.awards[0].images[4]}
+                    alt={`${COMPANY_INFO.awards[0].title} 2024`}
+                    class="max-h-full w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <p class="text-base sm:text-lg text-[#ffffff] leading-relaxed">
+              {COMPANY_INFO.awards[0].subtitle}
+            </p>
+          </article>
+        )}
+
+        <!-- TOP RIGHT CARD: Sabor do Ano (2016, 2017, 2019) -->
+        {COMPANY_INFO.awards[1] && (
+          <article class="rounded-tl-[64px] sm:rounded-tl-[76px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[26px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-6 sm:p-7 flex flex-col justify-between gap-4">
+            <div class="space-y-2">
+              <span class="font-script text-2xl sm:text-3xl text-[#ffffff] block">
+                {COMPANY_INFO.awards[1].years}
+              </span>
+              <h2 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.15] text-[#ffffff]">
+                {COMPANY_INFO.awards[1].title}
+              </h2>
+            </div>
+
+            <!-- Single inner white card framed by the green card contour -->
+            <div class="w-full rounded-[20px] bg-[#ffffff] px-5 py-5 sm:px-6 sm:py-6 flex items-center justify-around gap-4 sm:gap-6">
+              {COMPANY_INFO.awards[1].images.map((imgSrc, idx) => (
+                <img
+                  src={imgSrc}
+                  alt={`${COMPANY_INFO.awards[1].title} (${idx + 1})`}
+                  class="h-20 sm:h-26 md:h-28 w-auto max-w-[28%] object-contain rounded-lg transition-transform duration-300 hover:scale-105"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+
+            <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+              {COMPANY_INFO.awards[1].subtitle}
+            </p>
+          </article>
+        )}
+
+        <!-- BOTTOM RIGHT CARD: PME Líder & Empresa Certificada (pme-lider & ifs-food) -->
+        {COMPANY_INFO.awards[2] && (
+          <article class="rounded-tl-[26px] rounded-tr-[26px] rounded-br-[26px] rounded-bl-[64px] sm:rounded-bl-[84px] border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] p-6 sm:p-7 flex flex-col justify-between gap-4">
+            <div class="space-y-2">
+              <span class="font-script text-2xl sm:text-3xl text-[#ffffff] block">
+                {COMPANY_INFO.awards[2].years}
+              </span>
+              <h2 class="font-sans text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight leading-[1.15] text-[#ffffff]">
+                {COMPANY_INFO.awards[2].title}
+              </h2>
+            </div>
+
+            <!-- Single inner white card framed by the green card contour -->
+            <div class="w-full rounded-[20px] bg-[#ffffff] px-5 py-5 sm:px-6 sm:py-6 flex items-center justify-around gap-6 sm:gap-8 overflow-hidden">
+              {COMPANY_INFO.awards[2].images.map((imgSrc, idx) => (
+                <div class="h-18 sm:h-24 md:h-26 flex-1 flex items-center justify-center max-w-[45%] overflow-hidden">
+                  <img
+                    src={imgSrc}
+                    alt={`${COMPANY_INFO.awards[2].title} (${idx + 1})`}
+                    class="max-h-full max-w-full object-contain transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <p class="text-sm sm:text-base text-[#ffffff] leading-relaxed">
+              {COMPANY_INFO.awards[2].subtitle}
+            </p>
+          </article>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- INTERACTIVE CHEESE ACCORDION (Inspired by service-accordion.framer)   -->
+  <!-- ===================================================================== -->
+  <CheeseAccordion />
+
+  <!-- ===================================================================== -->
+  <!-- NOVIDADES EM DESTAQUE: REQUEIJÃO COM DOCES EXTRA                      -->
+  <!-- ===================================================================== -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="p-0 sm:p-2 bg-[#ffffff]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <!-- Left Column: Editorial Text & Buttons -->
+          <div class="lg:col-span-6 space-y-6">
+            <div>
+              <span class="font-script text-3xl md:text-4xl text-[#169f38] block mb-1">
+                Sobremesa pronta a saborear
+              </span>
+              <h2 class="font-sans text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-[#000000]">
+                Requeijão com Doce Extra de <span class="text-[#169f38]">Abóbora, Figo e Frutos Vermelhos</span>
+              </h2>
+            </div>
+
+            <p class="text-base md:text-lg leading-relaxed text-[#000000]">
+              Unimos a textura aveludada do nosso Requeijão tradicional aos sabores autênticos da doçaria portuguesa. Três combinações irresistíveis prontas a servir ao lanche ou como sobremesa gourmet.
+            </p>
+
+            <div class="flex flex-wrap gap-4 pt-2">
+              <Button
+                href="/queijos#requeijao"
+                variant="primary"
+                size="md"
+                icon="arrow-up-right"
+                label="Descobrir Gama Requeijão"
+              />
+            </div>
+          </div>
+
+          <!-- Right Column: Image with green border -->
+          <div class="lg:col-span-6">
+            <div class="rounded-[28px] overflow-hidden border-2 border-[#169f38] bg-[#ffffff]">
+              <img
+                src="/assets/imagem/requeijoes/conjunto-sobremesa-requeijao-doces.png"
+                alt="Novidades Lactimonte: Requeijão com Doce Extra de Abóbora, Figo e Frutos Vermelhos"
+                class="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- STORYTELLING & PRODUCTION PILLARS                                     -->
+  <!-- ===================================================================== -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <!-- Full-width Header: Phrase, Title and Full-width Paragraph -->
+      <div class="max-w-4xl mb-12 space-y-4">
+        <span class="font-script text-3xl md:text-4xl text-[#169f38] block">
+          Montemuro · Santo Estevão das Galés · Mafra
+        </span>
+        <h2 class="font-sans text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight leading-[1.05] text-[#000000]">
+          Mais de 45 Anos de <span class="text-[#169f38]">Rigor, Frescura e Sustentabilidade.</span>
+        </h2>
+        <p class="text-base md:text-lg leading-relaxed text-[#000000]">
+          Nascida do espírito empreendedor de <strong>Fernando Marques</strong> e <strong>Maria Adelina Amaro Marques</strong>, a Lactimonte cresceu de uma queijaria familiar para uma unidade de referência nacional, mantendo intacta a alma artesanal e o respeito pela natureza através de uma moderna ETAR própria.
+        </p>
+      </div>
+
+      <!-- 3 Cards in a Row: Factory Images, Numbered Badges, Titles, Descriptions & Buttons -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch">
+        {
+          COMPANY_INFO.pillars.map((pillar, idx) => {
+            const factoryImages = [
+              '/assets/imagem/fabrica/lactimonte-dois.png',
+              '/assets/imagem/fabrica/lactimonte-seis.jpg',
+              '/assets/imagem/fabrica/lactimonte-sete.jpg',
+            ];
+            const imgPath = factoryImages[idx] || factoryImages[0];
+
+            return (
+              <article class="rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] overflow-hidden flex flex-col justify-between">
+                <div>
+                  <div class="aspect-[16/10] overflow-hidden border-b-2 border-[#169f38] bg-[#ffffff]">
+                    <img
+                      src={imgPath}
+                      alt={pillar.title}
+                      class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="p-6 space-y-4">
+                    <div class="flex items-center gap-3">
+                      <span class="w-10 h-10 rounded-full bg-[#169f38] text-[#ffffff] font-black text-sm flex items-center justify-center shrink-0">
+                        {pillar.number}
+                      </span>
+                      <h3 class="font-sans text-xl font-black uppercase text-[#169f38] leading-snug">
+                        {pillar.title}
+                      </h3>
+                    </div>
+                    <p class="text-sm leading-relaxed text-[#000000]">
+                      {pillar.description}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="px-6 pb-6 pt-2">
+                  <Button
+                    href="/a-lactimonte"
+                    variant="primary"
+                    size="sm"
+                    icon="arrow-up-right"
+                    label="Saber Mais"
+                    class="w-full"
+                  />
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- GOOGLE REVIEWS & TRUSTINDEX (Matching Imagem 2)                       -->
+  <!-- ===================================================================== -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span class="font-script text-3xl md:text-4xl text-[#169f38] block mb-1">
+          Reconhecimento Real dos Consumidores
+        </span>
+        <h2 class="font-sans text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+          Avaliação Geral no <span class="text-[#169f38]">Google</span>
+        </h2>
+      </div>
+
+      <!-- Main Google Badge Card (From Imagem 2) -->
+      <div class="max-w-xl mx-auto rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] p-8 sm:p-10 text-center space-y-5 shadow-sm">
+        <!-- Google "G" Icon + Score 4.8 -->
+        <div class="flex items-center justify-center gap-3.5">
+          <svg class="w-11 h-11 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.15z" />
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z" />
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+          </svg>
+          <span class="font-sans text-5xl sm:text-6xl font-black text-[#000000] tracking-tight">4.8</span>
+        </div>
+
+        <!-- 5 Gold Stars -->
+        <div class="flex items-center justify-center gap-1.5 text-[#fbbc04]">
+          <Icon name="star" size={26} />
+          <Icon name="star" size={26} />
+          <Icon name="star" size={26} />
+          <Icon name="star" size={26} />
+          <Icon name="star" size={26} />
+        </div>
+
+        <!-- Description text -->
+        <p class="font-bold text-sm sm:text-base text-[#000000]">
+          +2.000 avaliações no Perfil Google · Classificação Excelente
+        </p>
+
+        <!-- Two Buttons -->
+        <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Lactimonte+Montemuro+Mafra"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-[#169f38] text-[#ffffff] hover:bg-[#12822d] transition-colors duration-200"
+          >
+            VER NO GOOGLE
+          </a>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Lactimonte+Montemuro+Mafra"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl font-black text-xs uppercase tracking-wider bg-[#ffffff] border-2 border-[#169f38] text-[#169f38] hover:bg-[#169f38] hover:text-[#ffffff] transition-colors duration-200"
+          >
+            DEIXAR AVALIAÇÃO
+          </a>
+        </div>
+      </div>
+
+      <!-- Dashed Trustindex Container (From Imagem 2) -->
+      <div class="mt-8 max-w-2xl mx-auto rounded-2xl border-2 border-dashed border-[#000000]/60 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center flex-wrap gap-2 text-sm font-black text-[#000000] uppercase tracking-wider">
+          <span>GOOGLE REVIEWS · TRUSTINDEX</span>
+          <span class="text-[#f59e0b] flex items-center gap-0.5">
+            ★★★★★ <span class="text-[#000000] font-black ml-1">4.8 / 5.0</span>
+          </span>
+        </div>
+        <div class="border border-[#000000] rounded-xl px-4 py-2 font-medium text-xs sm:text-sm text-[#000000] bg-[#ffffff] whitespace-nowrap">
+          Contentor Pronto para o Código do Trustindex
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- LATEST NEWS & DISTINCTIONS                                            -->
+  <!-- ===================================================================== -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <span class="font-script text-3xl md:text-4xl text-[#169f38] block mb-1">
+            Atualidade & Cultura Queijeira
+          </span>
+          <h2 class="font-sans text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+            Últimas <span class="text-[#169f38]">Notícias</span>
+          </h2>
+        </div>
+        <Button
+          href="/noticias"
+          variant="secondary"
+          size="md"
+          icon="arrow-up-right"
+          label="Ver Todas as Notícias"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {
+          featuredNews.map((item) => (
+            <article class="rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] overflow-hidden flex flex-col justify-between">
+              <div>
+                <div class="h-44 sm:h-48 flex items-center justify-center p-4 border-b-2 border-[#169f38] bg-[#ffffff] overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    class="max-h-full max-w-full object-contain mx-auto transition-transform duration-300 hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-6 space-y-3">
+                  <div class="flex items-center justify-between text-xs font-bold uppercase tracking-wider">
+                    <span class="text-[#169f38]">{item.category}</span>
+                    <span class="text-[#000000]">{item.formattedDate}</span>
+                  </div>
+                  <h3 class="font-sans text-xl font-black uppercase leading-snug text-[#169f38]">
+                    {item.title}
+                  </h3>
+                  <p class="text-sm leading-relaxed text-[#000000]">
+                    {item.excerpt}
+                  </p>
+                </div>
+              </div>
+              <div class="px-6 pb-6">
+                <Button
+                  href={`/noticias#${item.id}`}
+                  variant="primary"
+                  size="sm"
+                  icon="arrow-up-right"
+                  label="Ler Artigo"
+                />
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- NEWSLETTER SUBSCRIPTION WITH WCAG 2.2 VALIDATION                      -->
+  <!-- ===================================================================== -->
+  <NewsletterSection />
+</BaseLayout>
+
+<style>
+  /* Hero initial states when typewriter animation is pending */
+  :global(.hero-anim-pending) #hero-delayed-content {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+  }
+  :global(.hero-anim-pending) #hero-image-col {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  :global(.hero-anim-pending) #hero-typewriter-text {
+    visibility: hidden;
+  }
+
+  /* Transition states once animation initializes */
+  :global(.hero-anim-ready) #hero-typewriter-text {
+    visibility: visible;
+  }
+  :global(.hero-anim-ready) #hero-delayed-content {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  :global(.hero-anim-ready) #hero-delayed-content.revealed {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Blinking typewriter cursor */
+  .typewriter-cursor::after {
+    content: '|';
+    display: inline-block;
+    margin-left: 2px;
+    color: #169f38;
+    animation: hero-cursor-blink 0.75s step-start infinite;
+  }
+
+  @keyframes hero-cursor-blink {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  function initHeroAnimation() {
+    const textEl = document.getElementById('hero-typewriter-text');
+    const delayedEl = document.getElementById('hero-delayed-content');
+    const imageEl = document.getElementById('hero-image-col');
+
+    if (!textEl || !delayedEl || !imageEl) return;
+
+    const fullText = textEl.getAttribute('data-text') || 'A Arte Queijeira desde 1980';
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      document.documentElement.classList.remove('hero-anim-pending');
+      document.documentElement.classList.add('hero-anim-ready');
+      textEl.textContent = fullText;
+      textEl.classList.remove('typewriter-cursor');
+      imageEl.style.opacity = '1';
+      imageEl.style.transform = 'none';
+      imageEl.style.transition = 'none';
+      delayedEl.classList.add('revealed');
+      return;
+    }
+
+    // Set clean initial state on each page load/reload
+    document.documentElement.classList.remove('hero-anim-pending');
+    document.documentElement.classList.add('hero-anim-ready');
+    textEl.textContent = '';
+    textEl.classList.add('typewriter-cursor');
+    delayedEl.classList.remove('revealed');
+
+    // Reset image to start position
+    imageEl.style.opacity = '0';
+    imageEl.style.transform = 'translateY(16px)';
+    imageEl.style.transition = 'none';
+
+    // Force DOM reflow so transition starts cleanly
+    void imageEl.offsetWidth;
+
+    let charIndex = 0;
+    const speed = 45; // ms per character
+    const totalTypingDuration = fullText.length * speed; // 27 * 45 = 1215ms
+
+    // Image entrance animation starts at the same time and finishes at the exact same moment as the typewriter
+    imageEl.style.transition = `opacity ${totalTypingDuration}ms cubic-bezier(0.2, 0.8, 0.4, 1), transform ${totalTypingDuration}ms cubic-bezier(0.2, 0.8, 0.4, 1)`;
+    imageEl.style.opacity = '1';
+    imageEl.style.transform = 'translateY(0)';
+
+    function typeChar() {
+      if (charIndex < fullText.length) {
+        textEl.textContent += fullText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeChar, speed);
+      } else {
+        // Both typing and image entrance have completed at the exact same moment
+        textEl.classList.remove('typewriter-cursor');
+
+        // Immediately after completion, trigger the entrance animation of title, description & button
+        setTimeout(() => {
+          delayedEl.classList.add('revealed');
+        }, 120);
+      }
+    }
+
+    typeChar();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeroAnimation);
+  } else {
+    initHeroAnimation();
+  }
+  document.addEventListener('astro:page-load', initHeroAnimation);
+</script>

@@ -1,0 +1,140 @@
+---
+import '../styles/design-system.css';
+import Header from '../components/layout/Header.astro';
+import ShaderFooter from '../components/layout/ShaderFooter.astro';
+import { COMPANY_INFO } from '../data/company';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = 'Lactimonte — Queijos Frescos, Queijos Curados e Requeijão Tradicional (Mafra, desde 1980)',
+  description = COMPANY_INFO.description,
+  ogImage = '/assets/imagem/queijos-curados/conjunto-queijo-curados.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://lactimonte.com');
+
+const schemaOrg = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'FoodEstablishment', 'LocalBusiness'],
+      '@id': 'https://lactimonte.com/#organization',
+      name: COMPANY_INFO.name,
+      legalName: COMPANY_INFO.legalName,
+      foundingDate: '1980',
+      url: 'https://lactimonte.com/',
+      logo: 'https://lactimonte.com/assets/logo/logo_lactimonte.png',
+      image: 'https://lactimonte.com/assets/imagem/queijos-curados/conjunto-queijo-curados.jpg',
+      description: COMPANY_INFO.description,
+      telephone: '+351219758120',
+      email: COMPANY_INFO.contacts.email,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: COMPANY_INFO.address.street,
+        postalCode: COMPANY_INFO.address.postalCode,
+        addressLocality: COMPANY_INFO.address.locality,
+        addressRegion: COMPANY_INFO.address.municipality,
+        addressCountry: 'PT',
+      },
+      sameAs: [
+        COMPANY_INFO.social.facebook,
+        COMPANY_INFO.social.instagram,
+        COMPANY_INFO.social.linkedin,
+      ],
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.0',
+        bestRating: '5',
+        ratingCount: '45',
+      },
+    },
+  ],
+};
+
+const safeSchemaJson = JSON.stringify(schemaOrg).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon from assets/favicon -->
+    <link rel="icon" type="image/png" href="/assets/favicon/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/favicon/favicon.png" />
+
+    <!-- Open Graph / Social -->
+    <meta property="og:locale" content="pt_PT" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content="Lactimonte" />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Google Fonts: Dancing Script & Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data JSON-LD (Sanitized against script-breakout XSS) -->
+    <script type="application/ld+json" set:html={safeSchemaJson} />
+  </head>
+  <body class="min-h-screen flex flex-col bg-[#ffffff] text-[#000000] selection:bg-[#169f38] selection:text-[#ffffff]">
+    <!-- Accessible Skip to Main Content Link -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-6 focus:py-3 focus:rounded-full focus:bg-[#169f38] focus:text-[#ffffff] focus:border-2 focus:border-[#169f38] focus:font-bold"
+    >
+      Saltar para o conteúdo principal
+    </a>
+
+    <Header />
+
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <ShaderFooter />
+
+    <!-- Global 100ms tactile confirmation behavior for buttons -->
+    <script>
+      function initTactileButtons() {
+        document.querySelectorAll('[data-lacti-btn="true"]').forEach((btn) => {
+          if (btn.hasAttribute('data-demo-state')) return;
+          btn.addEventListener('pointerdown', () => {
+            btn.setAttribute('data-state', 'pressed');
+          });
+          const clearPressed = () => {
+            setTimeout(() => {
+              if (btn.getAttribute('type') !== 'submit') {
+                btn.removeAttribute('data-state');
+              }
+            }, 220);
+          };
+          btn.addEventListener('pointerup', clearPressed);
+          btn.addEventListener('pointerleave', () => btn.removeAttribute('data-state'));
+        });
+      }
+
+      initTactileButtons();
+      document.addEventListener('astro:page-load', initTactileButtons);
+    </script>
+  </body>
+</html>

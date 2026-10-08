@@ -1,0 +1,362 @@
+---
+import Icon from '../ui/Icon.astro';
+import { COMPANY_INFO } from '../../data/company';
+---
+
+<footer
+  id="site-footer"
+  class="relative overflow-hidden bg-[#ffffff] text-[#000000] select-none"
+>
+  <!-- WebGL Shader Background Canvas (Strictly #ffffff and #169f38 — zero black background) -->
+  <canvas
+    id="lacti-shader-canvas"
+    aria-hidden="true"
+    class="absolute inset-0 w-full h-full pointer-events-none opacity-95"
+  ></canvas>
+
+  <!-- Subtle radial fallback gradient using strictly #ffffff and #169f38 -->
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_18%_25%,rgba(22,159,56,0.28)_0%,rgba(255,255,255,0.92)_62%,#ffffff_100%)] -z-10"
+  ></div>
+
+  <div class="relative z-10 pt-6 sm:pt-10 pb-8 sm:pb-12">
+    <!-- MONUMENTAL EDGE-TO-EDGE BRAND TITLE ("LACTIMONTE" in Verde #169f38) -->
+    <div class="w-full px-2 sm:px-6 overflow-hidden">
+      <div
+        class="footer-giant-word font-sans font-black uppercase text-[#169f38] text-center tracking-[-0.045em] leading-[0.84] w-full whitespace-nowrap"
+        style="font-size: clamp(3.1rem, 13.6vw, 15.5rem);"
+      >
+        LACTIMONTE
+      </div>
+    </div>
+
+    <!-- Main Footer Columns (Exact Layout from Image 1 / shader-footer.framer.website) -->
+    <div class="lacti-container mt-12 sm:mt-20 lg:mt-24">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8 items-start">
+        <!-- Left Column (Span 5): About & Social Square Buttons (>= 44x44px) -->
+        <div class="md:col-span-5 lg:col-span-5 space-y-6 select-text">
+          <div class="space-y-3 max-w-md">
+            <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
+              Sobre a Lactimonte
+            </h2>
+            <p class="text-sm sm:text-base text-[#000000] leading-relaxed font-normal">
+              Criamos laticínios tradicionais portugueses que preservam o sabor autêntico da região Saloia desde 1980 em Mafra. Do cuidado rigoroso com o leite nacional à arte de curar cada queijo e apurar o nosso requeijão, cada detalhe existe com propósito.
+            </p>
+            <p class="font-script text-2xl text-[#169f38] pt-1">
+              Queijaria Familiar · Montemuro, Mafra
+            </p>
+          </div>
+
+          <!-- Social Media Buttons (44x44px minimum target, swap colors on hover, zero black background) -->
+          <div class="flex items-center gap-3 pt-1">
+            <a
+              href={COMPANY_INFO.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visitar Facebook da Lactimonte"
+              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] flex items-center justify-center hover:bg-[#ffffff] hover:text-[#169f38] transition-all duration-instant"
+            >
+              <Icon name="facebook" size={18} />
+            </a>
+            <a
+              href={COMPANY_INFO.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visitar Instagram da Lactimonte"
+              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] flex items-center justify-center hover:bg-[#ffffff] hover:text-[#169f38] transition-all duration-instant"
+            >
+              <Icon name="instagram" size={18} />
+            </a>
+            <a
+              href={COMPANY_INFO.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visitar LinkedIn da Lactimonte"
+              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] flex items-center justify-center hover:bg-[#ffffff] hover:text-[#169f38] transition-all duration-instant"
+            >
+              <Icon name="linkedin" size={18} />
+            </a>
+          </div>
+        </div>
+
+        <!-- Column 2 (Span 2): Sitemap -->
+        <div class="md:col-span-2 lg:col-span-2 space-y-3 select-text">
+          <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
+            Mapa do Site
+          </h2>
+          <ul class="space-y-2.5 text-sm font-medium text-[#000000]">
+            <li>
+              <a href="/a-lactimonte" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                A Lactimonte
+              </a>
+            </li>
+            <li>
+              <a href="/queijos" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Os Nossos Queijos
+              </a>
+            </li>
+            <li>
+              <a href="/receitas" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Receitas em Vídeo
+              </a>
+            </li>
+            <li>
+              <a href="/noticias" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Notícias & Prémios
+              </a>
+            </li>
+            <li>
+              <a href="/contactos" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Contactos
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 3 (Span 2): Legal Pages & Quality -->
+        <div class="md:col-span-2 lg:col-span-2 space-y-3 select-text">
+          <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
+            Páginas Legais
+          </h2>
+          <ul class="space-y-2.5 text-sm font-medium text-[#000000]">
+            <li>
+              <a href="/a-lactimonte#qualidade" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Qualidade e Segurança
+              </a>
+            </li>
+            <li>
+              <a href="/contactos#privacidade" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Política de Privacidade
+              </a>
+            </li>
+            <li>
+              <a href="/contactos#termos" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Termos e Condições
+              </a>
+            </li>
+            <li>
+              <a href="/contactos#litigios" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Resolução de Litígios
+              </a>
+            </li>
+            <li>
+              <a href="/contactos#cookies" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
+                Política de Cookies
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.livroreclamacoes.pt/inicio"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 py-1 text-[#169f38] font-bold hover:underline"
+              >
+                <span>Livro de Reclamações</span>
+                <Icon name="arrow-up-right" size={14} />
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Column 4 (Span 3): Contact us -->
+        <div class="md:col-span-3 lg:col-span-3 space-y-3 select-text">
+          <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
+            Contacte-nos
+          </h2>
+          <ul class="space-y-2.5 text-sm text-[#000000]">
+            <li>
+              <a
+                href="/contactos"
+                class="inline-flex items-center gap-1.5 py-1 font-bold text-[#169f38] hover:underline"
+              >
+                <span>Falar com a Equipa Comercial</span>
+                <Icon name="arrow-up-right" size={14} />
+              </a>
+            </li>
+            <li>
+              <a
+                href={COMPANY_INFO.contacts.emailHref}
+                class="inline-block py-1 font-medium hover:text-[#169f38] transition-colors duration-instant"
+              >
+                {COMPANY_INFO.contacts.email}
+              </a>
+            </li>
+            <li>
+              <a
+                href={COMPANY_INFO.contacts.phoneFixedHref}
+                class="inline-block py-1 font-bold hover:text-[#169f38] transition-colors duration-instant"
+              >
+                {COMPANY_INFO.contacts.phoneFixed}
+              </a>
+              <span class="block text-xs text-[#000000]">({COMPANY_INFO.contacts.phoneFixedNote})</span>
+            </li>
+            <li>
+              <a
+                href={COMPANY_INFO.contacts.phoneMobileHref}
+                class="inline-block py-1 font-bold hover:text-[#169f38] transition-colors duration-instant"
+              >
+                {COMPANY_INFO.contacts.phoneMobile}
+              </a>
+              <span class="block text-xs text-[#000000]">({COMPANY_INFO.contacts.phoneMobileNote})</span>
+            </li>
+            <li class="pt-1 text-xs text-[#000000] leading-relaxed">
+              {COMPANY_INFO.address.street}, {COMPANY_INFO.address.postalCode}<br />
+              {COMPANY_INFO.address.locality} · {COMPANY_INFO.address.municipality}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Copyright & Location Bar -->
+      <div class="mt-16 pt-6 border-t-2 border-[#169f38] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#000000] select-text">
+        <p>© {new Date().getFullYear()} {COMPANY_INFO.legalName} Todos os direitos reservados.</p>
+        <div class="flex items-center gap-4">
+          <span class="inline-flex items-center gap-1.5">
+            <Icon name="map-pin" size={14} class="text-[#169f38]" />
+            <span>Montemuro · Mafra, Portugal</span>
+          </span>
+          <span class="text-[#169f38]">•</span>
+          <span class="inline-flex items-center gap-1">
+            <Icon name="star" size={13} class="text-[#169f38]" />
+            <span>4,0 ★ Google (45 avaliações)</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function initFooterShader() {
+    const canvas = document.getElementById('lacti-shader-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const gl = canvas.getContext('webgl', { alpha: false, antialias: false });
+    if (!gl) return;
+
+    const vertexSource = `
+      attribute vec2 a_position;
+      varying vec2 v_uv;
+      void main() {
+        v_uv = a_position * 0.5 + 0.5;
+        gl_Position = vec4(a_position, 0.0, 1.0);
+      }
+    `;
+
+    // Smooth atmospheric shader blending strictly #ffffff (White) and #169f38 (Green) — NO black background
+    const fragmentSource = `
+      precision mediump float;
+      varying vec2 v_uv;
+      uniform float u_time;
+      uniform vec2 u_resolution;
+
+      void main() {
+        vec2 uv = v_uv;
+        float t = u_time * 0.35;
+
+        // Smooth organic waves inspired by shader-footer.framer.website
+        float wave1 = sin(uv.x * 2.8 + t) * cos(uv.y * 2.2 - t * 0.7);
+        float wave2 = sin((uv.x + uv.y) * 3.4 - t * 0.9) * 0.5;
+        float glow = smoothstep(-0.6, 1.2, (1.0 - uv.y * 0.55) * 0.55 + wave1 * 0.25 + wave2 * 0.2);
+
+        vec3 lactiWhite = vec3(1.0, 1.0, 1.0);        // #ffffff
+        vec3 lactiGreen = vec3(0.086, 0.624, 0.220);  // #169f38
+
+        // Blend pure white background with soft organic Lactimonte green waves
+        vec3 color = mix(lactiWhite, lactiGreen, glow * 0.22);
+        gl_FragColor = vec4(color, 1.0);
+      }
+    `;
+
+    const compileShader = (type: number, source: string) => {
+      const shader = gl.createShader(type);
+      if (!shader) return null;
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        gl.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    };
+
+    const vs = compileShader(gl.VERTEX_SHADER, vertexSource);
+    const fs = compileShader(gl.FRAGMENT_SHADER, fragmentSource);
+    if (!vs || !fs) return;
+
+    const program = gl.createProgram();
+    if (!program) return;
+    gl.attachShader(program, vs);
+    gl.attachShader(program, fs);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+
+    gl.useProgram(program);
+
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]),
+      gl.STATIC_DRAW
+    );
+
+    const posLoc = gl.getAttribLocation(program, 'a_position');
+    gl.enableVertexAttribArray(posLoc);
+    gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const timeLoc = gl.getUniformLocation(program, 'u_time');
+    const resLoc = gl.getUniformLocation(program, 'u_resolution');
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    };
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(canvas);
+    resize();
+
+    let animId = 0;
+    let isVisible = false;
+    const startTime = performance.now();
+
+    const renderFrame = (now: number) => {
+      const elapsed = (now - startTime) * 0.001;
+      gl.uniform1f(timeLoc, elapsed);
+      gl.uniform2f(resLoc, canvas.width, canvas.height);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+      if (isVisible && !prefersReducedMotion) {
+        animId = requestAnimationFrame(renderFrame);
+      }
+    };
+
+    // Draw initial frame immediately
+    renderFrame(performance.now());
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !prefersReducedMotion) {
+            cancelAnimationFrame(animId);
+            animId = requestAnimationFrame(renderFrame);
+          } else {
+            cancelAnimationFrame(animId);
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+
+    io.observe(canvas);
+  }
+
+  initFooterShader();
+  document.addEventListener('astro:page-load', initFooterShader);
+</script>

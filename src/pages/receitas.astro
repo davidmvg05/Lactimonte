@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Icon from '../components/ui/Icon.astro';
+import VideoReelGrid from '../components/sections/VideoReelGrid.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+import { COMPANY_INFO } from '../data/company';
+---
+
+<BaseLayout
+  title="Receitas em Vídeo | Gastronomia com Queijos e Requeijão Lactimonte"
+  description="Descubra 12 receitas deliciosas com Queijos Frescos, Queijos Curados e Requeijão Lactimonte. Veja os vídeos em ecrã inteiro com som ou consulte a receita passo a passo."
+>
+  <!-- Hero -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-8 space-y-6">
+          <span class="font-script text-3xl md:text-4xl text-[#169f38] block">
+            Carrossel 360° VideoReel • Da Queijaria para a Sua Cozinha
+          </span>
+          <h1 class="font-sans text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[1.02] text-[#000000]">
+            Receitas <span class="text-[#169f38]">Lactimonte</span>
+          </h1>
+          <p class="text-base md:text-xl leading-relaxed text-[#000000]">
+            Explore as nossas receitas num <strong>carrossel em 360°</strong>: arraste para o lado com o <strong>rato (mão aberta que fecha ao arrastar)</strong> ou utilize as <strong>setas à esquerda e à direita</strong>. O texto está <strong>fora da imagem do vídeo, colocado em baixo</strong>, mudando sempre que o vídeo muda, acompanhado do botão <strong>Ver receita</strong>.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <Button
+              href={COMPANY_INFO.social.instagramReel}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+              size="md"
+              icon="instagram"
+              label="Ver Reel Oficial no Instagram"
+            />
+            <Button
+              href="/queijos"
+              variant="secondary"
+              size="md"
+              icon="arrow-up-right"
+              label="Conhecer os Ingredientes"
+            />
+          </div>
+        </div>
+
+        <div class="lg:col-span-4">
+          <div class="p-6 rounded-[28px] border-2 border-[#169f38] bg-[#ffffff] space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-[#169f38] text-[#ffffff] flex items-center justify-center shrink-0">
+                <Icon name="volume-on" size={22} />
+              </div>
+              <div>
+                <h2 class="font-sans text-lg font-black uppercase text-[#169f38]">Carrossel 360° Interativo</h2>
+                <p class="text-xs text-[#000000] font-bold uppercase">Arraste com a Mão + Setas + Som</p>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed text-[#000000]">
+              Passe o rato sobre os vídeos (mão aberta) e arraste para os lados (mão fechada) ou clique nas setas laterais para rodar em 360°. O texto em baixo atualiza a cada vídeo com o botão <strong>Ver receita</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full 12-Recipe 360° VideoReelPro Carousel with Category Filter Tabs -->
+  <VideoReelGrid
+    showFilters={true}
+    title="Carrossel 360° de Receitas"
+    subtitle="Saladas, Entradas, Pratos Principais e Sobremesas com Queijo Fresco, Curado e Requeijão"
+  />
+
+  <NewsletterSection />
+</BaseLayout>
