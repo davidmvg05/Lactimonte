@@ -111,7 +111,7 @@ import {
     <div class="lacti-container">
       <div class="mb-12">
         <span class="font-script text-3xl text-[#169f38] block mb-1">Voz Editorial & Funcional</span>
-        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
+        <h2 class="font-sans text-3xl md:text-5xl font-medium uppercase tracking-tight text-[#000000]">
           2. Tipografia Oficial: <span class="text-[#169f38]">Dancing Script & Roboto</span>
         </h2>
       </div>
@@ -125,27 +125,40 @@ import {
                   <span class="text-xs font-bold uppercase tracking-widest text-[#169f38]">
                     {typo.role}
                   </span>
-                  <h3 class="text-3xl font-black uppercase mt-1 text-[#000000]">{typo.family}</h3>
+                  <h3 class="text-2xl md:text-3xl font-medium uppercase mt-1 text-[#000000]">{typo.family}</h3>
                 </div>
-                <code class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black">
+                <code class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-bold">
                   .{typo.cssClass}
                 </code>
               </div>
 
-              <div
-                class={`p-6 rounded-[20px] border-2 border-[#169f38] bg-[#ffffff] ${
-                  typo.cssClass === 'font-script'
-                    ? 'font-script text-3xl md:text-4xl text-[#169f38]'
-                    : 'font-sans text-2xl md:text-3xl font-black uppercase text-[#000000]'
-                }`}
-              >
-                {typo.sample}
+              <div class="space-y-3">
+                <div
+                  class={`p-5 rounded-[20px] border-2 border-[#169f38] bg-[#ffffff] ${
+                    typo.cssClass === 'font-script'
+                      ? 'font-script text-3xl md:text-4xl text-[#169f38]'
+                      : 'font-sans text-xl md:text-2xl font-medium uppercase text-[#000000]'
+                  }`}
+                >
+                  <span class="block text-xs uppercase tracking-wider text-[#169f38] mb-1 font-bold">
+                    {typo.cssClass === 'font-script' ? 'Estilo Editorial' : 'Títulos (Peso 500 — Medium)'}:
+                  </span>
+                  {typo.sample}
+                </div>
+                {typo.cssClass === 'font-sans' && (
+                  <div class="p-5 rounded-[20px] border-2 border-[#169f38] bg-[#ffffff] font-sans text-base text-[#000000] leading-relaxed font-light">
+                    <span class="block text-xs uppercase tracking-wider text-[#169f38] mb-1 font-bold">
+                      Parágrafos (Peso 300 — Light):
+                    </span>
+                    A Lactimonte alia a mestria do saber queijeiro tradicional desde 1980 em Mafra, com queijos de textura leve e sabor puro da região saloia.
+                  </div>
+                )}
               </div>
 
               <div class="flex flex-wrap gap-2">
                 {typo.weights.map((w) => (
                   <span class="px-3 py-1 rounded-full border-2 border-[#169f38] text-[#169f38] text-xs font-bold">
-                    Peso: {w}
+                    {w}
                   </span>
                 ))}
               </div>
@@ -156,15 +169,15 @@ import {
     </div>
   </section>
 
-  <!-- 3. SISTEMA DE BOTÕES WCAG 2.2 (3 FORMATOS × 2 VARIAÇÕES × 3 ESTADOS) -->
+  <!-- 3. SISTEMA DE BOTÕES WCAG 2.2 (3 FORMATOS × 3 VARIAÇÕES × 2 ESTADOS) -->
   <section id="botoes-wcag" class="py-16 md:py-24 bg-[#ffffff] text-[#000000] border-b-2 border-[#169f38]">
     <div class="lacti-container">
       <div class="mb-12">
         <span class="font-script text-3xl text-[#169f38] block mb-1">
-          Sem Profundidade · Troca de Cor no Hover · Resposta em 0,1s
+          Sem Profundidade · Efeito de Onda em Todo o Botão · Palavras #1b1b1b & Slide · Sem Ícones
         </span>
-        <h2 class="font-sans text-3xl md:text-5xl font-black uppercase tracking-tight text-[#000000]">
-          3. Sistema de Botões (<span class="text-[#169f38]">3 Tamanhos × 2 Variações × 3 Estados</span>)
+        <h2 class="font-sans text-3xl md:text-5xl font-medium uppercase tracking-tight text-[#000000]">
+          3. Sistema de Botões (<span class="text-[#169f38]">3 Tamanhos × 3 Variações × 2 Estados</span>)
         </h2>
       </div>
 
@@ -175,16 +188,16 @@ import {
           <p class="text-sm font-bold text-[#000000]">Alvo mínimo de 44×44px (SM: 44px, MD: 52px, LG: 60px).</p>
         </div>
         <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
-          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">2. Hover = Troca de Cor</span>
-          <p class="text-sm font-bold text-[#000000]">Sem profundidade: no hover o background passa a ser a cor do texto e vice-versa.</p>
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">2. Hover em Onda Visível (1000ms)</span>
+          <p class="text-sm font-bold text-[#000000]">Transição suave de 1000ms com crista da onda claramente perceptível a preencher o botão.</p>
         </div>
         <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
-          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">3. Ativo Nunca Preto</span>
-          <p class="text-sm font-bold text-[#000000]">No estado ativo o background nunca é preto (#169f38 ou #ffffff) e o ícone único confirma a ação.</p>
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">3. Palavras #1b1b1b (Peso 500)</span>
+          <p class="text-sm font-bold text-[#000000]">Variações 1 e 2 com palavras #1b1b1b e todas as palavras dos botões com peso 500 (Medium).</p>
         </div>
         <div class="p-5 rounded-[22px] border-2 border-[#169f38] bg-[#ffffff]">
-          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">4. Raio & Movimento 0,1s</span>
-          <p class="text-sm font-bold text-[#000000]">Raio igual a metade da altura (22/26/30px) e resposta em 100ms (0,1s).</p>
+          <span class="text-xs font-black uppercase text-[#169f38] block mb-1">4. Variação 3 para Slides</span>
+          <p class="text-sm font-bold text-[#000000]">Sem fundo, borda sólida branca (2px solid #ffffff), texto #ffffff e onda branca com texto #000000 no hover.</p>
         </div>
       </div>
 
@@ -197,7 +210,6 @@ import {
               <th class="p-4">Altura × Largura Mín.</th>
               <th class="p-4">Raio (1/2 Altura)</th>
               <th class="p-4">Padding Horizontal</th>
-              <th class="p-4">Ícone Único</th>
               <th class="p-4">Regra WCAG 2.2</th>
             </tr>
           </thead>
@@ -209,7 +221,6 @@ import {
                   <td class="p-4 font-bold">{sz.heightPx}px × {sz.minWidthPx}px</td>
                   <td class="p-4 font-bold text-[#169f38]">{sz.borderRadiusPx}px</td>
                   <td class="p-4">{sz.paddingX}</td>
-                  <td class="p-4">{sz.iconSizePx}px</td>
                   <td class="p-4 font-bold">{sz.wcagTargetRule}</td>
                 </tr>
               ))
@@ -218,7 +229,7 @@ import {
         </table>
       </div>
 
-      <!-- Interactive Matrix: 2 Variations × 3 Sizes × 3 States (Normal, Hover, Carregado/Active) -->
+      <!-- Interactive Matrix: 3 Variations × 3 Sizes × 2 States (Normal, Hover) -->
       <div class="space-y-12">
         {
           BUTTON_VARIATIONS.map((variation) => (
@@ -230,8 +241,8 @@ import {
                 <p class="text-sm md:text-base mt-1 text-[#000000]">{variation.description}</p>
               </div>
 
-              <!-- Matrix of 3 Sizes across 3 States -->
-              <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <!-- Matrix of 3 Sizes across 2 States -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Estado 1: NORMAL -->
                 <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-5">
                   <div>
@@ -239,53 +250,97 @@ import {
                       Estado 1: Normal
                     </span>
                     <p class="text-xs font-bold mt-2 text-[#000000]">
-                      Fundo: {variation.normalState.background} | Texto: {variation.normalState.text}
+                      Fundo: {variation.normalState.background} | Texto: {variation.normalState.text} | Borda: {variation.normalState.border}
                     </p>
                   </div>
-                  <div class="flex flex-col items-start gap-4">
-                    <Button variant={variation.id} size="sm" demoState="normal" icon="arrow-up-right" label="Formato SM (44px)" />
-                    <Button variant={variation.id} size="md" demoState="normal" icon="arrow-up-right" label="Formato MD (52px)" />
-                    <Button variant={variation.id} size="lg" demoState="normal" icon="arrow-up-right" label="Formato LG (60px)" />
+                  <div class={`flex flex-col items-start gap-4 p-4 rounded-2xl ${variation.id === 'slide' ? 'bg-[#1b1b1b]' : 'bg-[#fcfdfa]'}`}>
+                    <Button variant={variation.id} size="sm" demoState="normal" label="Formato SM (44px)" />
+                    <Button variant={variation.id} size="md" demoState="normal" label="Formato MD (52px)" />
+                    <Button variant={variation.id} size="lg" demoState="normal" label="Formato LG (60px)" />
                   </div>
                 </div>
 
-                <!-- Estado 2: HOVER (Troca de cor background <-> texto) -->
+                <!-- Estado 2: HOVER (Onda em todo o botão · 700ms) -->
                 <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-5">
                   <div>
                     <span class="px-3 py-1 rounded-full bg-[#ffffff] text-[#169f38] border-2 border-[#169f38] text-xs font-black uppercase">
-                      Estado 2: Hover (Troca de Cor)
+                      Estado 2: Hover (Onda em Todo o Botão · 700ms)
                     </span>
                     <p class="text-xs font-bold mt-2 text-[#000000]">
-                      Fundo: {variation.hoverState.background} | Texto: {variation.hoverState.text}
+                      Fundo: {variation.hoverState.background} | Texto: {variation.hoverState.text} ({variation.hoverState.responseTime})
                     </p>
                   </div>
-                  <div class="flex flex-col items-start gap-4">
-                    <Button variant={variation.id} size="sm" demoState="hover" icon="arrow-up-right" label="Hover SM (44px)" />
-                    <Button variant={variation.id} size="md" demoState="hover" icon="arrow-up-right" label="Hover MD (52px)" />
-                    <Button variant={variation.id} size="lg" demoState="hover" icon="arrow-up-right" label="Hover LG (60px)" />
-                  </div>
-                </div>
-
-                <!-- Estado 3: CARREGADO / ACTIVE (Nunca fundo preto!) -->
-                <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] space-y-5">
-                  <div>
-                    <span class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black uppercase">
-                      Estado 3: Ativo / Carregado
-                    </span>
-                    <p class="text-xs font-bold mt-2 text-[#000000]">
-                      {variation.activeState.confirmationFeedback}
-                    </p>
-                  </div>
-                  <div class="flex flex-col items-start gap-4">
-                    <Button variant={variation.id} size="sm" demoState="active" icon="arrow-up-right" label="Ativo SM (44px)" />
-                    <Button variant={variation.id} size="md" demoState="active" icon="arrow-up-right" label="Ativo MD (52px)" />
-                    <Button variant={variation.id} size="lg" demoState="active" icon="arrow-up-right" label="Ativo LG (60px)" />
+                  <div class={`flex flex-col items-start gap-4 p-4 rounded-2xl ${variation.id === 'slide' ? 'bg-[#1b1b1b]' : 'bg-[#fcfdfa]'}`}>
+                    <Button variant={variation.id} size="sm" demoState="hover" label="Hover SM (44px)" />
+                    <Button variant={variation.id} size="md" demoState="hover" label="Hover MD (52px)" />
+                    <Button variant={variation.id} size="lg" demoState="hover" label="Hover LG (60px)" />
                   </div>
                 </div>
               </div>
             </div>
           ))
         }
+      </div>
+
+      <!-- Comparativo Direto das 3 Variações -->
+      <div class="mt-14 p-8 rounded-[32px] border-2 border-[#169f38] bg-[#ffffff] space-y-6">
+        <div class="border-b-2 border-[#169f38] pb-4">
+          <span class="text-xs font-black uppercase text-[#169f38] tracking-widest block mb-1">
+            Fidelidade Visual às Especificações
+          </span>
+          <h3 class="font-sans text-2xl md:text-3xl font-black uppercase text-[#000000]">
+            Demonstração Interativa das 3 Variações de Botões
+          </h3>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+          <!-- Card 1: Primário -->
+          <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] flex flex-col items-center justify-between gap-5 text-center">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-[#169f38] text-[#ffffff] text-xs font-black uppercase">
+                Variação 1 · Primário
+              </span>
+              <p class="text-xs text-[#000000] font-bold mt-2">Fundo verde (#169f38), borda verde e palavras #1b1b1b.</p>
+            </div>
+            <div class="py-4">
+              <Button variant="primary" size="md" label="Ver receita" />
+            </div>
+            <p class="text-xs text-[#000000] bg-[#f8faf6] p-3 rounded-xl border border-[#169f38]/30">
+              Hover: onda branca sobe de baixo para cima (1000ms) e palavras mantêm-se #1b1b1b.
+            </p>
+          </div>
+
+          <!-- Card 2: Secundário -->
+          <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] flex flex-col items-center justify-between gap-5 text-center">
+            <div>
+              <span class="px-3 py-1 rounded-full border-2 border-[#169f38] text-[#169f38] text-xs font-black uppercase">
+                Variação 2 · Secundário
+              </span>
+              <p class="text-xs text-[#000000] font-bold mt-2">Fundo branco (#ffffff), borda verde e palavras #1b1b1b.</p>
+            </div>
+            <div class="py-4">
+              <Button variant="secondary" size="md" label="Ver Todas Receitas" />
+            </div>
+            <p class="text-xs text-[#000000] bg-[#f8faf6] p-3 rounded-xl border border-[#169f38]/30">
+              Hover: onda verde desce de cima para baixo (1000ms) e palavras mantêm-se #1b1b1b.
+            </p>
+          </div>
+
+          <!-- Card 3: Slide -->
+          <div class="p-6 rounded-[24px] border-2 border-[#169f38] bg-[#ffffff] flex flex-col items-center justify-between gap-5 text-center">
+            <div>
+              <span class="px-3 py-1 rounded-full bg-[#1b1b1b] text-[#ffffff] text-xs font-black uppercase">
+                Variação 3 · Slide
+              </span>
+              <p class="text-xs text-[#000000] font-bold mt-2">Sem fundo (transparente), borda sólida branca (2px solid #ffffff) e palavras #ffffff.</p>
+            </div>
+            <div class="py-4 w-full flex items-center justify-center bg-[#1b1b1b] rounded-2xl p-4">
+              <Button variant="slide" size="md" label="Explorar Slide" />
+            </div>
+            <p class="text-xs text-[#000000] bg-[#f8faf6] p-3 rounded-xl border border-[#169f38]/30">
+              Hover: onda branca desce de cima para baixo (1000ms), palavras passam a #000000 e a borda sólida branca de 2px (2px solid #ffffff) mantém-se.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

@@ -15,6 +15,8 @@
   --color-lacti-white: #ffffff;
   --color-lacti-black: #000000;
   --color-lacti-green: #169f38;
+  --color-lacti-active-bg: #dcf59e; /* Fundo do botão Ativo / Carregado conforme Imagem 1 */
+  --color-lacti-active-border: #169f38; /* Borda do botão Ativo / Carregado */
 
   --font-script: 'Dancing Script', cursive;
   --font-sans: 'Roboto', system-ui, -apple-system, sans-serif;
@@ -31,6 +33,7 @@
 @layer base {
   html {
     font-family: var(--font-sans);
+    font-weight: 300;
     background-color: var(--color-lacti-white);
     color: var(--color-lacti-black);
     scroll-behavior: smooth;
@@ -51,13 +54,25 @@
     }
   }
 
-  /* Modern Web Guidance: Balanced headings & Pretty paragraphs */
-  h1, h2, h3, h4, h5, h6 {
+  /* Teste de Pesos Rebaixados em Roboto: Títulos 500 (Medium), Parágrafos 300 (Light) */
+  h1, h2, h3, h4, h5, h6,
+  .footer-giant-word,
+  .badge-title,
+  .title-lacti {
+    font-family: var(--font-sans);
+    font-weight: 500 !important;
     text-wrap: balance;
   }
 
-  p, li, blockquote {
+  p, li, blockquote,
+  .desc-lacti {
+    font-family: var(--font-sans);
+    font-weight: 300 !important;
     text-wrap: pretty;
+  }
+
+  p strong, p b, li strong, li b, blockquote strong, blockquote b {
+    font-weight: 500 !important;
   }
 
   /* High-contrast visible focus ring for keyboard navigation (WCAG 2.4.7 / 2.4.11) */
@@ -69,13 +84,15 @@
 
 /* ==========================================================================
    BUTTON SYSTEM (WCAG 2.2)
-   - Target size >= 44x44px (SM: 44px, MD: 52px, LG: 60px)
-   - Sem profundidade (box-shadow: none)
-   - Hover nas duas variações: troca direta de cor (o background passa a ser
-     a cor do texto e o texto passa a ser a cor do background)
-   - Estado ativo/carregado: NUNCA tem background preto (#000000)
-   - Detalhe: Raio = metade da altura (22px, 26px, 30px) e 1 único ícone
-   - Movimento: 100ms (0.1s)
+   - Alvo mínimo >= 44x44px (SM: 44px, MD: 52px, LG: 60px)
+   - Sem profundidade (flat / box-shadow: none)
+   - Sem estado Ativo / Carregado
+   - Hover em Onda (Animação fluida e claramente visível em todos os botões — 1000ms):
+     * Variação 1 (Primário): fundo verde (#169f38), palavras #1b1b1b, onda branca sobe de baixo para cima
+     * Variação 2 (Secundário): fundo branco (#ffffff), palavras #1b1b1b, onda verde desce de cima para baixo
+     * Variação 3 (Slide): sem fundo (transparent), borda branca sólida de 2px (2px solid #ffffff), palavras #ffffff no normal e #000000 no hover com onda branca que desce
+   - Detalhe: Raio = metade da altura (22px, 26px, 30px) e sem ícones
+   - Movimento: Transição suave e nítida da onda em 1000ms
    ========================================================================== */
 
 .btn-lacti {
@@ -87,14 +104,16 @@
   min-width: 44px;
   min-height: 44px;
   font-family: var(--font-sans);
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.02em;
   text-decoration: none;
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
   box-shadow: none;
-  /* Response in 1/10th of a second (100ms) */
+  overflow: hidden;
+  isolation: isolate;
+  /* Resposta em 1/10 de segundo (100ms) */
   transition:
     transform var(--transition-instant),
     background-color var(--transition-instant),
@@ -102,13 +121,21 @@
     border-color var(--transition-instant);
 }
 
-/* 3 Button Formats (Sizes) — Radius equals exactly half of height */
+/* Garante que o texto e o ícone ficam sempre em camada superior à onda (z-index: 2) */
+.btn-lacti .btn-label,
+.btn-lacti .btn-icon {
+  position: relative;
+  z-index: 2;
+  transition: transform var(--transition-instant), color var(--transition-instant);
+}
+
+/* 3 Formatos de Botão — Raio estritamente igual a metade da altura */
 .btn-lacti-sm {
   height: 44px;
   min-height: 44px;
   min-width: 44px;
   padding-inline: 1.25rem; /* 20px */
-  border-radius: 22px;     /* Half of 44px */
+  border-radius: 22px;     /* Metade de 44px */
   font-size: 0.875rem;     /* 14px */
 }
 
@@ -117,7 +144,7 @@
   min-height: 52px;
   min-width: 52px;
   padding-inline: 1.75rem; /* 28px */
-  border-radius: 26px;     /* Half of 52px */
+  border-radius: 26px;     /* Metade de 52px */
   font-size: 1rem;         /* 16px */
 }
 
@@ -126,11 +153,11 @@
   min-height: 60px;
   min-width: 60px;
   padding-inline: 2.25rem; /* 36px */
-  border-radius: 30px;     /* Half of 60px */
+  border-radius: 30px;     /* Metade de 60px */
   font-size: 1.125rem;     /* 18px */
 }
 
-/* Icon-only square/circle button helper (strictly >= 44x44px) */
+/* Botão quadrado/circular apenas de ícone (>= 44x44px) */
 .btn-lacti-icon-only {
   padding-inline: 0 !important;
   width: 44px;
@@ -138,96 +165,143 @@
   border-radius: 22px;
 }
 
-/* Variação 1: Primário
-   - Normal: Background Verde (#169f38), Texto Branco (#ffffff), Borda Verde (#169f38)
-   - Hover: Troca de cor -> Background Branco (#ffffff), Texto Verde (#169f38)
-   - Ativo/Carregado: Background Verde (#169f38) (nunca preto!), Texto Branco (#ffffff) + ícone de confirmação */
+/* Efeito de Onda em Todo o Botão
+   - Variação 1 (Primário): Onda branca sobe de baixo para cima e faz em todo o botão
+   - Variação 2 (Secundário): Onda verde desce de cima para baixo e faz em todo o botão
+   - Variação 3 (Slide): Onda branca desce de cima para baixo e faz em todo o botão
+   - Palavras com a cor #1b1b1b nas Variações 1 e 2
+   - Animação da onda a 1000ms para permitir ver claramente o movimento da crista da onda */
+
+.btn-lacti::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  transition: transform 1000ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* --------------------------------------------------------------------------
+   Variação 1 — Primário
+   Normal: Fundo: #169f38; Palavras: #1b1b1b; Borda: 2px solid #169f38; Profundidade: none
+   Hover: Fundo: Efeito de Onda Branca (#ffffff); Palavras: #1b1b1b; Borda: 2px solid #169f38;
+          Comportamento: Efeito de onda sobe de baixo para cima e faz em todo o botão.
+   -------------------------------------------------------------------------- */
 .btn-lacti-primary {
   background-color: var(--color-lacti-green);
-  color: var(--color-lacti-white);
+  color: #1b1b1b;
   border: 2px solid var(--color-lacti-green);
   box-shadow: none;
 }
 
-.btn-lacti-primary:hover,
-.btn-lacti-primary[data-demo-state="hover"] {
-  background-color: var(--color-lacti-white);
-  color: var(--color-lacti-green);
-  border-color: var(--color-lacti-green);
-  box-shadow: none;
+.btn-lacti-primary .btn-label {
+  color: #1b1b1b;
+  font-weight: 500;
+  transition: color 400ms ease;
 }
 
-.btn-lacti-primary:active,
-.btn-lacti-primary[data-state="pressed"],
-.btn-lacti-primary[data-demo-state="active"] {
-  background-color: var(--color-lacti-green);
-  color: var(--color-lacti-white);
-  border-color: var(--color-lacti-green);
-  transform: scale(0.98);
-  box-shadow: none;
+/* Onda do Primário: Onda branca sobe de baixo para cima e preenche todo o botão */
+.btn-lacti-primary::before {
+  bottom: 0;
+  height: 160%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 160' preserveAspectRatio='none'%3E%3Cpath d='M0,35 C20,10 35,5 50,20 C65,35 80,40 100,15 L100,160 L0,160 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  transform: translateY(105%);
 }
 
-/* Variação 2: Secundário
-   - Normal: Background Branco (#ffffff), Texto Verde (#169f38), Borda Verde (#169f38)
-   - Hover: Troca de cor -> Background Verde (#169f38), Texto Branco (#ffffff)
-   - Ativo/Carregado: Background Branco (#ffffff) (nunca preto!), Texto Verde (#169f38) + ícone de confirmação */
+.btn-lacti-primary:hover::before,
+.btn-lacti-primary[data-demo-state="hover"]::before {
+  transform: translateY(0);
+}
+
+.btn-lacti-primary:hover .btn-label,
+.btn-lacti-primary[data-demo-state="hover"] .btn-label {
+  color: #1b1b1b;
+}
+
+/* --------------------------------------------------------------------------
+   Variação 2 — Secundário
+   Normal: Fundo: #ffffff; Palavras: #1b1b1b; Borda: 2px solid #169f38; Profundidade: none
+   Hover: Fundo: Efeito de Onda Verde (#169f38); Palavras: #1b1b1b; Borda: 2px solid #169f38;
+          Comportamento: Efeito de onda desce de cima para baixo e faz em todo o botão.
+   -------------------------------------------------------------------------- */
 .btn-lacti-secondary {
   background-color: var(--color-lacti-white);
-  color: var(--color-lacti-green);
+  color: #1b1b1b;
   border: 2px solid var(--color-lacti-green);
   box-shadow: none;
 }
 
-.btn-lacti-secondary:hover,
-.btn-lacti-secondary[data-demo-state="hover"] {
-  background-color: var(--color-lacti-green);
+.btn-lacti-secondary .btn-label {
+  color: #1b1b1b;
+  font-weight: 500;
+  transition: color 400ms ease;
+}
+
+/* Onda do Secundário: Onda verde desce de cima para baixo e preenche todo o botão */
+.btn-lacti-secondary::before {
+  top: 0;
+  height: 160%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 160' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L100,0 L100,125 C80,145 65,140 50,125 C35,110 20,105 0,130 Z' fill='%23169f38'/%3E%3C/svg%3E");
+  transform: translateY(-105%);
+}
+
+.btn-lacti-secondary:hover::before,
+.btn-lacti-secondary[data-demo-state="hover"]::before {
+  transform: translateY(0);
+}
+
+.btn-lacti-secondary:hover .btn-label,
+.btn-lacti-secondary[data-demo-state="hover"] .btn-label {
+  color: #1b1b1b;
+}
+
+/* --------------------------------------------------------------------------
+   Variação 3 — Slide (Botão dos Slides)
+   Normal: Fundo: sem fundo (transparent); Palavras: #ffffff; Borda: 2px solid #ffffff; Comportamento: igual
+   Hover: Fundo: Efeito de Onda Branca (#ffffff); Palavras: #000000; Borda: 2px solid #ffffff;
+          Comportamento: Efeito de onda desce de cima para baixo e preenche todo o botão.
+   -------------------------------------------------------------------------- */
+.btn-lacti-slide {
+  background-color: transparent;
   color: var(--color-lacti-white);
-  border-color: var(--color-lacti-green);
+  border: 2px solid var(--color-lacti-white);
   box-shadow: none;
 }
 
-.btn-lacti-secondary:active,
-.btn-lacti-secondary[data-state="pressed"],
-.btn-lacti-secondary[data-demo-state="active"] {
-  background-color: var(--color-lacti-white);
-  color: var(--color-lacti-green);
-  border-color: var(--color-lacti-green);
-  transform: scale(0.98);
-  box-shadow: none;
+.btn-lacti-slide .btn-label {
+  color: var(--color-lacti-white);
+  font-weight: 500;
+  transition: color 400ms ease;
 }
 
-/* Single Icon animation inside buttons (100ms) */
-.btn-lacti .btn-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: transform var(--transition-instant);
+/* Onda do Slide: Onda branca desce de cima para baixo e preenche todo o botão */
+.btn-lacti-slide::before {
+  top: 0;
+  height: 160%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 160' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L100,0 L100,125 C80,145 65,140 50,125 C35,110 20,105 0,130 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  transform: translateY(-105%);
 }
 
-.btn-lacti:hover .btn-icon,
-.btn-lacti[data-demo-state="hover"] .btn-icon {
-  transform: translateX(2px);
+.btn-lacti-slide:hover::before,
+.btn-lacti-slide[data-demo-state="hover"]::before {
+  transform: translateY(0);
 }
 
-.btn-lacti:active .btn-icon,
-.btn-lacti[data-state="pressed"] .btn-icon,
-.btn-lacti[data-demo-state="active"] .btn-icon {
-  transform: scale(0.95);
+.btn-lacti-slide:hover,
+.btn-lacti-slide[data-demo-state="hover"] {
+  border-color: var(--color-lacti-white) !important;
+  color: var(--color-lacti-black) !important;
 }
 
-/* State confirmation Swap: default icon vs confirmed icon */
-.btn-lacti .icon-confirmed {
-  display: none;
+.btn-lacti-slide:hover .btn-label,
+.btn-lacti-slide[data-demo-state="hover"] .btn-label {
+  color: var(--color-lacti-black) !important;
 }
-.btn-lacti[data-state="pressed"] .icon-default,
-.btn-lacti[data-demo-state="active"] .icon-default {
-  display: none;
-}
-.btn-lacti[data-state="pressed"] .icon-confirmed,
-.btn-lacti[data-demo-state="active"] .icon-confirmed {
-  display: inline-flex;
-}
+
+
 
 /* ==========================================================================
    ACCESSIBLE FORM CONTROLS & ERROR MESSAGES (:user-invalid + WCAG 2.2)

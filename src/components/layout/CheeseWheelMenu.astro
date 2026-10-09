@@ -1,0 +1,365 @@
+---
+import Icon from '../ui/Icon.astro';
+
+interface CheeseSlice {
+  id: string;
+  label: string;
+  subtitle: string;
+  href: string;
+  icon: string;
+  bisectorAngle: number;
+  // SVG coordinates for R=160, center=(200, 200)
+  pathD: string;
+  rindD: string;
+  textX: number;
+  textY: number;
+  textAngle: number;
+}
+
+// 5 slices = 72 deg each, starting at -90 deg (top)
+// Slice 0: -90° to -18° (A Lactimonte)
+// Slice 1: -18° to 54° (Queijos)
+// Slice 2: 54° to 126° (Receitas)
+// Slice 3: 126° to 198° (Notícias)
+// Slice 4: 198° to 270° (Contactos)
+const slices: CheeseSlice[] = [
+  {
+    id: 'slice-a-lactimonte',
+    label: 'A Lactimonte',
+    subtitle: 'História & Tradição Familiar',
+    href: '/a-lactimonte',
+    icon: 'shield-check',
+    bisectorAngle: -54,
+    // -90° (200, 40) -> -18° (352.17, 150.56)
+    pathD: 'M 200 200 L 200 40 A 160 160 0 0 1 352.17 150.56 Z',
+    rindD: 'M 200 40 A 160 160 0 0 1 352.17 150.56',
+    textX: 260,
+    textY: 110,
+    textAngle: -54,
+  },
+  {
+    id: 'slice-queijos',
+    label: 'Queijos',
+    subtitle: 'Frescos, Curados & Requeijão',
+    href: '/queijos',
+    icon: 'star',
+    bisectorAngle: 18,
+    // -18° (352.17, 150.56) -> 54° (294.05, 329.44)
+    pathD: 'M 200 200 L 352.17 150.56 A 160 160 0 0 1 294.05 329.44 Z',
+    rindD: 'M 352.17 150.56 A 160 160 0 0 1 294.05 329.44',
+    textX: 295,
+    textY: 235,
+    textAngle: 18,
+  },
+  {
+    id: 'slice-receitas',
+    label: 'Receitas',
+    subtitle: 'Inspirações Saloias à Mesa',
+    href: '/receitas',
+    icon: 'sparkles',
+    bisectorAngle: 90,
+    // 54° (294.05, 329.44) -> 126° (105.95, 329.44)
+    pathD: 'M 200 200 L 294.05 329.44 A 160 160 0 0 1 105.95 329.44 Z',
+    rindD: 'M 294.05 329.44 A 160 160 0 0 1 105.95 329.44',
+    textX: 200,
+    textY: 295,
+    textAngle: 0,
+  },
+  {
+    id: 'slice-noticias',
+    label: 'Notícias',
+    subtitle: 'Prémios & Atualidade',
+    href: '/noticias',
+    icon: 'newspaper',
+    bisectorAngle: 162,
+    // 126° (105.95, 329.44) -> 198° (47.83, 150.56)
+    pathD: 'M 200 200 L 105.95 329.44 A 160 160 0 0 1 47.83 150.56 Z',
+    rindD: 'M 105.95 329.44 A 160 160 0 0 1 47.83 150.56',
+    textX: 105,
+    textY: 235,
+    textAngle: -18,
+  },
+  {
+    id: 'slice-contactos',
+    label: 'Contactos',
+    subtitle: 'Distribuição & Mafra',
+    href: '/contactos',
+    icon: 'phone',
+    bisectorAngle: 234,
+    // 198° (47.83, 150.56) -> 270° (200, 40)
+    pathD: 'M 200 200 L 47.83 150.56 A 160 160 0 0 1 200 40 Z',
+    rindD: 'M 47.83 150.56 A 160 160 0 0 1 200 40',
+    textX: 140,
+    textY: 110,
+    textAngle: 54,
+  },
+];
+---
+
+<!-- Trigger Button (Cheese Wheel Icon & Label) -->
+<div class="relative inline-block" id="cheese-wheel-nav-root">
+  <button
+    id="cheese-wheel-toggle-btn"
+    type="button"
+    aria-expanded="false"
+    aria-controls="cheese-wheel-modal"
+    aria-label="Abrir Menu Queijo Saloio Interativo"
+    class="inline-flex items-center gap-2 px-3.5 py-2 rounded-full border-2 border-[#169f38] bg-[#ffffff] hover:bg-[#169f38] text-[#169f38] hover:text-[#ffffff] transition-all duration-200 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38]"
+  >
+    <!-- Miniature Cheese Wheel Icon -->
+    <svg class="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10" stroke="#169f38" class="group-hover:stroke-[#ffffff]" />
+      <path d="M12 2 L12 12 L19.07 4.93" stroke="#169f38" class="group-hover:stroke-[#ffffff]" />
+      <path d="M12 12 L21.5 15" stroke="#169f38" class="group-hover:stroke-[#ffffff]" />
+      <path d="M12 12 L12 22" stroke="#169f38" class="group-hover:stroke-[#ffffff]" />
+      <path d="M12 12 L2.5 15" stroke="#169f38" class="group-hover:stroke-[#ffffff]" />
+      <circle cx="12" cy="12" r="3" fill="#169f38" class="group-hover:fill-[#ffffff]" />
+    </svg>
+    <span class="font-sans font-black text-xs uppercase tracking-wider">Menu Queijo</span>
+  </button>
+
+  <!-- Interactive Cheese Wheel Modal / Backdrop -->
+  <div
+    id="cheese-wheel-modal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menu Queijo Lactimonte"
+  >
+    <div
+      id="cheese-wheel-dialog"
+      class="relative w-full max-w-xl bg-[#ffffff] rounded-[32px] border-2 border-[#169f38] p-6 sm:p-8 shadow-2xl scale-95 transition-transform duration-300 flex flex-col items-center text-center space-y-5"
+    >
+      <!-- Close Button -->
+      <button
+        id="cheese-wheel-close-btn"
+        type="button"
+        aria-label="Fechar Menu Queijo"
+        class="absolute top-5 right-5 w-10 h-10 rounded-full border-2 border-[#169f38] text-[#169f38] hover:bg-[#169f38] hover:text-[#ffffff] flex items-center justify-center transition-colors duration-200"
+      >
+        <Icon name="close" size={20} />
+      </button>
+
+      <!-- Modal Header -->
+      <div class="space-y-1">
+        <span class="font-script text-2xl sm:text-3xl text-[#169f38] block">
+          A Tradição à Mesa
+        </span>
+        <h3 class="font-sans text-2xl sm:text-3xl font-black uppercase text-[#000000] tracking-tight">
+          Cada Fatia, <span class="text-[#169f38]">Um Destino</span>
+        </h3>
+        <p class="text-xs sm:text-sm text-[#000000]/70 max-w-md mx-auto">
+          Passe o cursor sobre as fatias do queijo tradicional para explorar cada secção da nossa queijaria.
+        </p>
+      </div>
+
+      <!-- Interactive SVG Cheese Wheel -->
+      <div class="relative w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] mx-auto select-none">
+        <svg
+          viewBox="0 0 400 400"
+          class="w-full h-full filter drop-shadow-xl"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <!-- Cheese body gradient -->
+            <radialGradient id="cheeseGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff8db" />
+              <stop offset="70%" stop-color="#f5d376" />
+              <stop offset="100%" stop-color="#dfad3b" />
+            </radialGradient>
+            <!-- Cheese rind gradient (outer edge) -->
+            <linearGradient id="rindGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#c68a1f" />
+              <stop offset="100%" stop-color="#99630c" />
+            </linearGradient>
+            <!-- Hovered slice gradient -->
+            <radialGradient id="hoverSliceGrad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffffff" />
+              <stop offset="60%" stop-color="#a7f3d0" />
+              <stop offset="100%" stop-color="#169f38" />
+            </radialGradient>
+          </defs>
+
+          <!-- 5 Slices Group -->
+          {slices.map((slice, idx) => (
+            <a
+              href={slice.href}
+              class="cheese-slice-link group/slice cursor-pointer focus:outline-none"
+              data-slice-id={slice.id}
+              data-label={slice.label}
+              data-subtitle={slice.subtitle}
+              aria-label={`Ir para ${slice.label}: ${slice.subtitle}`}
+            >
+              <!-- Slice Wedge Path -->
+              <path
+                d={slice.pathD}
+                fill="url(#cheeseGrad)"
+                stroke="#ffffff"
+                stroke-width="3"
+                class="transition-all duration-300 group-hover/slice:fill-[#d1fae5] group-hover/slice:stroke-[#169f38] group-hover/slice:stroke-[4]"
+              />
+
+              <!-- Slice Outer Rind (Crest) -->
+              <path
+                d={slice.rindD}
+                fill="none"
+                stroke="url(#rindGrad)"
+                stroke-width="7"
+                stroke-linecap="round"
+                class="transition-all duration-300 group-hover/slice:stroke-[#169f38]"
+              />
+
+              <!-- Subtle Cheese Pores / Holes -->
+              <circle cx={slice.textX - 15} cy={slice.textY + 20} r="4.5" fill="#d99f2b" opacity="0.35" />
+              <circle cx={slice.textX + 20} cy={slice.textY - 18} r="3" fill="#d99f2b" opacity="0.4" />
+              <circle cx={slice.textX + 5} cy={slice.textY + 28} r="2.5" fill="#d99f2b" opacity="0.3" />
+
+              <!-- Slice Label Text -->
+              <text
+                x={slice.textX}
+                y={slice.textY}
+                text-anchor="middle"
+                dominant-baseline="middle"
+                fill="#000000"
+                class="font-sans font-black text-[13px] sm:text-[14px] uppercase tracking-wider transition-colors duration-200 group-hover/slice:fill-[#169f38] pointer-events-none select-none"
+              >
+                {slice.label}
+              </text>
+            </a>
+          ))}
+
+          <!-- Central Hub / Cheese Center Emblem -->
+          <circle cx="200" cy="200" r="46" fill="#ffffff" stroke="#169f38" stroke-width="3" />
+          <circle cx="200" cy="200" r="41" fill="#169f38" />
+          <text
+            x="200"
+            y="196"
+            text-anchor="middle"
+            fill="#ffffff"
+            class="font-script text-base font-bold select-none pointer-events-none"
+          >
+            Lactimonte
+          </text>
+          <text
+            x="200"
+            y="212"
+            text-anchor="middle"
+            fill="#ffffff"
+            class="font-sans text-[9px] font-black uppercase tracking-widest select-none pointer-events-none"
+          >
+            DESDE 1980
+          </text>
+        </svg>
+      </div>
+
+      <!-- Live Preview Badge for Current Hovered Slice -->
+      <div
+        id="cheese-wheel-info-badge"
+        class="w-full max-w-sm rounded-2xl border-2 border-[#169f38] bg-[#f0fdf4] p-3 text-center transition-all duration-200"
+      >
+        <span id="cheese-badge-label" class="block font-sans font-black text-sm uppercase text-[#169f38]">
+          Selecione uma fatia
+        </span>
+        <span id="cheese-badge-sub" class="block text-xs text-[#000000]/70">
+          Clique numa fatia para abrir a página correspondente
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Outward radial translation on slice hover */
+  .cheese-slice-link {
+    transform-origin: 200px 200px;
+    transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Each slice pulls outwards along its bisector angle */
+  .cheese-slice-link[data-slice-id="slice-a-lactimonte"]:hover {
+    transform: translate(8px, -11px);
+  }
+  .cheese-slice-link[data-slice-id="slice-queijos"]:hover {
+    transform: translate(13px, 4px);
+  }
+  .cheese-slice-link[data-slice-id="slice-receitas"]:hover {
+    transform: translate(0px, 14px);
+  }
+  .cheese-slice-link[data-slice-id="slice-noticias"]:hover {
+    transform: translate(-13px, 4px);
+  }
+  .cheese-slice-link[data-slice-id="slice-contactos"]:hover {
+    transform: translate(-8px, -11px);
+  }
+</style>
+
+<script>
+  function setupCheeseWheelModal() {
+    const root = document.getElementById('cheese-wheel-nav-root');
+    if (!root) return;
+
+    const toggleBtn = document.getElementById('cheese-wheel-toggle-btn');
+    const modal = document.getElementById('cheese-wheel-modal');
+    const dialog = document.getElementById('cheese-wheel-dialog');
+    const closeBtn = document.getElementById('cheese-wheel-close-btn');
+    const badgeLabel = document.getElementById('cheese-badge-label');
+    const badgeSub = document.getElementById('cheese-badge-sub');
+    const sliceLinks = modal?.querySelectorAll('.cheese-slice-link');
+
+    if (!toggleBtn || !modal || !dialog) return;
+
+    function openModal() {
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
+      dialog.classList.remove('scale-95');
+      dialog.classList.add('scale-100');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      modal.classList.remove('opacity-100', 'pointer-events-auto');
+      dialog.classList.add('scale-95');
+      dialog.classList.remove('scale-100');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    toggleBtn.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+
+    // Close when clicking outside the dialog card
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+        closeModal();
+      }
+    });
+
+    // Hover tooltip feedback on slices
+    sliceLinks?.forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        const label = link.getAttribute('data-label') || '';
+        const sub = link.getAttribute('data-subtitle') || '';
+        if (badgeLabel && badgeSub) {
+          badgeLabel.textContent = `🧀 ${label}`;
+          badgeSub.textContent = sub;
+        }
+      });
+      link.addEventListener('mouseleave', () => {
+        if (badgeLabel && badgeSub) {
+          badgeLabel.textContent = 'Selecione uma fatia';
+          badgeSub.textContent = 'Clique numa fatia para abrir a página correspondente';
+        }
+      });
+    });
+  }
+
+  setupCheeseWheelModal();
+  document.addEventListener('astro:page-load', setupCheeseWheelModal);
+</script>

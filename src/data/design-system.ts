@@ -22,7 +22,7 @@ export interface ButtonSizeSpec {
 }
 
 export interface ButtonVariationSpec {
-  id: 'primary' | 'secondary';
+  id: 'primary' | 'secondary' | 'slide';
   name: string;
   description: string;
   normalState: {
@@ -36,14 +36,7 @@ export interface ButtonVariationSpec {
     text: string;
     border: string;
     motion: string;
-    responseTime: '100ms (0.1s)';
-  };
-  activeState: {
-    background: string;
-    text: string;
-    border: string;
-    confirmationFeedback: string;
-    responseTime: '100ms (0.1s)';
+    responseTime: string;
   };
 }
 
@@ -107,8 +100,8 @@ export const TYPOGRAPHY_SPECS = [
   {
     family: 'Roboto',
     cssClass: 'font-sans',
-    weights: ['300 (Light)', '400 (Regular)', '500 (Medium)', '700 (Bold)', '900 (Black)'],
-    role: 'Tipografia Estrutural para Títulos, Descrições, Botões e Monumental Footer',
+    weights: ['300 (Light — Parágrafos & Textos)', '500 (Medium — Títulos & Cabeçalhos)'],
+    role: 'Tipografia Estrutural com pesos rebaixados em teste: 500 em Títulos e 300 em Parágrafos',
     sample: 'Queijos Frescos, Queijos Curados e Requeijão 100% Nacional.',
   },
 ];
@@ -152,52 +145,56 @@ export const BUTTON_SIZES: ButtonSizeSpec[] = [
 export const BUTTON_VARIATIONS: ButtonVariationSpec[] = [
   {
     id: 'primary',
-    name: 'Variação 1 — Primário (Fundo Verde #169f38 · Texto Branco #ffffff)',
-    description: 'Sem sombra/profundidade. No Hover faz a troca direta de cor (o background passa a ser a cor do texto #ffffff e o texto passa a #169f38). Quando ativo nunca tem fundo preto.',
+    name: 'Variação 1 — Primário (Fundo Verde #169f38 · Palavras #1b1b1b)',
+    description: 'Sem profundidade e sem ícone. Fundo verde (#169f38), borda verde e palavras com a cor #1b1b1b no estado normal e hover. No Hover, a onda branca sobe de baixo para cima preenchendo todo o botão com transição de 1000ms para permitir ver claramente a crista da onda.',
     normalState: {
       background: '#169f38',
-      text: '#ffffff',
+      text: '#1b1b1b',
       border: '2px solid #169f38',
-      depthEffect: 'Sem profundidade (flat / box-shadow: none)',
+      depthEffect: 'none',
     },
     hoverState: {
-      background: '#ffffff (Troca com a cor do texto)',
-      text: '#169f38 (Troca com a cor do background)',
+      background: 'Efeito de Onda Branca (#ffffff)',
+      text: '#1b1b1b',
       border: '2px solid #169f38',
-      motion: 'Troca instantânea de cor + avanço de 2px no ícone único',
-      responseTime: '100ms (0.1s)',
-    },
-    activeState: {
-      background: '#169f38 (Nunca preto)',
-      text: '#ffffff',
-      border: '2px solid #169f38',
-      confirmationFeedback: 'Escala tátil scale(0.98) com fundo verde #169f38 e confirmação por troca do ícone único para check-circle',
-      responseTime: '100ms (0.1s)',
+      motion: 'Efeito de onda sobe de baixo para cima e faz em todo o botão',
+      responseTime: '1000ms transição fluida visível',
     },
   },
   {
     id: 'secondary',
-    name: 'Variação 2 — Secundário (Fundo Branco #ffffff · Texto e Borda Verde #169f38)',
-    description: 'Sem sombra/profundidade. No Hover faz a troca direta de cor (o background passa a ser a cor do texto #169f38 e o texto passa a #ffffff). Quando ativo nunca tem fundo preto.',
+    name: 'Variação 2 — Secundário (Fundo Branco #ffffff · Palavras #1b1b1b)',
+    description: 'Sem profundidade e sem ícone. Fundo branco (#ffffff), borda verde (#169f38) e palavras com a cor #1b1b1b no estado normal e hover. No Hover, a onda verde desce de cima para baixo preenchendo todo o botão com transição de 1000ms para permitir ver claramente a crista da onda.',
     normalState: {
       background: '#ffffff',
-      text: '#169f38',
-      border: '2px solid #169f38 (Contraste 3.41:1 >= 3:1)',
-      depthEffect: 'Sem profundidade (flat / box-shadow: none)',
+      text: '#1b1b1b',
+      border: '2px solid #169f38',
+      depthEffect: 'none',
     },
     hoverState: {
-      background: '#169f38 (Troca com a cor do texto)',
-      text: '#ffffff (Troca com a cor do background)',
+      background: 'Efeito de Onda Verde (#169f38)',
+      text: '#1b1b1b',
       border: '2px solid #169f38',
-      motion: 'Troca instantânea de cor + avanço de 2px no ícone único',
-      responseTime: '100ms (0.1s)',
+      motion: 'Efeito de onda desce de cima para baixo e faz em todo o botão',
+      responseTime: '1000ms transição fluida visível',
     },
-    activeState: {
-      background: '#ffffff (Nunca preto)',
-      text: '#169f38',
-      border: '2px solid #169f38',
-      confirmationFeedback: 'Escala tátil scale(0.98) com fundo branco #ffffff e confirmação imediata com ícone check-circle',
-      responseTime: '100ms (0.1s)',
+  },
+  {
+    id: 'slide',
+    name: 'Variação 3 — Slide (Botão dos Slides · Sem Fundo · Borda 2px solid #ffffff)',
+    description: 'Sem profundidade e sem ícone. No estado Normal tem fundo transparente, palavras brancas (#ffffff) e borda de 2px sólida branca (2px solid #ffffff). No Hover, o efeito de onda branca desce de cima para baixo preenchendo todo o botão (1000ms), as palavras passam a preto (#000000) e a borda mantém-se 2px sólida branca (2px solid #ffffff).',
+    normalState: {
+      background: 'Sem fundo (transparente)',
+      text: '#ffffff',
+      border: '2px solid #ffffff',
+      depthEffect: 'none',
+    },
+    hoverState: {
+      background: 'Efeito de Onda Branca (#ffffff)',
+      text: '#000000',
+      border: '2px solid #ffffff',
+      motion: 'Efeito de onda desce de cima para baixo e preenche todo o botão',
+      responseTime: '1000ms transição fluida visível',
     },
   },
 ];

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+---
+
+<BaseLayout
+  title="Raízes | História e Antepassados Lactimonte"
+  description="Conheça as raízes familiares, a história dos antepassados e a tradição queijeira secular da Lactimonte em Montemuro, Mafra."
+>
+  <!-- Hero Section -->
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <span class="font-script text-3xl md:text-4xl text-[#169f38] block">
+            Montemuro · Santo Estêvão das Galés · Mafra
+          </span>
+          <h1 class="font-sans text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight leading-[1.02] text-[#000000]">
+            As Nossas Raízes & <span class="text-[#169f38]">Antepassados</span>.
+          </h1>
+          <p class="text-base md:text-xl leading-relaxed text-[#000000]">
+            A história da Lactimonte é a história viva de gerações dedicadas à terra saloia, às pastagens verdejantes de Mafra e à arte milenar de transformar leite puro em queijos com alma e tradição.
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <Button href="/a-lactimonte" variant="primary" size="md" icon="arrow-up-right" label="Conhecer a Marca" />
+            <Button href="/queijos" variant="secondary" size="md" icon="arrow-up-right" label="Ver Gama de Queijos" />
+          </div>
+        </div>
+
+        <div class="lg:col-span-5">
+          <div class="rounded-[32px] overflow-hidden border-2 border-[#169f38] aspect-[4/3] bg-[#ffffff] shadow-lg">
+            <img
+              src="/assets/imagem/fabrica/lactimonte-um.jpg"
+              alt="Raízes da Família Marques em Montemuro, Mafra"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Section: Em Construção / Brevemente Crónica Familiar -->
+  <section class="py-16 md:py-20 bg-[#f9fafb] text-[#000000] border-y border-[#000000]/10">
+    <div class="lacti-container text-center max-w-3xl space-y-5">
+      <span class="font-script text-3xl text-[#169f38] block">
+        Memórias & Herança Saloia
+      </span>
+      <h2 class="font-sans text-3xl sm:text-4xl font-black uppercase text-[#000000]">
+        Uma Crónica Familiar em Escrita
+      </h2>
+      <p class="text-base sm:text-lg leading-relaxed text-[#000000]/80">
+        Estamos a reunir fotografias históricas de arquivo, memórias orais e testemunhos dos mestres queijeiros que construíram as fundações da nossa queijaria ao longo de décadas. Muito em breve partilharemos aqui este legado integral.
+      </p>
+      <div class="pt-4">
+        <Button href="/noticias" variant="secondary" size="sm" icon="newspaper" label="Ver Notícias & Mural" />
+      </div>
+    </div>
+  </section>
+
+  <NewsletterSection />
+</BaseLayout>

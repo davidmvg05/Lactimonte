@@ -2,7 +2,7 @@
 import Icon from './Icon.astro';
 
 export interface Props {
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'slide';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   type?: 'button' | 'submit' | 'reset';
@@ -13,7 +13,7 @@ export interface Props {
   rel?: string;
   class?: string;
   id?: string;
-  demoState?: 'normal' | 'hover' | 'active';
+  demoState?: 'normal' | 'hover';
   dataAttributes?: Record<string, string>;
 }
 
@@ -36,7 +36,11 @@ const {
 const sizeClass =
   size === 'sm' ? 'btn-lacti-sm' : size === 'lg' ? 'btn-lacti-lg' : 'btn-lacti-md';
 const variantClass =
-  variant === 'secondary' ? 'btn-lacti-secondary' : 'btn-lacti-primary';
+  variant === 'slide'
+    ? 'btn-lacti-slide'
+    : variant === 'secondary'
+      ? 'btn-lacti-secondary'
+      : 'btn-lacti-primary';
 const iconSize = size === 'sm' ? 18 : size === 'lg' ? 22 : 20;
 
 const isSafeHref =
@@ -69,11 +73,5 @@ const Tag = safeHref ? 'a' : 'button';
   class={`btn-lacti ${sizeClass} ${variantClass} ${className}`}
   {...dataAttributes}
 >
-  {label ? <span class="btn-label"><slot>{label}</slot></span> : <slot />}
-  <span class="btn-icon icon-default" aria-hidden="true">
-    <Icon name={icon} size={iconSize} />
-  </span>
-  <span class="btn-icon icon-confirmed" aria-hidden="true">
-    <Icon name="check-circle" size={iconSize} />
-  </span>
+  <span class="btn-label"><slot>{label}</slot></span>
 </Tag>

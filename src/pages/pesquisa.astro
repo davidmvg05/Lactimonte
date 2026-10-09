@@ -1,0 +1,255 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/ui/Icon.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+import { RECIPES } from '../data/recipes';
+
+// Pass recipes data as JSON for instant client-side filtering and keyword highlighting
+const allRecipesJson = JSON.stringify(RECIPES);
+---
+
+<BaseLayout
+  title="Pesquisa de Receitas | Queijaria Lactimonte"
+  description="Pesquise receitas deliciosas preparadas com queijos frescos, queijos curados e requeijão tradicional Lactimonte."
+>
+  <section class="py-16 md:py-24 bg-[#ffffff] text-[#000000]">
+    <div class="lacti-container max-w-5xl">
+      <!-- Page Header (Matching Imagem 3) -->
+      <div class="text-center space-y-3 mb-10">
+        <h1 class="font-sans font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-[#261c14]">
+          Pesquisa
+        </h1>
+        <p class="text-sm sm:text-base text-[#000000]/70 font-medium">
+          Consulte em baixo os resultados da sua pesquisa.
+        </p>
+      </div>
+
+      <!-- Search Input Bar (Matching Imagem 3) -->
+      <div class="max-w-3xl mx-auto mb-12">
+        <form id="pesquisa-page-form" class="flex items-center gap-2 border-2 border-[#261c14] rounded-xl p-1 bg-[#ffffff] shadow-sm focus-within:border-[#169f38] transition-colors">
+          <input
+            id="pesquisa-page-input"
+            type="search"
+            name="q"
+            placeholder="Receita Queijo..."
+            autocomplete="off"
+            class="flex-1 px-4 py-2.5 font-sans font-bold text-base sm:text-lg text-[#169f38] placeholder:text-[#000000]/40 focus:outline-none bg-transparent"
+          />
+          <button
+            type="submit"
+            class="px-6 sm:px-8 py-2.5 rounded-lg font-sans font-black text-xs uppercase tracking-wider bg-[#261c14] hover:bg-[#169f38] text-[#ffffff] transition-colors duration-200 shrink-0"
+          >
+            PESQUISAR
+          </button>
+        </form>
+      </div>
+
+      <!-- Search Query Header Counter (e.g. Resultados para a sua pesquisa "Receita Queijo" (20):) -->
+      <div id="search-results-counter-wrapper" class="mb-8 hidden">
+        <h2 id="search-results-title" class="font-sans font-black text-xl sm:text-2xl text-[#261c14] tracking-tight">
+          <!-- Dynamically populated -->
+        </h2>
+      </div>
+
+      <!-- Results Grid (Matching Imagem 3) -->
+      <div
+        id="search-results-grid"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch"
+      >
+        <!-- Dynamically rendered via client-side script with keyword highlights -->
+      </div>
+
+      <!-- Empty State Container -->
+      <div
+        id="search-empty-state"
+        class="hidden text-center py-16 space-y-4 max-w-md mx-auto"
+      >
+        <div class="w-16 h-16 mx-auto rounded-full bg-[#f0fdf4] text-[#169f38] flex items-center justify-center border-2 border-[#169f38]">
+          <Icon name="search" size={28} />
+        </div>
+        <h3 class="font-sans text-xl font-black uppercase text-[#000000]">
+          Nenhum resultado encontrado
+        </h3>
+        <p class="text-sm text-[#000000]/70 leading-relaxed">
+          Tente pesquisar por termos mais gerais como <strong class="text-[#169f38]">"queijo"</strong>, <strong class="text-[#169f38]">"requeijão"</strong>, <strong class="text-[#169f38]">"salada"</strong> ou <strong class="text-[#169f38]">"cheesecake"</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <NewsletterSection />
+
+  <!-- Embedded JSON dataset for client-side search -->
+  <script is:inline id="recipes-data" type="application/json" set:html={allRecipesJson} />
+</BaseLayout>
+
+<script>
+  interface RecipeItem {
+    id: string;
+    slug: string;
+    title: string;
+    category: string;
+    cheeseUsed: string;
+    prepTime: string;
+    servings: string;
+    difficulty: string;
+    image: string;
+    summary: string;
+    ingredients: string[];
+    steps: string[];
+  }
+
+  function initPesquisaPage() {
+    const rawData = document.getElementById('recipes-data')?.textContent;
+    if (!rawData) return;
+
+    let recipes: RecipeItem[] = [];
+    try {
+      recipes = JSON.parse(rawData);
+    } catch (e) {
+      return;
+    }
+
+    const input = document.getElementById('pesquisa-page-input') as HTMLInputElement | null;
+    const form = document.getElementById('pesquisa-page-form') as HTMLFormElement | null;
+    const counterWrapper = document.getElementById('search-results-counter-wrapper');
+    const titleEl = document.getElementById('search-results-title');
+    const grid = document.getElementById('search-results-grid');
+    const emptyState = document.getElementById('search-empty-state');
+
+    if (!input || !form || !grid) return;
+
+    // Normalization helper (case-insensitive & accent-insensitive)
+    function normalize(str: string): string {
+      return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    // Escape regex characters
+    function escapeRegExp(str: string): string {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    // Keyword highlighter function (matching Image 3 yellow highlight)
+    function highlightKeywords(text: string, keywords: string[]): string {
+      if (!keywords.length) return text;
+      const validKeywords = keywords.filter((k) => k.length >= 2);
+      if (!validKeywords.length) return text;
+
+      const pattern = new RegExp(`(${validKeywords.map(escapeRegExp).join('|')})`, 'gi');
+      return text.replace(pattern, '<mark class="bg-[#fef08a] text-[#000000] font-bold px-0.5 rounded">$1</mark>');
+    }
+
+    function renderResults(query: string) {
+      const trimmed = query.trim();
+      input.value = trimmed;
+
+      if (!trimmed) {
+        // Empty query: Show all recipes with friendly intro
+        if (counterWrapper && titleEl) {
+          counterWrapper.classList.remove('hidden');
+          titleEl.textContent = `Todas as Receitas Lactimonte (${recipes.length}):`;
+        }
+        emptyState?.classList.add('hidden');
+        renderCards(recipes, []);
+        return;
+      }
+
+      // Split query into keywords
+      const rawKeywords = trimmed.split(/\s+/).filter(Boolean);
+      const normalizedKeywords = rawKeywords.map(normalize);
+
+      // Score and filter recipes
+      const matches = recipes
+        .map((recipe) => {
+          const normTitle = normalize(recipe.title);
+          const normSummary = normalize(recipe.summary);
+          const normCheese = normalize(recipe.cheeseUsed);
+          const normCategory = normalize(recipe.category);
+          const normIngredients = normalize(recipe.ingredients.join(' '));
+
+          let score = 0;
+          for (const kw of normalizedKeywords) {
+            if (normTitle.includes(kw)) score += 5;
+            if (normCheese.includes(kw)) score += 4;
+            if (normCategory.includes(kw)) score += 3;
+            if (normSummary.includes(kw)) score += 2;
+            if (normIngredients.includes(kw)) score += 1;
+          }
+
+          return { recipe, score };
+        })
+        .filter((item) => item.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map((item) => item.recipe);
+
+      if (counterWrapper && titleEl) {
+        counterWrapper.classList.remove('hidden');
+        titleEl.textContent = `Resultados para a sua pesquisa "${trimmed}" (${matches.length}):`;
+      }
+
+      if (matches.length === 0) {
+        grid.innerHTML = '';
+        emptyState?.classList.remove('hidden');
+      } else {
+        emptyState?.classList.add('hidden');
+        renderCards(matches, rawKeywords);
+      }
+    }
+
+    function renderCards(list: RecipeItem[], keywords: string[]) {
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      list.forEach((recipe) => {
+        const card = document.createElement('article');
+        card.className =
+          'rounded-2xl border-2 border-[#169f38] bg-[#ffffff] p-6 sm:p-7 flex flex-col justify-between space-y-5 transition-all duration-200 hover:shadow-md';
+
+        const highlightedTitle = highlightKeywords(recipe.title, keywords);
+        const highlightedSummary = highlightKeywords(recipe.summary, keywords);
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <h3 class="font-sans text-xl sm:text-2xl font-black uppercase text-[#261c14] leading-snug">
+              ${highlightedTitle}
+            </h3>
+            <p class="text-sm text-[#000000]/80 leading-relaxed font-normal">
+              ${highlightedSummary}
+            </p>
+          </div>
+          <div class="pt-2">
+            <a
+              href="/receitas#${recipe.id}"
+              class="inline-flex items-center gap-1.5 font-sans font-black text-xs uppercase tracking-wider text-[#261c14] hover:text-[#169f38] transition-colors"
+            >
+              <span>SAIBA MAIS</span>
+              <span aria-hidden="true">&gt;</span>
+            </a>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    // Read query from URL (?q=...)
+    const params = new URLSearchParams(window.location.search);
+    const initialQuery = params.get('q') || '';
+    renderResults(initialQuery);
+
+    // Form submit on /pesquisa updates URL and re-renders
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const newQuery = input.value.trim();
+      const newUrl = newQuery ? `/pesquisa?q=${encodeURIComponent(newQuery)}` : '/pesquisa';
+      window.history.pushState({}, '', newUrl);
+      renderResults(newQuery);
+    });
+  }
+
+  initPesquisaPage();
+  document.addEventListener('astro:page-load', initPesquisaPage);
+</script>

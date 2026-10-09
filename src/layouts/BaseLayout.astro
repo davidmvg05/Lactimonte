@@ -2,6 +2,7 @@
 import '../styles/design-system.css';
 import Header from '../components/layout/Header.astro';
 import ShaderFooter from '../components/layout/ShaderFooter.astro';
+import SearchModal from '../components/ui/SearchModal.astro';
 import { COMPANY_INFO } from '../data/company';
 
 export interface Props {
@@ -85,11 +86,16 @@ const safeSchemaJson = JSON.stringify(schemaOrg).replace(/</g, '\\u003c');
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Google Fonts: Dancing Script & Roboto -->
+    <!-- Google Fonts: Dancing Script & Roboto (display=block prevents flash of unstyled font swap on reload) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Roboto:wght@300;500;700&display=block"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Roboto:wght@300;500;700&display=block"
       rel="stylesheet"
     />
 
@@ -112,6 +118,9 @@ const safeSchemaJson = JSON.stringify(schemaOrg).replace(/</g, '\\u003c');
     </main>
 
     <ShaderFooter />
+
+    <!-- Fullscreen Search Overlay (Image 2) mounted at root of body to escape transformed containers -->
+    <SearchModal />
 
     <!-- Global 100ms tactile confirmation behavior for buttons -->
     <script>

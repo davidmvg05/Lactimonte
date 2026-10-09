@@ -1,0 +1,430 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+
+interface SlideData {
+  id: string;
+  number: string;
+  phrase: string;
+  title: string;
+  titleHighlight?: string;
+  description: string;
+  buttonLabel: string;
+  buttonHref: string;
+  image: string;
+  imageAlt: string;
+  isStudioWallEffect?: boolean;
+}
+
+const slides: SlideData[] = [
+  {
+    id: 'slide-1',
+    number: '01',
+    phrase: 'Da Nossa Queijaria para a Sua Mesa',
+    title: 'Três Especialidades.',
+    titleHighlight: 'Uma Tradição Saloia',
+    description:
+      'Uma Tradição Saloia. O saber autêntico da região de Mafra refletido na frescura dos nossos Queijos Frescos, na cura paciente dos Queijos Curados e na nobreza aveludada do Requeijão tradicional.',
+    buttonLabel: 'Explorar Os Nossos Queijos',
+    buttonHref: '/queijos',
+    image: '/assets/imagem/hero-tabua-queijos.jpg',
+    imageAlt: 'Tábua de Queijos Tradicionais Lactimonte: Merendeira do Monte e Queijo Curado',
+    isStudioWallEffect: true,
+  },
+  {
+    id: 'slide-2',
+    number: '02',
+    phrase: 'A Arte Queijeira desde 1980',
+    title: 'Mais de 40 Anos',
+    titleHighlight: 'de História & Tradição',
+    description:
+      'Fundada pela família Marques em Montemuro, Mafra, aliamos mais de quatro décadas de mestria queijeira ao mais rigoroso controlo de segurança alimentar e sustentabilidade com ETAR própria.',
+    buttonLabel: 'Conhecer a Lactimonte',
+    buttonHref: '/a-lactimonte',
+    image: '/assets/imagem/fabrica/lactimonte-um.jpg',
+    imageAlt: 'Instalações da Queijaria Tradicional Lactimonte em Montemuro, Mafra',
+    isStudioWallEffect: false,
+  },
+  {
+    id: 'slide-3',
+    number: '03',
+    phrase: 'Da Queijaria para a Sua Cozinha',
+    title: 'Receitas',
+    titleHighlight: 'Lactimonte',
+    description:
+      'Inspirações gastronómicas irresistíveis que combinam os nossos queijos frescos, curados e requeijão doce para transformar cada refeição da sua família num momento gourmet inesquecível.',
+    buttonLabel: 'Descobrir Receitas',
+    buttonHref: '/receitas',
+    image: '/assets/imagem/receitas/Cheesecake-com-requeijao-Lactimonte-1.jpg',
+    imageAlt: 'Cheesecake artesanal preparado com Requeijão Lactimonte',
+    isStudioWallEffect: false,
+  },
+];
+---
+
+<section
+  id="hero-interactive-carousel"
+  class="group relative w-full overflow-hidden bg-[#0a3318] text-[#ffffff] select-none"
+  aria-label="Carrossel Principal Lactimonte"
+  role="region"
+  aria-roledescription="carousel"
+>
+  <!-- Slides Container (+10% height) -->
+  <div class="relative w-full min-h-[640px] sm:min-h-[685px] md:min-h-[730px] lg:min-h-[775px] xl:min-h-[820px] flex items-center">
+    {
+      slides.map((slide, idx) => (
+        <article
+          class={`hero-slide absolute inset-0 w-full h-full flex items-center transition-all duration-700 ease-out ${
+            idx === 0
+              ? 'opacity-100 z-10 translate-x-0 pointer-events-auto'
+              : 'opacity-0 z-0 translate-x-8 pointer-events-none'
+          }`}
+          data-slide-index={idx}
+          aria-hidden={idx === 0 ? 'false' : 'true'}
+        >
+          <!-- Background Environment -->
+          {slide.isStudioWallEffect ? (
+            /* Slide 1 Studio Wall & Floor Perspective Backdrop (Inspired by Image 5) */
+            <div class="absolute inset-0 pointer-events-none overflow-hidden">
+              <!-- Vertical Studio Wall (Top 65%) with radial center spotlight -->
+              <div class="absolute top-0 left-0 right-0 h-[65%] bg-[radial-gradient(ellipse_at_70%_45%,#1c6d35_0%,#0f4820_50%,#092e14_100%)]" />
+              <!-- Perspective Horizon Seam with soft floor shadow -->
+              <div class="absolute top-[65%] left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#06210e]/60 to-transparent blur-[1px]" />
+              <!-- Perspective Studio Floor (Bottom 35%) with surface depth -->
+              <div class="absolute top-[65%] left-0 right-0 bottom-0 bg-gradient-to-b from-[#0b3318] to-[#072410] shadow-[inset_0_12px_24px_-8px_rgba(0,0,0,0.6)]" />
+            </div>
+          ) : idx === 1 ? (
+            /* Slide 2: Deep Heritage Saloio Green Studio Backdrop */
+            <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_65%_45%,#175f2d_0%,#0e411c_55%,#072610_100%)]" />
+          ) : (
+            /* Slide 3: Culinary Saloio Green Studio Backdrop */
+            <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_65%_45%,#1c6833_0%,#114922_55%,#082a12_100%)]" />
+          )}
+
+          <!-- Slide Content (Lacti Container) -->
+          <div class="lacti-container relative z-10 py-18 sm:py-22 lg:py-28 pb-32 sm:pb-36 lg:pb-40 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+              <!-- Left Column: Editorial Copy -->
+              <div class="lg:col-span-6 xl:col-span-7 space-y-4 sm:space-y-6 text-left">
+                <!-- Script Tag / Subtitle -->
+                <span class="hero-slide-phrase font-script text-2xl sm:text-3xl md:text-4xl text-[#a7f3d0] block transition-transform duration-500">
+                  {slide.phrase}
+                </span>
+
+                <!-- Main Display Heading -->
+                <h2 class="hero-slide-title font-sans text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black uppercase tracking-tight leading-[1.05] text-[#ffffff]">
+                  {slide.title}{' '}
+                  {slide.titleHighlight && (
+                    <span class="text-[#86efac] block sm:inline">
+                      {slide.titleHighlight}
+                    </span>
+                  )}
+                </h2>
+
+                <!-- Description -->
+                <p class="hero-slide-desc text-sm sm:text-base md:text-lg text-[#ffffff]/90 max-w-xl leading-relaxed font-normal">
+                  {slide.description}
+                </p>
+
+                <!-- CTA Button (Variação 3 — Slide) -->
+                <div class="hero-slide-btn pt-2 flex items-center gap-4">
+                  <Button
+                    href={slide.buttonHref}
+                    variant="slide"
+                    size="lg"
+                    icon="arrow-up-right"
+                    label={slide.buttonLabel}
+                  />
+                </div>
+              </div>
+
+              <!-- Right Column: Visual Product Staging -->
+              <div class="lg:col-span-6 xl:col-span-5 relative flex items-center justify-center">
+                {slide.isStudioWallEffect ? (
+                  /* Slide 1: Image 4 with Studio Wall & Floor Perspective Framing */
+                  <div class="relative w-full max-w-md sm:max-w-lg lg:max-w-none group">
+                    <!-- Floor Contact Shadow -->
+                    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[90%] h-10 bg-black/60 blur-xl rounded-[100%] pointer-events-none" />
+
+                    <!-- Featured Cheese Cutting Board Image Container -->
+                    <div class="relative rounded-[32px] overflow-hidden border-2 border-[#86efac]/40 bg-[#0d3f1d] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] transition-transform duration-500 hover:scale-[1.02]">
+                      <img
+                        src={slide.image}
+                        alt={slide.imageAlt}
+                        class="w-full h-auto max-h-[420px] sm:max-h-[485px] md:max-h-[530px] object-cover"
+                        loading={idx === 0 ? 'eager' : 'lazy'}
+                        fetchpriority={idx === 0 ? 'high' : 'auto'}
+                      />
+                      <!-- Soft Ambient Glow / Highlight Overlay -->
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/10 pointer-events-none" />
+                    </div>
+                  </div>
+                ) : (
+                  /* Slides 2 & 3: Clean Product & Factory Compositions on the Right */
+                  <div class="relative w-full max-w-md sm:max-w-lg lg:max-w-none group">
+                    <!-- Floor Shadow -->
+                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-[85%] h-8 bg-black/50 blur-lg rounded-[100%] pointer-events-none" />
+
+                    <div class="relative rounded-[32px] overflow-hidden border-2 border-[#86efac]/40 bg-[#0d3f1d] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:scale-[1.02]">
+                      <img
+                        src={slide.image}
+                        alt={slide.imageAlt}
+                        class="w-full h-auto max-h-[400px] sm:max-h-[465px] md:max-h-[510px] object-cover"
+                        loading="lazy"
+                      />
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/10 pointer-events-none" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- BOTTOM WHITE MILK WAVE SPLASH                                           -->
+  <!-- ======================================================================= -->
+  <div class="absolute -bottom-1 left-0 right-0 w-full pointer-events-none z-20 overflow-hidden leading-none">
+    <svg
+      class="w-full h-16 sm:h-20 md:h-24 lg:h-28 text-[#ffffff] fill-current"
+      viewBox="0 0 1440 120"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <!-- Rear wave layer with creamy semi-transparent crest -->
+      <path
+        d="M0,45 C150,85 280,25 430,60 C580,95 720,30 870,65 C1020,100 1160,35 1300,55 C1380,68 1420,40 1440,48 L1440,120 L0,120 Z"
+        fill="#ffffff"
+        fill-opacity="0.3"
+      ></path>
+
+      <!-- Foreground fluid milk wave -->
+      <path
+        d="M0,65 C120,95 240,45 370,75 C500,105 640,40 780,72 C920,104 1060,42 1200,68 C1320,88 1390,55 1440,62 L1440,120 L0,120 Z"
+        fill="#ffffff"
+      ></path>
+
+      <!-- Glossy Milk Droplets splashing above wave crests -->
+      <circle cx="210" cy="38" r="5" fill="#ffffff" fill-opacity="0.85"></circle>
+      <circle cx="225" cy="24" r="3" fill="#ffffff" fill-opacity="0.65"></circle>
+      <circle cx="585" cy="32" r="5.5" fill="#ffffff" fill-opacity="0.85"></circle>
+      <circle cx="600" cy="18" r="3" fill="#ffffff" fill-opacity="0.6"></circle>
+      <circle cx="980" cy="36" r="4.5" fill="#ffffff" fill-opacity="0.85"></circle>
+      <circle cx="996" cy="22" r="2.5" fill="#ffffff" fill-opacity="0.6"></circle>
+      <circle cx="1340" cy="32" r="5" fill="#ffffff" fill-opacity="0.85"></circle>
+    </svg>
+  </div>
+
+  <!-- ======================================================================= -->
+  <!-- SIDE NAVIGATION ARROWS (Only the arrows, no circle/borders, hover reveal)-->
+  <!-- ======================================================================= -->
+  <!-- Left Arrow Button -->
+  <button
+    id="hero-slider-prev-btn"
+    type="button"
+    aria-label="Slide anterior"
+    class="absolute left-3 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 z-30 p-2 text-white/80 hover:text-white hover:scale-110 transition-all duration-300 cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#86efac]"
+  >
+    <Icon name="chevron-left" size={38} />
+  </button>
+
+  <!-- Right Arrow Button -->
+  <button
+    id="hero-slider-next-btn"
+    type="button"
+    aria-label="Próximo slide"
+    class="absolute right-3 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 z-30 p-2 text-white/80 hover:text-white hover:scale-110 transition-all duration-300 cursor-pointer opacity-100 lg:opacity-0 lg:group-hover:opacity-100 focus-visible:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#86efac]"
+  >
+    <Icon name="chevron-right" size={38} />
+  </button>
+
+  <!-- ======================================================================= -->
+  <!-- PAGINATION DOTS (Small dots placed higher up, clean without container)  -->
+  <!-- ======================================================================= -->
+  <div class="absolute bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
+    <div class="flex items-center gap-2.5 sm:gap-3" role="tablist" aria-label="Navegação de slides">
+      {
+        slides.map((slide, idx) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={idx === 0 ? 'true' : 'false'}
+            aria-label={`Ir para o slide ${idx + 1}: ${slide.title}`}
+            data-target-slide={idx}
+            class="hero-dot-btn p-1 transition-transform duration-200 hover:scale-125 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38]"
+          >
+            <span
+              class={`hero-dot block rounded-full transition-all duration-300 ${
+                idx === 0
+                  ? 'w-2.5 h-2.5 sm:w-3 sm:h-3 bg-[#169f38] shadow-sm active-dot'
+                  : 'w-2 h-2 sm:w-2.5 sm:h-2.5 bg-[#ffffff] opacity-75 hover:opacity-100'
+              }`}
+            />
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  function initHeroCarousel() {
+    const carousel = document.getElementById('hero-interactive-carousel');
+    if (!carousel) return;
+
+    const slides = carousel.querySelectorAll<HTMLElement>('.hero-slide');
+    const prevBtn = document.getElementById('hero-slider-prev-btn');
+    const nextBtn = document.getElementById('hero-slider-next-btn');
+    const dotButtons = carousel.querySelectorAll<HTMLButtonElement>('.hero-dot-btn');
+
+    if (slides.length === 0) return;
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    let autoplayTimer: number | null = null;
+
+    function goToSlide(newIndex: number, direction: 'next' | 'prev' = 'next') {
+      if (newIndex === currentSlide) return;
+
+      const outgoing = slides[currentSlide];
+      const incoming = slides[newIndex];
+
+      // Remove active states from outgoing
+      outgoing.classList.remove('opacity-100', 'z-10', 'translate-x-0', 'pointer-events-auto');
+      outgoing.classList.add('opacity-0', 'z-0', 'pointer-events-none');
+      if (direction === 'next') {
+        outgoing.classList.add('-translate-x-8');
+      } else {
+        outgoing.classList.add('translate-x-8');
+      }
+      outgoing.setAttribute('aria-hidden', 'true');
+
+      // Update incoming
+      incoming.classList.remove('opacity-0', 'z-0', 'pointer-events-none', '-translate-x-8', 'translate-x-8');
+      incoming.classList.add('opacity-100', 'z-10', 'translate-x-0', 'pointer-events-auto');
+      incoming.setAttribute('aria-hidden', 'false');
+
+      // Update Pagination Dots (Verde para o ativo, Brancas para os restantes)
+      dotButtons.forEach((btn, idx) => {
+        const dot = btn.querySelector('.hero-dot');
+        if (!dot) return;
+
+        if (idx === newIndex) {
+          btn.setAttribute('aria-selected', 'true');
+          dot.classList.remove('bg-[#ffffff]', 'opacity-75', 'w-2', 'h-2', 'sm:w-2.5', 'sm:h-2.5');
+          dot.classList.add('bg-[#169f38]', 'w-2.5', 'h-2.5', 'sm:w-3', 'sm:h-3', 'active-dot');
+        } else {
+          btn.setAttribute('aria-selected', 'false');
+          dot.classList.remove('bg-[#169f38]', 'w-2.5', 'h-2.5', 'sm:w-3', 'sm:h-3', 'active-dot');
+          dot.classList.add('bg-[#ffffff]', 'opacity-75', 'w-2', 'h-2', 'sm:w-2.5', 'sm:h-2.5');
+        }
+      });
+
+      currentSlide = newIndex;
+    }
+
+    function nextSlide() {
+      const target = (currentSlide + 1) % totalSlides;
+      goToSlide(target, 'next');
+    }
+
+    function prevSlide() {
+      const target = (currentSlide - 1 + totalSlides) % totalSlides;
+      goToSlide(target, 'prev');
+    }
+
+    // Direct Pagination Dot Clicking
+    dotButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetIdx = Number(btn.getAttribute('data-target-slide'));
+        if (!isNaN(targetIdx)) {
+          const dir = targetIdx > currentSlide ? 'next' : 'prev';
+          goToSlide(targetIdx, dir);
+          restartAutoplay();
+        }
+      });
+    });
+
+    // Arrow Buttons (Next / Prev)
+    nextBtn?.addEventListener('click', () => {
+      nextSlide();
+      restartAutoplay();
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      prevSlide();
+      restartAutoplay();
+    });
+
+    // Keyboard navigation (ArrowLeft & ArrowRight)
+    carousel.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+        restartAutoplay();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+        restartAutoplay();
+      }
+    });
+
+    // Touch Swiping support
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carousel.addEventListener(
+      'touchstart',
+      (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      },
+      { passive: true }
+    );
+    carousel.addEventListener(
+      'touchend',
+      (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 40) {
+          if (diff < 0) {
+            nextSlide();
+          } else {
+            prevSlide();
+          }
+          restartAutoplay();
+        }
+      },
+      { passive: true }
+    );
+
+    // Subtle Auto-play with pause on hover/focus (WCAG 2.2 compliant)
+    function startAutoplay() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      stopAutoplay();
+      autoplayTimer = window.setInterval(nextSlide, 7500);
+    }
+
+    function stopAutoplay() {
+      if (autoplayTimer !== null) {
+        clearInterval(autoplayTimer);
+        autoplayTimer = null;
+      }
+    }
+
+    function restartAutoplay() {
+      stopAutoplay();
+      startAutoplay();
+    }
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+
+    startAutoplay();
+  }
+
+  initHeroCarousel();
+  document.addEventListener('astro:page-load', initHeroCarousel);
+</script>

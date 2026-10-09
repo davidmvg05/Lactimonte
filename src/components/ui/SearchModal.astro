@@ -1,0 +1,155 @@
+---
+import Icon from './Icon.astro';
+---
+
+<!-- Fullscreen Search Overlay (Occupies 100% with scrollbar visible and pure opacity transition) -->
+<div
+  id="search-overlay-modal"
+  class="fixed inset-0 w-full h-full z-[9999] bg-[#ffffff] overflow-y-scroll opacity-0 pointer-events-none transition-opacity duration-300 ease-out flex flex-col justify-center items-center px-6 sm:px-10"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Pesquisa de Receitas Lactimonte"
+>
+  <!-- Top Right Close Button (Green background with black X) -->
+  <button
+    id="search-overlay-close-btn"
+    type="button"
+    aria-label="Fechar Pesquisa"
+    class="absolute top-6 right-6 sm:top-8 sm:right-8 w-11 h-11 rounded-lg bg-[#169f38] hover:bg-[#169f38]/90 text-[#000000] flex items-center justify-center transition-all duration-200 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38] cursor-pointer"
+  >
+    <Icon name="close" size={22} class="text-[#000000]" />
+  </button>
+
+  <!-- Centered Search Form (Matching Imagem 2) -->
+  <form id="search-overlay-form" class="w-full max-w-2xl sm:max-w-3xl space-y-6">
+    <!-- Search Input Line with Highlighted Emphasized Phrase & Black X -->
+    <div class="relative w-full border-b-2 border-[#261c14]/40 focus-within:border-[#169f38] pb-3 transition-colors duration-200 flex items-center justify-between gap-3">
+      <input
+        id="search-overlay-input"
+        type="search"
+        name="q"
+        placeholder="fantasie a sua receita"
+        autocomplete="off"
+        class="w-full bg-transparent text-left font-sans font-bold text-2xl sm:text-3xl md:text-4xl text-[#169f38] placeholder:text-[#261c14]/85 placeholder:opacity-100 placeholder:font-bold focus:outline-none tracking-tight [&::-webkit-search-cancel-button]:appearance-none"
+      />
+      <!-- Black X on the search line for clearing input -->
+      <button
+        id="search-input-clear-btn"
+        type="button"
+        aria-label="Limpar pesquisa"
+        class="text-[#000000] hover:opacity-75 transition-opacity p-1 cursor-pointer shrink-0"
+      >
+        <Icon name="close" size={22} class="text-[#000000]" />
+      </button>
+    </div>
+
+    <!-- Centered PESQUISAR Button (Variação 1 — Primário) & Instruction -->
+    <div class="pt-4 flex flex-col items-center gap-3">
+      <button
+        type="submit"
+        class="btn-lacti btn-lacti-md btn-lacti-primary cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38]"
+      >
+        <span class="btn-label">PESQUISAR</span>
+      </button>
+
+      <!-- Keyboard instructions -->
+      <p class="text-xs sm:text-sm text-[#000000]/40 font-normal select-none text-center pt-1">
+        Escreva e carregue no "Enter" ou "ESC" para fechar
+      </p>
+    </div>
+  </form>
+</div>
+
+<script>
+  function setupSearchOverlay() {
+    const modal = document.getElementById('search-overlay-modal');
+    const input = document.getElementById('search-overlay-input') as HTMLInputElement | null;
+    const form = document.getElementById('search-overlay-form') as HTMLFormElement | null;
+    const closeBtn = document.getElementById('search-overlay-close-btn');
+    const clearBtn = document.getElementById('search-input-clear-btn');
+
+    if (!modal || !input || !form) return;
+
+    let isClosing = false;
+
+    function openSearch() {
+      if (isClosing) return;
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      modal.classList.add('opacity-100', 'pointer-events-auto');
+      setTimeout(() => {
+        input?.focus();
+        input?.select();
+      }, 60);
+    }
+
+    function closeSearch() {
+      if (isClosing) return;
+      isClosing = true;
+      // Perda de opacidade (fade out sem zoom-out)
+      modal.classList.remove('opacity-100');
+      modal.classList.add('opacity-0');
+      // Wait for 300ms transition duration before disabling pointer events
+      setTimeout(() => {
+        modal.classList.remove('pointer-events-auto');
+        modal.classList.add('pointer-events-none');
+        isClosing = false;
+      }, 300);
+    }
+
+    // Top-right close button click
+    closeBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      closeSearch();
+    });
+
+    // Clear button on search line (black X)
+    clearBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      input.value = '';
+      input.focus();
+    });
+
+    // Escape key closes overlay with opacity fade
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+        closeSearch();
+      }
+    });
+
+    // Form submission redirects to /pesquisa?q=...
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (val) {
+        window.location.href = `/pesquisa?q=${encodeURIComponent(val)}`;
+      } else {
+        window.location.href = '/pesquisa';
+      }
+    });
+
+    // Global click listener for [data-search-trigger] elements
+    if (!(window as any).__searchTriggerBound) {
+      (window as any).__searchTriggerBound = true;
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        const trigger = target?.closest('[data-search-trigger]');
+        if (trigger) {
+          e.preventDefault();
+          const currentModal = document.getElementById('search-overlay-modal');
+          const currentInput = document.getElementById('search-overlay-input') as HTMLInputElement | null;
+          if (currentModal) {
+            currentModal.classList.remove('opacity-0', 'pointer-events-none');
+            currentModal.classList.add('opacity-100', 'pointer-events-auto');
+            setTimeout(() => {
+              currentInput?.focus();
+              currentInput?.select();
+            }, 60);
+          }
+        }
+      });
+    }
+  }
+
+  setupSearchOverlay();
+  document.addEventListener('astro:page-load', setupSearchOverlay);
+</script>
