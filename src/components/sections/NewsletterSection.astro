@@ -1,12 +1,11 @@
 ---
 import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
-import { FORM_ERROR_MESSAGES } from '../../data/design-system';
 
-const errName = FORM_ERROR_MESSAGES.find((e) => e.code === 'ERR_NAME_REQUIRED')?.message;
-const errEmail = FORM_ERROR_MESSAGES.find((e) => e.code === 'ERR_EMAIL_FORMAT')?.message;
-const errGdpr = FORM_ERROR_MESSAGES.find((e) => e.code === 'ERR_GDPR_REQUIRED')?.message;
-const okNewsletter = FORM_ERROR_MESSAGES.find((e) => e.code === 'OK_NEWSLETTER')?.message;
+const errName = 'Por favor, introduza o seu nome completo (mínimo de 2 caracteres).';
+const errEmail = 'Por favor, introduza um endereço de e-mail válido (ex: nome@dominio.pt).';
+const errGdpr = 'É necessário aceitar a Política de Privacidade para submeter os seus dados.';
+const okNewsletter = 'Subscrição confirmada! Vai receber em primeira mão as novidades e receitas da Lactimonte.';
 ---
 
 <section

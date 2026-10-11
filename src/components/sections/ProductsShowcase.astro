@@ -1,0 +1,275 @@
+---
+import Icon from '../ui/Icon.astro';
+
+interface ProductSlide {
+  id: string;
+  name: string;
+  line1: string;
+  line2?: string;
+  image: string;
+  href: string;
+}
+
+const products: ProductSlide[] = [
+  {
+    id: 'curados',
+    name: 'Queijo Curado',
+    line1: 'Queijo',
+    line2: 'Curado',
+    image: '/assets/imagem/slide_produtos/categoria-queijos-curados.png',
+    href: '/queijos#curados',
+  },
+  {
+    id: 'frescos',
+    name: 'Queijo Fresco',
+    line1: 'Queijo',
+    line2: 'Fresco',
+    image: '/assets/imagem/slide_produtos/categoria-queijo-frescos.png',
+    href: '/queijos#frescos',
+  },
+  {
+    id: 'requeijao',
+    name: 'Requeijões',
+    line1: 'Requeijões',
+    image: '/assets/imagem/slide_produtos/categoria-requeijoes.png',
+    href: '/queijos#requeijao',
+  },
+];
+---
+
+<section
+  id="produtos-destaque"
+  class="relative py-14 sm:py-18 md:py-24 bg-[#ffffff] text-[#1e1e1e] overflow-hidden select-none"
+  aria-label="Apresentação de Produtos Lactimonte"
+>
+  <div class="lacti-container">
+    <!-- Section Title: "O" and "da" in #1e1e1e, "Sabor Puro" and "Região Saloia" in #169f38 -->
+    <div class="text-center mb-6 sm:mb-8">
+      <h2 class="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight text-center">
+        <span class="text-[#1e1e1e]">O</span> <span class="text-[#169f38]">Sabor Puro</span> <span class="text-[#1e1e1e]">da</span> <span class="text-[#169f38]">Região Saloia</span>
+      </h2>
+    </div>
+
+    <!-- Main Showcase: Side Arrows (#1e1e1e) + Product Name Elevated Above/Behind + Centered Product Image without hover zoom -->
+    <div class="relative flex items-center justify-between gap-2 sm:gap-6 max-w-5xl mx-auto">
+      <!-- Left Arrow (#1e1e1e, pure icon without borders or circles) -->
+      <button
+        id="product-showcase-prev-btn"
+        type="button"
+        aria-label="Ver produto anterior"
+        class="p-2 text-[#1e1e1e] hover:text-[#169f38] hover:scale-110 transition-all duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38] shrink-0 z-20"
+      >
+        <Icon name="chevron-left" size={44} />
+      </button>
+
+      <!-- Central Stage: Product Name Elevated (Dancing Script) + Centered Product Image + Saloio Hand-Drawn SVGs -->
+      <div class="relative flex-1 min-h-[440px] sm:min-h-[500px] md:min-h-[560px] flex items-center justify-center">
+        <!-- Product Names (Dancing Script, below the two upper SVGs, broken into two lines) -->
+        <div class="absolute top-28 sm:top-32 md:top-36 lg:top-40 inset-x-0 flex items-center justify-center pointer-events-none select-none z-0">
+          {
+            products.map((p, idx) => (
+              <span
+                class={`product-bg-name absolute flex flex-col items-center justify-center text-center font-script font-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl leading-[0.85] tracking-normal transition-all duration-500 ease-out text-[#169f38] whitespace-nowrap ${
+                  idx === 0
+                    ? 'translate-y-0 opacity-100'
+                    : 'translate-y-12 opacity-0 pointer-events-none'
+                }`}
+                data-name-idx={idx}
+              >
+                <span>{p.line1}</span>
+                {p.line2 && <span>{p.line2}</span>}
+              </span>
+            ))
+          }
+        </div>
+
+        <!-- SVG 1: Moinho Saloio (Antepassados) - Na linha da seta da esquerda, um pouco para cima -->
+        <div class="absolute left-0 sm:left-2 md:left-4 top-[22%] sm:top-[20%] md:top-[18%] -translate-y-1/2 pointer-events-none select-none z-10">
+          <svg viewBox="0 0 220 180" class="w-18 sm:w-24 md:w-28 lg:w-32 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Sombra orgânica verde suave -->
+            <path d="M 32 125 C 20 105, 95 95, 182 105 C 205 112, 192 138, 152 146 C 90 155, 42 140, 32 125 Z" fill="#dcf59e" />
+            <!-- Torre de pedra do moinho -->
+            <path d="M 75 135 L 86 70 L 134 70 L 145 135 Z" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff" fill-opacity="0.9" />
+            <!-- Cúpula cónica tradicional -->
+            <path d="M 78 70 L 110 38 L 142 70 Z" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff" />
+            <!-- Eixo central -->
+            <circle cx="110" cy="65" r="4" stroke="#1e1e1e" stroke-width="2" fill="#1e1e1e" />
+            <!-- Varas e Velas do Moinho de Mafra -->
+            <line x1="110" y1="65" x2="68" y2="35" stroke="#1e1e1e" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M 68 35 L 85 30 L 98 48 Z" stroke="#1e1e1e" stroke-width="1.8" fill="#ffffff" fill-opacity="0.9" />
+            <line x1="110" y1="65" x2="152" y2="95" stroke="#1e1e1e" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M 152 95 L 135 100 L 122 82 Z" stroke="#1e1e1e" stroke-width="1.8" fill="#ffffff" fill-opacity="0.9" />
+            <line x1="110" y1="65" x2="140" y2="25" stroke="#1e1e1e" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M 140 25 L 145 42 L 128 52 Z" stroke="#1e1e1e" stroke-width="1.8" fill="#ffffff" fill-opacity="0.9" />
+            <line x1="110" y1="65" x2="80" y2="105" stroke="#1e1e1e" stroke-width="2.4" stroke-linecap="round" />
+            <path d="M 80 105 L 75 88 L 92 78 Z" stroke="#1e1e1e" stroke-width="1.8" fill="#ffffff" fill-opacity="0.9" />
+            <!-- Porta em arco de pedra -->
+            <path d="M 102 135 V 115 C 102 110, 118 110, 118 115 V 135" stroke="#1e1e1e" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <!-- SVG 2: Cântaro de Leite Saloio - Do lado esquerdo perto da seta do lado direito -->
+        <div class="absolute right-0 sm:right-2 md:right-4 top-[22%] sm:top-[20%] md:top-[18%] -translate-y-1/2 pointer-events-none select-none z-10">
+          <svg viewBox="0 0 220 180" class="w-18 sm:w-24 md:w-28 lg:w-32 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Sombra orgânica em aguarela verde suave -->
+            <path d="M 35 125 C 20 105, 92 98, 175 108 C 202 114, 190 140, 150 148 C 90 156, 42 140, 35 125 Z" fill="#dcf59e" />
+            <!-- Base do cântaro saloio -->
+            <ellipse cx="110" cy="136" rx="42" ry="12" stroke="#1e1e1e" stroke-width="2.6" fill="#ffffff" fill-opacity="0.95" />
+            <!-- Corpo do cântaro tradicional -->
+            <path d="M 68 136 C 64 105, 78 78, 92 64 L 128 64 C 142 78, 156 105, 152 136" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff" fill-opacity="0.9" />
+            <!-- Gargalo e rebordo da boca -->
+            <path d="M 92 64 L 94 44 C 94 38, 126 38, 126 44 L 128 64" stroke="#1e1e1e" stroke-width="2.6" stroke-linecap="round" fill="#ffffff" />
+            <ellipse cx="110" cy="42" rx="18" ry="6" stroke="#1e1e1e" stroke-width="2.4" fill="#ffffff" />
+            <!-- Asa tradicional saloia -->
+            <path d="M 92 68 C 66 70, 64 96, 76 112" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" />
+            <!-- Detalhes artesanais de latão/cerâmica -->
+            <path d="M 82 92 C 96 98, 124 98, 138 92" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 1" />
+            <path d="M 86 114 C 98 120, 122 120, 134 114" stroke="#1e1e1e" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <!-- SVG 3: Queijeira (Queijos) - Canto Inferior Esquerdo ao lado do queijo -->
+        <div class="absolute left-1 sm:left-4 md:left-8 lg:left-12 bottom-2 sm:bottom-4 md:bottom-6 pointer-events-none select-none z-10">
+          <svg viewBox="0 0 220 180" class="w-20 sm:w-28 md:w-34 lg:w-40 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Sombra orgânica em aguarela verde suave (como Imagem 1) -->
+            <path d="M 35 125 C 20 105, 90 95, 175 105 C 205 110, 195 135, 155 145 C 95 155, 45 140, 35 125 Z" fill="#dcf59e" />
+            <path d="M 50 100 C 65 92, 140 92, 155 102 C 145 118, 55 118, 50 100 Z" fill="#c3e88d" opacity="0.6" />
+            <!-- Rebordo exterior desenhado à mão -->
+            <path d="M 38 52 C 34 38, 182 36, 188 50 C 192 62, 42 64, 38 52 Z" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff" />
+            <path d="M 44 48 C 65 42, 160 40, 182 48" stroke="#1e1e1e" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 1" />
+            <!-- Aba interior da queijeira -->
+            <path d="M 34 54 C 30 60, 48 68, 95 70 C 145 72, 190 64, 194 54" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round" />
+            <!-- Corpo da queijeira tradicional -->
+            <path d="M 46 64 C 48 88, 58 120, 72 132 C 85 142, 140 144, 156 132 C 170 120, 180 88, 184 64" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff" fill-opacity="0.9" />
+            <path d="M 72 132 C 92 140, 136 140, 156 132" stroke="#1e1e1e" stroke-width="2.6" stroke-linecap="round" />
+            <!-- Ondulação da coalhada fresca -->
+            <path d="M 74 98 C 88 94, 98 102, 108 96" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <!-- SVG 4: Pão (Pão de Mafra tradicional) - Canto Inferior Direito ao lado do queijo -->
+        <div class="absolute right-1 sm:right-4 md:right-8 lg:right-12 bottom-2 sm:bottom-4 md:bottom-6 pointer-events-none select-none z-10">
+          <svg viewBox="0 0 220 180" class="w-20 sm:w-28 md:w-34 lg:w-40 h-auto" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Sombra orgânica verde suave -->
+            <path d="M 30 120 C 18 100, 95 90, 180 102 C 205 108, 195 138, 150 146 C 85 156, 40 138, 30 120 Z" fill="#dcf59e" />
+            <!-- Silhueta característica do Pão Saloio com a sua "cabeça" -->
+            <path d="M 40 110 C 32 90, 45 62, 75 52 C 90 32, 135 30, 155 48 C 182 56, 194 85, 185 112 C 176 130, 50 130, 40 110 Z" stroke="#1e1e1e" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="#ffffff" fill-opacity="0.9" />
+            <!-- Fendas rústicas da côdea estaladiça -->
+            <path d="M 78 58 C 96 74, 120 78, 148 68" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M 60 82 C 85 96, 130 96, 165 84" stroke="#1e1e1e" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M 95 44 C 112 50, 125 48, 138 42" stroke="#1e1e1e" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 2" />
+            <!-- Textura de farinha e côdea -->
+            <path d="M 82 108 C 105 114, 135 112, 152 106" stroke="#1e1e1e" stroke-width="1.8" stroke-linecap="round" />
+            <circle cx="105" cy="85" r="1.5" fill="#1e1e1e" />
+            <circle cx="120" cy="88" r="1.5" fill="#1e1e1e" />
+          </svg>
+        </div>
+
+        <!-- Foreground Product Images (Centered without hover scale, smooth in-place crossfade) -->
+        <div class="relative z-10 w-full max-w-xs sm:max-w-md md:max-w-lg aspect-square flex items-center justify-center mt-12 sm:mt-14">
+          {
+            products.map((p, idx) => (
+              <a
+                href={p.href}
+                class={`product-fg-img absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out cursor-pointer ${
+                  idx === 0
+                    ? 'opacity-100 pointer-events-auto'
+                    : 'opacity-0 pointer-events-none'
+                }`}
+                data-img-idx={idx}
+                aria-label={`Ver gama completa de ${p.name}`}
+              >
+                <img
+                  src={p.image}
+                  alt={p.name}
+                  class="max-w-[88%] max-h-[88%] object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.18)]"
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Right Arrow (#1e1e1e, pure icon without borders or circles) -->
+      <button
+        id="product-showcase-next-btn"
+        type="button"
+        aria-label="Ver próximo produto"
+        class="p-2 text-[#1e1e1e] hover:text-[#169f38] hover:scale-110 transition-all duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38] shrink-0 z-20"
+      >
+        <Icon name="chevron-right" size={44} />
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initProductShowcase() {
+    const section = document.getElementById('produtos-destaque');
+    if (!section) return;
+
+    const names = section.querySelectorAll<HTMLElement>('.product-bg-name');
+    const images = section.querySelectorAll<HTMLElement>('.product-fg-img');
+    const prevBtn = document.getElementById('product-showcase-prev-btn');
+    const nextBtn = document.getElementById('product-showcase-next-btn');
+
+    if (names.length === 0 || images.length === 0) return;
+
+    let currentIndex = 0;
+    const total = names.length;
+    let isAnimating = false;
+
+    function goToProduct(nextIndex: number) {
+      if (isAnimating || nextIndex === currentIndex) return;
+      isAnimating = true;
+
+      const currentName = names[currentIndex];
+      const nextName = names[nextIndex];
+      const currentImg = images[currentIndex];
+      const nextImg = images[nextIndex];
+
+      // 1. Text Animation: Current name is "puxado para baixo" (slides down)
+      currentName.classList.remove('translate-y-0', 'opacity-100');
+      currentName.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+
+      // Next name comes into place from above
+      nextName.style.transition = 'none';
+      nextName.classList.remove('translate-y-12', 'translate-y-0', 'opacity-100');
+      nextName.classList.add('-translate-y-6', 'opacity-0');
+      void nextName.offsetHeight; // force reflow
+      nextName.style.transition = '';
+
+      setTimeout(() => {
+        nextName.classList.remove('-translate-y-6', 'opacity-0', 'pointer-events-none');
+        nextName.classList.add('translate-y-0', 'opacity-100');
+      }, 50);
+
+      // 2. Images Animation: Seamless in-place crossfade so product appears anchored
+      currentImg.classList.remove('opacity-100', 'pointer-events-auto');
+      currentImg.classList.add('opacity-0', 'pointer-events-none');
+
+      nextImg.classList.remove('opacity-0', 'pointer-events-none');
+      nextImg.classList.add('opacity-100', 'pointer-events-auto');
+
+      currentIndex = nextIndex;
+
+      setTimeout(() => {
+        isAnimating = false;
+      }, 520);
+    }
+
+    nextBtn?.addEventListener('click', () => {
+      const next = (currentIndex + 1) % total;
+      goToProduct(next);
+    });
+
+    prevBtn?.addEventListener('click', () => {
+      const prev = (currentIndex - 1 + total) % total;
+      goToProduct(prev);
+    });
+  }
+
+  initProductShowcase();
+  document.addEventListener('astro:page-load', initProductShowcase);
+</script>

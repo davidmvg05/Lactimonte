@@ -8,12 +8,9 @@ interface SlideData {
   phrase: string;
   title: string;
   titleHighlight?: string;
-  description: string;
   buttonLabel: string;
   buttonHref: string;
-  image: string;
-  imageAlt: string;
-  isStudioWallEffect?: boolean;
+  bgImage: string;
 }
 
 const slides: SlideData[] = [
@@ -23,13 +20,9 @@ const slides: SlideData[] = [
     phrase: 'Da Nossa Queijaria para a Sua Mesa',
     title: 'Três Especialidades.',
     titleHighlight: 'Uma Tradição Saloia',
-    description:
-      'Uma Tradição Saloia. O saber autêntico da região de Mafra refletido na frescura dos nossos Queijos Frescos, na cura paciente dos Queijos Curados e na nobreza aveludada do Requeijão tradicional.',
     buttonLabel: 'Explorar Os Nossos Queijos',
     buttonHref: '/queijos',
-    image: '/assets/imagem/hero-tabua-queijos.jpg',
-    imageAlt: 'Tábua de Queijos Tradicionais Lactimonte: Merendeira do Monte e Queijo Curado',
-    isStudioWallEffect: true,
+    bgImage: '/assets/imagem/slide_hero/hero-bg-slide1.jpg',
   },
   {
     id: 'slide-2',
@@ -37,13 +30,9 @@ const slides: SlideData[] = [
     phrase: 'A Arte Queijeira desde 1980',
     title: 'Mais de 40 Anos',
     titleHighlight: 'de História & Tradição',
-    description:
-      'Fundada pela família Marques em Montemuro, Mafra, aliamos mais de quatro décadas de mestria queijeira ao mais rigoroso controlo de segurança alimentar e sustentabilidade com ETAR própria.',
     buttonLabel: 'Conhecer a Lactimonte',
     buttonHref: '/a-lactimonte',
-    image: '/assets/imagem/fabrica/lactimonte-um.jpg',
-    imageAlt: 'Instalações da Queijaria Tradicional Lactimonte em Montemuro, Mafra',
-    isStudioWallEffect: false,
+    bgImage: '/assets/imagem/slide_hero/hero-bg-slide2.jpg',
   },
   {
     id: 'slide-3',
@@ -51,13 +40,9 @@ const slides: SlideData[] = [
     phrase: 'Da Queijaria para a Sua Cozinha',
     title: 'Receitas',
     titleHighlight: 'Lactimonte',
-    description:
-      'Inspirações gastronómicas irresistíveis que combinam os nossos queijos frescos, curados e requeijão doce para transformar cada refeição da sua família num momento gourmet inesquecível.',
     buttonLabel: 'Descobrir Receitas',
     buttonHref: '/receitas',
-    image: '/assets/imagem/receitas/Cheesecake-com-requeijao-Lactimonte-1.jpg',
-    imageAlt: 'Cheesecake artesanal preparado com Requeijão Lactimonte',
-    isStudioWallEffect: false,
+    bgImage: '/assets/imagem/slide_hero/hero-bg-slide3.jpg',
   },
 ];
 ---
@@ -69,65 +54,51 @@ const slides: SlideData[] = [
   role="region"
   aria-roledescription="carousel"
 >
-  <!-- Slides Container (+10% height) -->
-  <div class="relative w-full min-h-[640px] sm:min-h-[685px] md:min-h-[730px] lg:min-h-[775px] xl:min-h-[820px] flex items-center">
-    {
-      slides.map((slide, idx) => (
-        <article
-          class={`hero-slide absolute inset-0 w-full h-full flex items-center transition-all duration-700 ease-out ${
-            idx === 0
-              ? 'opacity-100 z-10 translate-x-0 pointer-events-auto'
-              : 'opacity-0 z-0 translate-x-8 pointer-events-none'
-          }`}
-          data-slide-index={idx}
-          aria-hidden={idx === 0 ? 'false' : 'true'}
-        >
-          <!-- Background Environment -->
-          {slide.isStudioWallEffect ? (
-            /* Slide 1 Studio Wall & Floor Perspective Backdrop (Inspired by Image 5) */
-            <div class="absolute inset-0 pointer-events-none overflow-hidden">
-              <!-- Vertical Studio Wall (Top 65%) with radial center spotlight -->
-              <div class="absolute top-0 left-0 right-0 h-[65%] bg-[radial-gradient(ellipse_at_70%_45%,#1c6d35_0%,#0f4820_50%,#092e14_100%)]" />
-              <!-- Perspective Horizon Seam with soft floor shadow -->
-              <div class="absolute top-[65%] left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#06210e]/60 to-transparent blur-[1px]" />
-              <!-- Perspective Studio Floor (Bottom 35%) with surface depth -->
-              <div class="absolute top-[65%] left-0 right-0 bottom-0 bg-gradient-to-b from-[#0b3318] to-[#072410] shadow-[inset_0_12px_24px_-8px_rgba(0,0,0,0.6)]" />
-            </div>
-          ) : idx === 1 ? (
-            /* Slide 2: Deep Heritage Saloio Green Studio Backdrop */
-            <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_65%_45%,#175f2d_0%,#0e411c_55%,#072610_100%)]" />
-          ) : (
-            /* Slide 3: Culinary Saloio Green Studio Backdrop */
-            <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_65%_45%,#1c6833_0%,#114922_55%,#082a12_100%)]" />
-          )}
+  <!-- Continuous Horizontal Slider Track Viewport -->
+  <div class="relative w-full overflow-hidden">
+    <div
+      id="hero-slider-track"
+      class="flex w-full will-change-transform transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+      style="transform: translateX(0%);"
+    >
+      {
+        slides.map((slide, idx) => (
+          <article
+            class="hero-slide w-full flex-shrink-0 min-w-full relative min-h-[640px] sm:min-h-[685px] md:min-h-[730px] lg:min-h-[775px] xl:min-h-[820px] flex items-center overflow-hidden"
+            data-slide-index={idx}
+            aria-hidden={idx === 0 ? 'false' : 'true'}
+          >
+            <!-- 1920x1080 High-Resolution Background Image (Wall illusion for Slide 1, Studio green for Slide 2 & 3) -->
+            <img
+              src={slide.bgImage}
+              alt=""
+              width="1920"
+              height="1080"
+              class="absolute inset-0 w-full h-full object-cover pointer-events-none select-none"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              fetchpriority={idx === 0 ? 'high' : 'auto'}
+            />
 
-          <!-- Slide Content (Lacti Container) -->
-          <div class="lacti-container relative z-10 py-18 sm:py-22 lg:py-28 pb-32 sm:pb-36 lg:pb-40 w-full">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-              <!-- Left Column: Editorial Copy -->
-              <div class="lg:col-span-6 xl:col-span-7 space-y-4 sm:space-y-6 text-left">
-                <!-- Script Tag / Subtitle -->
-                <span class="hero-slide-phrase font-script text-2xl sm:text-3xl md:text-4xl text-[#a7f3d0] block transition-transform duration-500">
+            <!-- Slide Content (Lacti Container) -->
+            <div class="lacti-container relative z-10 py-20 sm:py-24 lg:py-32 pb-36 sm:pb-40 lg:pb-44 w-full">
+              <div class="max-w-3xl sm:max-w-4xl space-y-5 sm:space-y-7 text-left">
+                <!-- Script Subtitle in strict #169f38 -->
+                <span class="hero-slide-phrase font-script text-3xl sm:text-4xl md:text-5xl text-[#169f38] block transition-transform duration-500">
                   {slide.phrase}
                 </span>
 
-                <!-- Main Display Heading -->
-                <h2 class="hero-slide-title font-sans text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-black uppercase tracking-tight leading-[1.05] text-[#ffffff]">
+                <!-- Display Heading: White with #169f38 highlight -->
+                <h1 class="hero-slide-title font-sans text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black uppercase tracking-tight leading-[1.05] text-[#ffffff]">
                   {slide.title}{' '}
                   {slide.titleHighlight && (
-                    <span class="text-[#86efac] block sm:inline">
+                    <span class="text-[#169f38] block sm:inline">
                       {slide.titleHighlight}
                     </span>
                   )}
-                </h2>
-
-                <!-- Description -->
-                <p class="hero-slide-desc text-sm sm:text-base md:text-lg text-[#ffffff]/90 max-w-xl leading-relaxed font-normal">
-                  {slide.description}
-                </p>
+                </h1>
 
                 <!-- CTA Button (Variação 3 — Slide) -->
-                <div class="hero-slide-btn pt-2 flex items-center gap-4">
+                <div class="hero-slide-btn pt-3 sm:pt-4 flex items-center gap-4">
                   <Button
                     href={slide.buttonHref}
                     variant="slide"
@@ -137,51 +108,11 @@ const slides: SlideData[] = [
                   />
                 </div>
               </div>
-
-              <!-- Right Column: Visual Product Staging -->
-              <div class="lg:col-span-6 xl:col-span-5 relative flex items-center justify-center">
-                {slide.isStudioWallEffect ? (
-                  /* Slide 1: Image 4 with Studio Wall & Floor Perspective Framing */
-                  <div class="relative w-full max-w-md sm:max-w-lg lg:max-w-none group">
-                    <!-- Floor Contact Shadow -->
-                    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[90%] h-10 bg-black/60 blur-xl rounded-[100%] pointer-events-none" />
-
-                    <!-- Featured Cheese Cutting Board Image Container -->
-                    <div class="relative rounded-[32px] overflow-hidden border-2 border-[#86efac]/40 bg-[#0d3f1d] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] transition-transform duration-500 hover:scale-[1.02]">
-                      <img
-                        src={slide.image}
-                        alt={slide.imageAlt}
-                        class="w-full h-auto max-h-[420px] sm:max-h-[485px] md:max-h-[530px] object-cover"
-                        loading={idx === 0 ? 'eager' : 'lazy'}
-                        fetchpriority={idx === 0 ? 'high' : 'auto'}
-                      />
-                      <!-- Soft Ambient Glow / Highlight Overlay -->
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/10 pointer-events-none" />
-                    </div>
-                  </div>
-                ) : (
-                  /* Slides 2 & 3: Clean Product & Factory Compositions on the Right */
-                  <div class="relative w-full max-w-md sm:max-w-lg lg:max-w-none group">
-                    <!-- Floor Shadow -->
-                    <div class="absolute -bottom-5 left-1/2 -translate-x-1/2 w-[85%] h-8 bg-black/50 blur-lg rounded-[100%] pointer-events-none" />
-
-                    <div class="relative rounded-[32px] overflow-hidden border-2 border-[#86efac]/40 bg-[#0d3f1d] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.6)] transition-transform duration-500 hover:scale-[1.02]">
-                      <img
-                        src={slide.image}
-                        alt={slide.imageAlt}
-                        class="w-full h-auto max-h-[400px] sm:max-h-[465px] md:max-h-[510px] object-cover"
-                        loading="lazy"
-                      />
-                      <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-white/10 pointer-events-none" />
-                    </div>
-                  </div>
-                )}
-              </div>
             </div>
-          </div>
-        </article>
-      ))
-    }
+          </article>
+        ))
+      }
+    </div>
   </div>
 
   <!-- ======================================================================= -->
@@ -195,32 +126,16 @@ const slides: SlideData[] = [
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <!-- Rear wave layer with creamy semi-transparent crest -->
-      <path
-        d="M0,45 C150,85 280,25 430,60 C580,95 720,30 870,65 C1020,100 1160,35 1300,55 C1380,68 1420,40 1440,48 L1440,120 L0,120 Z"
-        fill="#ffffff"
-        fill-opacity="0.3"
-      ></path>
-
       <!-- Foreground fluid milk wave -->
       <path
         d="M0,65 C120,95 240,45 370,75 C500,105 640,40 780,72 C920,104 1060,42 1200,68 C1320,88 1390,55 1440,62 L1440,120 L0,120 Z"
         fill="#ffffff"
       ></path>
-
-      <!-- Glossy Milk Droplets splashing above wave crests -->
-      <circle cx="210" cy="38" r="5" fill="#ffffff" fill-opacity="0.85"></circle>
-      <circle cx="225" cy="24" r="3" fill="#ffffff" fill-opacity="0.65"></circle>
-      <circle cx="585" cy="32" r="5.5" fill="#ffffff" fill-opacity="0.85"></circle>
-      <circle cx="600" cy="18" r="3" fill="#ffffff" fill-opacity="0.6"></circle>
-      <circle cx="980" cy="36" r="4.5" fill="#ffffff" fill-opacity="0.85"></circle>
-      <circle cx="996" cy="22" r="2.5" fill="#ffffff" fill-opacity="0.6"></circle>
-      <circle cx="1340" cy="32" r="5" fill="#ffffff" fill-opacity="0.85"></circle>
     </svg>
   </div>
 
   <!-- ======================================================================= -->
-  <!-- SIDE NAVIGATION ARROWS (Only the arrows, no circle/borders, hover reveal)-->
+  <!-- SIDE NAVIGATION ARROWS (Pure arrows without circles/borders)            -->
   <!-- ======================================================================= -->
   <!-- Left Arrow Button -->
   <button
@@ -243,7 +158,7 @@ const slides: SlideData[] = [
   </button>
 
   <!-- ======================================================================= -->
-  <!-- PAGINATION DOTS (Small dots placed higher up, clean without container)  -->
+  <!-- PAGINATION DOTS (Small isolated dots placed higher inside the slide)    -->
   <!-- ======================================================================= -->
   <div class="absolute bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center pointer-events-auto">
     <div class="flex items-center gap-2.5 sm:gap-3" role="tablist" aria-label="Navegação de slides">
@@ -274,9 +189,10 @@ const slides: SlideData[] = [
 <script>
   function initHeroCarousel() {
     const carousel = document.getElementById('hero-interactive-carousel');
-    if (!carousel) return;
+    const track = document.getElementById('hero-slider-track') as HTMLElement | null;
+    if (!carousel || !track) return;
 
-    const slides = carousel.querySelectorAll<HTMLElement>('.hero-slide');
+    const slides = track.querySelectorAll<HTMLElement>('.hero-slide');
     const prevBtn = document.getElementById('hero-slider-prev-btn');
     const nextBtn = document.getElementById('hero-slider-next-btn');
     const dotButtons = carousel.querySelectorAll<HTMLButtonElement>('.hero-dot-btn');
@@ -287,28 +203,19 @@ const slides: SlideData[] = [
     const totalSlides = slides.length;
     let autoplayTimer: number | null = null;
 
-    function goToSlide(newIndex: number, direction: 'next' | 'prev' = 'next') {
+    function goToSlide(newIndex: number) {
       if (newIndex === currentSlide) return;
 
-      const outgoing = slides[currentSlide];
-      const incoming = slides[newIndex];
+      // Continuous horizontal slider movement:
+      // When jumping from slide 0 to 2, track translates from 0% to -200%, passing through slide 1 in the middle!
+      // When moving from 2 to 0, track translates from -200% to 0%, passing back through slide 1!
+      track.style.transform = `translateX(-${newIndex * 100}%)`;
 
-      // Remove active states from outgoing
-      outgoing.classList.remove('opacity-100', 'z-10', 'translate-x-0', 'pointer-events-auto');
-      outgoing.classList.add('opacity-0', 'z-0', 'pointer-events-none');
-      if (direction === 'next') {
-        outgoing.classList.add('-translate-x-8');
-      } else {
-        outgoing.classList.add('translate-x-8');
-      }
-      outgoing.setAttribute('aria-hidden', 'true');
+      slides.forEach((slide, idx) => {
+        slide.setAttribute('aria-hidden', idx === newIndex ? 'false' : 'true');
+      });
 
-      // Update incoming
-      incoming.classList.remove('opacity-0', 'z-0', 'pointer-events-none', '-translate-x-8', 'translate-x-8');
-      incoming.classList.add('opacity-100', 'z-10', 'translate-x-0', 'pointer-events-auto');
-      incoming.setAttribute('aria-hidden', 'false');
-
-      // Update Pagination Dots (Verde para o ativo, Brancas para os restantes)
+      // Update Pagination Dots (Verde para o ativo, Brancas para os outros)
       dotButtons.forEach((btn, idx) => {
         const dot = btn.querySelector('.hero-dot');
         if (!dot) return;
@@ -329,12 +236,12 @@ const slides: SlideData[] = [
 
     function nextSlide() {
       const target = (currentSlide + 1) % totalSlides;
-      goToSlide(target, 'next');
+      goToSlide(target);
     }
 
     function prevSlide() {
       const target = (currentSlide - 1 + totalSlides) % totalSlides;
-      goToSlide(target, 'prev');
+      goToSlide(target);
     }
 
     // Direct Pagination Dot Clicking
@@ -342,8 +249,7 @@ const slides: SlideData[] = [
       btn.addEventListener('click', () => {
         const targetIdx = Number(btn.getAttribute('data-target-slide'));
         if (!isNaN(targetIdx)) {
-          const dir = targetIdx > currentSlide ? 'next' : 'prev';
-          goToSlide(targetIdx, dir);
+          goToSlide(targetIdx);
           restartAutoplay();
         }
       });
