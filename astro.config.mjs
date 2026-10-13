@@ -2,7 +2,8 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://lactimonte.com',
+  site: 'https://davidmvg05.github.io',
+  base: '/Lactite',
   integrations: [
     tailwind({
       applyBaseStyles: false,
