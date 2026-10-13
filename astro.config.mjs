@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://davidmvg05.github.io',
-  base: '/Lactite',
+  base: '/Lactimonte',
   integrations: [
     tailwind({
       applyBaseStyles: false,
