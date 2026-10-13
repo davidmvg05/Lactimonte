@@ -9,11 +9,11 @@ const { currentPath = Astro.url.pathname } = Astro.props;
 
 // Menu items as requested: marca / queijos / receitas / raízes / mural
 const navItems = [
-  { label: 'marca', href: '/a-lactimonte' },
+  { label: 'marca', href: '/marca' },
   { label: 'queijos', href: '/queijos' },
   { label: 'receitas', href: '/receitas' },
   { label: 'raízes', href: '/raizes' },
-  { label: 'mural', href: '/noticias' },
+  { label: 'mural', href: '/mural' },
 ];
 
 const isActive = (href: string) => {
@@ -101,6 +101,7 @@ const isActive = (href: string) => {
     </div>
   </div>
 
+
   <!-- Mobile Navigation Drawer -->
   <div
     id="mobile-nav-drawer"
@@ -112,12 +113,11 @@ const isActive = (href: string) => {
           <a
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
-            class={`font-script text-3xl lowercase tracking-wide transition-colors duration-150 flex items-center justify-between py-1.5 text-[#169f38] hover:text-[#1e1e1e] ${
+            class={`font-script text-3xl lowercase tracking-wide transition-colors duration-150 flex items-center py-1.5 text-[#169f38] hover:text-[#1e1e1e] ${
               isActive(item.href) ? 'font-bold' : ''
             }`}
           >
             <span>{item.label}</span>
-            <Icon name="arrow-up-right" size={18} class="text-[#169f38]" />
           </a>
         ))
       }

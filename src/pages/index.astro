@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSlider from '../components/sections/HeroSlider.astro';
 import ProductsShowcase from '../components/sections/ProductsShowcase.astro';
+import AboutSection from '../components/sections/AboutSection.astro';
+import RecipesShowcase from '../components/sections/RecipesShowcase.astro';
 ---
 
 <BaseLayout
@@ -13,4 +15,10 @@ import ProductsShowcase from '../components/sections/ProductsShowcase.astro';
 
   <!-- Segunda Secção: O Sabor Puro da Região Saloia -->
   <ProductsShowcase />
+
+  <!-- Terceira Secção: Sobre Nós / A Marca -->
+  <AboutSection />
+
+  <!-- Quarta Secção: Monte de Receitas -->
+  <RecipesShowcase />
 </BaseLayout>

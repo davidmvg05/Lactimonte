@@ -9,6 +9,11 @@ export default defineConfig({
     }),
   ],
   compressHTML: true,
+  redirects: {
+    '/noticias': '/mural',
+    '/a-lactimonte': '/marca',
+    '/mar': '/marca',
+  },
   build: {
     inlineStylesheets: 'auto',
   },

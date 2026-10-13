@@ -31,7 +31,7 @@ const slides: SlideData[] = [
     title: 'Mais de 40 Anos',
     titleHighlight: 'de História & Tradição',
     buttonLabel: 'Conhecer a Lactimonte',
-    buttonHref: '/a-lactimonte',
+    buttonHref: '/marca',
     bgImage: '/assets/imagem/slide_hero/hero-bg-slide2.jpg',
   },
   {
@@ -202,25 +202,29 @@ const slides: SlideData[] = [
     let currentSlide = 0;
     const totalSlides = slides.length;
     let autoplayTimer: number | null = null;
+    let isMoving = false;
 
-    function goToSlide(newIndex: number) {
-      if (newIndex === currentSlide) return;
+    // Duplicar slides para carrossel infinito sem retorno visual (Loop contínuo):
+    // Clona o último slide no início (prepended) e o primeiro slide no final (appended)
+    const firstClone = slides[0].cloneNode(true) as HTMLElement;
+    const lastClone = slides[totalSlides - 1].cloneNode(true) as HTMLElement;
+    firstClone.setAttribute('data-clone', 'first');
+    lastClone.setAttribute('data-clone', 'last');
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, track.firstChild);
 
-      // Continuous horizontal slider movement:
-      // When jumping from slide 0 to 2, track translates from 0% to -200%, passing through slide 1 in the middle!
-      // When moving from 2 to 0, track translates from -200% to 0%, passing back through slide 1!
-      track.style.transform = `translateX(-${newIndex * 100}%)`;
+    // Agora os slides físicos são: [lastClone, slide0, slide1, slide2, firstClone]
+    // O índice físico 1 corresponde ao slide original 0
+    let physicalIndex = 1;
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${physicalIndex * 100}%)`;
 
-      slides.forEach((slide, idx) => {
-        slide.setAttribute('aria-hidden', idx === newIndex ? 'false' : 'true');
-      });
-
-      // Update Pagination Dots (Verde para o ativo, Brancas para os outros)
+    function updateDots(activeLogicalIndex: number) {
       dotButtons.forEach((btn, idx) => {
         const dot = btn.querySelector('.hero-dot');
         if (!dot) return;
 
-        if (idx === newIndex) {
+        if (idx === activeLogicalIndex) {
           btn.setAttribute('aria-selected', 'true');
           dot.classList.remove('bg-[#ffffff]', 'opacity-75', 'w-2', 'h-2', 'sm:w-2.5', 'sm:h-2.5');
           dot.classList.add('bg-[#169f38]', 'w-2.5', 'h-2.5', 'sm:w-3', 'sm:h-3', 'active-dot');
@@ -230,18 +234,50 @@ const slides: SlideData[] = [
           dot.classList.add('bg-[#ffffff]', 'opacity-75', 'w-2', 'h-2', 'sm:w-2.5', 'sm:h-2.5');
         }
       });
-
-      currentSlide = newIndex;
     }
 
+    function moveToPhysical(index: number) {
+      if (isMoving) return;
+      isMoving = true;
+      physicalIndex = index;
+      track.style.transition = 'transform 700ms cubic-bezier(0.25, 1, 0.5, 1)';
+      track.style.transform = `translateX(-${physicalIndex * 100}%)`;
+
+      // Atualiza o dot lógico correspondente
+      let logicalIdx = physicalIndex - 1;
+      if (logicalIdx >= totalSlides) logicalIdx = 0;
+      if (logicalIdx < 0) logicalIdx = totalSlides - 1;
+      currentSlide = logicalIdx;
+      updateDots(logicalIdx);
+    }
+
+    track.addEventListener('transitionend', () => {
+      isMoving = false;
+      // Se chegámos ao clone do fim (depois do slide 2), salta instantaneamente para o slide 0 físico (index 1)
+      if (physicalIndex === totalSlides + 1) {
+        track.style.transition = 'none';
+        physicalIndex = 1;
+        track.style.transform = `translateX(-${physicalIndex * 100}%)`;
+      }
+      // Se chegámos ao clone do início (antes do slide 0), salta instantaneamente para o slide 2 físico (index totalSlides)
+      if (physicalIndex === 0) {
+        track.style.transition = 'none';
+        physicalIndex = totalSlides;
+        track.style.transform = `translateX(-${physicalIndex * 100}%)`;
+      }
+    });
+
     function nextSlide() {
-      const target = (currentSlide + 1) % totalSlides;
-      goToSlide(target);
+      moveToPhysical(physicalIndex + 1);
     }
 
     function prevSlide() {
-      const target = (currentSlide - 1 + totalSlides) % totalSlides;
-      goToSlide(target);
+      moveToPhysical(physicalIndex - 1);
+    }
+
+    function goToSlide(targetIdx: number) {
+      if (targetIdx === currentSlide) return;
+      moveToPhysical(targetIdx + 1);
     }
 
     // Direct Pagination Dot Clicking

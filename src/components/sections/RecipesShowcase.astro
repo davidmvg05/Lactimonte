@@ -1,0 +1,393 @@
+---
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+interface RecipeCard {
+  id: string;
+  title: string;
+  category: 'Entrada' | 'Prato Principal' | 'Sobremesa';
+  image: string;
+  servings: string;
+  time: string;
+  difficulty: 'Fácil' | 'Médio' | 'Difícil';
+  href: string;
+}
+
+const recipes: RecipeCard[] = [
+  {
+    id: 'pate-salmao',
+    title: 'Paté de Salmão com Requeijão',
+    category: 'Entrada',
+    image: '/assets/imagem/receitas/Pate-de-salmao-fumado-com-requeijao-vista-de-cima.jpg',
+    servings: '4 pessoas',
+    time: '10 min',
+    difficulty: 'Fácil',
+    href: '/receitas#pate-salmao-requeijao',
+  },
+  {
+    id: 'galette-tomate',
+    title: 'Galette de Tomate e Queijo Fresco',
+    category: 'Prato Principal',
+    image: '/assets/imagem/receitas/Galette-de-tomate-com-queijo-fresco-Lactimonte-fatiada.jpg',
+    servings: '6 pessoas',
+    time: '35 min',
+    difficulty: 'Fácil',
+    href: '/receitas#galette-tomate-queijo-fresco',
+  },
+  {
+    id: 'bacalhau-forno',
+    title: 'Bacalhau Gratinado com Queijo Curado',
+    category: 'Prato Principal',
+    image: '/assets/imagem/receitas/bacalhau-forno-queijo-monte.jpg',
+    servings: '4 pessoas',
+    time: '50 min',
+    difficulty: 'Médio',
+    href: '/receitas#bacalhau-forno-queijo-monte',
+  },
+  {
+    id: 'cheesecake-requeijao',
+    title: 'Cheesecake Cremoso com Requeijão',
+    category: 'Sobremesa',
+    image: '/assets/imagem/receitas/Cheesecake-com-requeijao-Lactimonte-1024x682-1.jpg',
+    servings: '8 pessoas',
+    time: '40 min',
+    difficulty: 'Médio',
+    href: '/receitas#cheesecake-requeijao',
+  },
+  {
+    id: 'pao-queijo',
+    title: 'Pão de Queijo Curado Saloio',
+    category: 'Entrada',
+    image: '/assets/imagem/receitas/Pao-de-queijo-curado-plano-aproximado.jpg',
+    servings: '6 pessoas',
+    time: '30 min',
+    difficulty: 'Fácil',
+    href: '/receitas#pao-queijo-curado',
+  },
+  {
+    id: 'quiche-alho-frances',
+    title: 'Quiche de Alho Francês e Queijo',
+    category: 'Prato Principal',
+    image: '/assets/imagem/receitas/Quiche-de-Alho-Frances-e-Queijo-Fresco-1024x682-1.jpg',
+    servings: '6 pessoas',
+    time: '45 min',
+    difficulty: 'Fácil',
+    href: '/receitas#quiche-alho-frances',
+  },
+  {
+    id: 'tarte-requeijao',
+    title: 'Tarte de Requeijão e Frutos Vermelhos',
+    category: 'Sobremesa',
+    image: '/assets/imagem/receitas/tarte-requeijao-frutos-silvestres.jpg',
+    servings: '8 pessoas',
+    time: '45 min',
+    difficulty: 'Fácil',
+    href: '/receitas#tarte-requeijao-frutos-silvestres',
+  },
+  {
+    id: 'salada-beringela',
+    title: 'Salada de Beringela com Queijo Fresco',
+    category: 'Entrada',
+    image: '/assets/imagem/receitas/Salada-de-beringela-com-queijo-fresco.jpg',
+    servings: '4 pessoas',
+    time: '25 min',
+    difficulty: 'Fácil',
+    href: '/receitas#salada-beringela-queijo-fresco',
+  },
+];
+
+// 8 receitas com 4 visíveis em simultâneo = 5 posições de deslocamento de 1 em 1 card (8 - 4 + 1 = 5 bolinhas)
+const TOTAL_DOTS = 5;
+const dots = Array.from({ length: TOTAL_DOTS }, (_, i) => i);
+---
+
+<section
+  id="receitas-destaque"
+  class="relative py-20 sm:py-24 md:py-32 bg-[#ffffff] text-[#1e1e1e] overflow-hidden select-none"
+  aria-label="Monte de Receitas Lactimonte"
+>
+  <div class="lacti-container relative">
+    
+    <!-- Título Central em Dancing Script -->
+    <div class="text-center mb-12 sm:mb-16">
+      <h2 class="font-script text-4xl sm:text-5xl md:text-6xl text-[#169f38] leading-tight">
+        Monte de Receitas
+      </h2>
+    </div>
+
+    <!-- Wrapper do Carrossel com Setas Fixas dos Lados Fora das Fotos -->
+    <div class="relative w-full px-10 sm:px-14 md:px-16">
+      
+      <!-- Seta Fixa do Lado Esquerdo (Fora das Imagens) -->
+      <button
+        id="recipes-prev-btn"
+        type="button"
+        class="absolute left-0 top-1/2 -translate-y-1/2 z-30 p-2 text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-200 focus:outline-none cursor-pointer"
+        aria-label="Receitas anteriores"
+      >
+        <svg
+          class="w-[38px] h-[38px] text-[#1e1e1e]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+      </button>
+
+      <!-- Seta Fixa do Lado Direito (Fora das Imagens) -->
+      <button
+        id="recipes-next-btn"
+        type="button"
+        class="absolute right-0 top-1/2 -translate-y-1/2 z-30 p-2 text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-200 focus:outline-none cursor-pointer"
+        aria-label="Próximas receitas"
+      >
+        <svg
+          class="w-[38px] h-[38px] text-[#1e1e1e]"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </button>
+
+      <!-- Viewport do Carrossel: Exibe 4 fotos em linha mais estreitas (comprimento reduzido) com intervalo real de 7px -->
+      <div id="recipes-viewport" class="overflow-hidden w-full">
+        <div
+          id="recipes-track"
+          class="flex transition-transform duration-500 ease-out will-change-transform gap-[7px]"
+        >
+          {
+            recipes.map((item) => (
+              <div class="recipe-card-item flex-shrink-0 w-full sm:w-[calc(50%-3.5px)] lg:w-[calc(25%-5.25px)]">
+                <div class="w-full flex justify-center">
+                  <a
+                    href={item.href}
+                    class="group relative block w-full max-w-[245px] sm:max-w-[255px] md:max-w-[265px] h-[480px] sm:h-[500px] md:h-[520px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_10px_25px_-5px_rgba(0,0,0,0.12)] bg-[#f3f4f6] cursor-pointer"
+                    aria-label={`Ver receita: ${item.title}`}
+                  >
+                    <!-- Imagem Vertical de Fundo (Sem qualquer zoom no hover) -->
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      class="w-full h-full object-cover pointer-events-none select-none"
+                      loading="lazy"
+                    />
+
+                    <!-- Overlay Verde Translúcido Suave (Nota-se muito mais a foto por trás) -->
+                    <div class="absolute inset-0 bg-[#169f38]/60 backdrop-blur-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex flex-col justify-between p-5 sm:p-6 text-white text-center">
+                      <!-- Tag da Categoria no Canto Superior Esquerdo: apenas as palavras brancas (sem badge nem caixas) -->
+                      <div class="flex justify-start items-start pointer-events-none">
+                        <span class="text-white font-sans text-xs uppercase tracking-wider font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                          {item.category}
+                        </span>
+                      </div>
+
+                      <!-- Nome da Receita ao Centro em Dancing Script -->
+                      <div class="px-2 my-auto">
+                        <h3 class="font-script text-2xl sm:text-3xl lg:text-[2.2rem] leading-snug text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+                          {item.title}
+                        </h3>
+                      </div>
+
+                      <!-- 3 Ícones na Parte Inferior SEM LINHA EM CIMA -->
+                      <div class="grid grid-cols-3 gap-2 pt-2">
+                        <!-- Ícone Talheres + Quantas Pessoas -->
+                        <div class="flex flex-col items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                          <Icon name="utensils" size={20} class="text-white mb-1" />
+                          <span class="font-sans text-[11px] sm:text-xs font-semibold text-white leading-tight">
+                            {item.servings}
+                          </span>
+                        </div>
+
+                        <!-- Ícone Relógio + Tempo -->
+                        <div class="flex flex-col items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                          <Icon name="clock" size={20} class="text-white mb-1" />
+                          <span class="font-sans text-[11px] sm:text-xs font-semibold text-white leading-tight">
+                            {item.time}
+                          </span>
+                        </div>
+
+                        <!-- Ícone Chapéu de Chef + Dificuldade -->
+                        <div class="flex flex-col items-center justify-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
+                          <Icon name="chef-hat" size={20} class="text-white mb-1" />
+                          <span class="font-sans text-[11px] sm:text-xs font-semibold text-white leading-tight">
+                            {item.difficulty}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bolinhas Indicadoras: 5 posições (4 cards visíveis, avança de 1 em 1 card) -->
+    <div class="mt-8 sm:mt-10 h-8 flex items-center justify-center">
+      <div
+        class="flex items-center gap-1.5 sm:gap-2"
+        role="tablist"
+        aria-label="Navegação do carrossel de receitas"
+      >
+        {
+          dots.map((dotIdx) => (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={dotIdx === 0 ? 'true' : 'false'}
+              aria-label={`Ir para a posição ${dotIdx + 1} de receitas`}
+              data-dot-index={dotIdx}
+              class="recipe-dot-btn w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full p-0 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38]"
+            >
+              <span
+                class={`recipe-dot block w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-200 pointer-events-none ${
+                  dotIdx === 0
+                    ? 'bg-[#169f38] shadow-sm scale-110'
+                    : 'bg-[#d1d5db] hover:bg-[#9ca3af] scale-90'
+                }`}
+              />
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Botão "Ver mais receitas" (Formato Médio, Variação 2 — Secundário) -->
+    <div class="mt-6 sm:mt-8 flex items-center justify-center">
+      <Button
+        href="/receitas"
+        variant="secondary"
+        size="md"
+        ariaLabel="Ver mais receitas na página de receitas"
+      >
+        Ver mais receitas
+      </Button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function initRecipesCarousel() {
+    const section = document.getElementById('receitas-destaque');
+    if (!section) return;
+
+    const track = document.getElementById('recipes-track') as HTMLElement | null;
+    const prevBtn = document.getElementById('recipes-prev-btn');
+    const nextBtn = document.getElementById('recipes-next-btn');
+    const items = section.querySelectorAll<HTMLElement>('.recipe-card-item');
+    const dotButtons = section.querySelectorAll<HTMLButtonElement>('.recipe-dot-btn');
+
+    if (!track || !prevBtn || !nextBtn || items.length === 0) return;
+
+    let currentIndex = 0;
+
+    function getVisibleCount(): number {
+      if (window.innerWidth >= 1024) return 4;
+      if (window.innerWidth >= 640) return 2;
+      return 1;
+    }
+
+    function getMaxIndex(): number {
+      const visible = getVisibleCount();
+      return Math.max(0, items.length - visible);
+    }
+
+    function updateDots() {
+      // 5 bolinhas correspondentes às 5 posições de deslocamento (1 em 1 card)
+      const activeDotIdx = Math.min(
+        dotButtons.length - 1,
+        Math.max(0, currentIndex)
+      );
+
+      dotButtons.forEach((btn, idx) => {
+        const dot = btn.querySelector('.recipe-dot');
+        if (!dot) return;
+
+        if (idx === activeDotIdx) {
+          btn.setAttribute('aria-selected', 'true');
+          dot.classList.remove('bg-[#d1d5db]', 'hover:bg-[#9ca3af]', 'scale-90');
+          dot.classList.add('bg-[#169f38]', 'shadow-sm', 'scale-110');
+        } else {
+          btn.setAttribute('aria-selected', 'false');
+          dot.classList.remove('bg-[#169f38]', 'shadow-sm', 'scale-110');
+          dot.classList.add('bg-[#d1d5db]', 'hover:bg-[#9ca3af]', 'scale-90');
+        }
+      });
+    }
+
+    function updateTrack() {
+      const maxIdx = getMaxIndex();
+      if (currentIndex > maxIdx) currentIndex = maxIdx;
+      if (currentIndex < 0) currentIndex = 0;
+
+      const firstItem = items[0];
+      if (!firstItem) return;
+
+      const itemWidth = firstItem.getBoundingClientRect().width;
+      // Intervalo exato de 7px
+      const gap = 7;
+      const offset = currentIndex * (itemWidth + gap);
+
+      track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+
+      // Estado das setas
+      prevBtn.style.opacity = currentIndex === 0 ? '0.35' : '1';
+      prevBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+
+      nextBtn.style.opacity = currentIndex >= maxIdx ? '0.35' : '1';
+      nextBtn.style.pointerEvents = currentIndex >= maxIdx ? 'none' : 'auto';
+
+      updateDots();
+    }
+
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const maxIdx = getMaxIndex();
+      if (currentIndex < maxIdx) {
+        currentIndex++;
+        updateTrack();
+      }
+    });
+
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateTrack();
+      }
+    });
+
+    // Clique direto nas 5 bolinhas (avança de 1 em 1 card)
+    dotButtons.forEach((btn, dotIdx) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const maxIdx = getMaxIndex();
+        currentIndex = Math.min(dotIdx, maxIdx);
+        updateTrack();
+      });
+    });
+
+    window.addEventListener('resize', updateTrack);
+    updateTrack();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRecipesCarousel);
+  } else {
+    initRecipesCarousel();
+  }
+  document.addEventListener('astro:page-load', initRecipesCarousel);
+</script>

@@ -20,164 +20,108 @@ import { COMPANY_INFO } from '../../data/company';
     class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_18%_25%,rgba(22,159,56,0.28)_0%,rgba(255,255,255,0.92)_62%,#ffffff_100%)] -z-10"
   ></div>
 
-  <div class="relative z-10 pt-6 sm:pt-10 pb-8 sm:pb-12">
-    <!-- MONUMENTAL EDGE-TO-EDGE BRAND TITLE ("LACTIMONTE" in Verde #169f38) -->
-    <div class="w-full px-2 sm:px-6 overflow-hidden">
-      <div
-        class="footer-giant-word font-sans font-black uppercase text-[#169f38] text-center tracking-[-0.045em] leading-[0.84] w-full whitespace-nowrap"
-        style="font-size: clamp(3.1rem, 13.6vw, 15.5rem);"
-      >
-        LACTIMONTE
-      </div>
-    </div>
+  <!-- Top Milk Wave Splash (Identical to HeroSlider wave) -->
+  <div class="absolute -top-1 left-0 right-0 w-full pointer-events-none z-20 overflow-hidden leading-none rotate-180">
+    <svg
+      class="w-full h-16 sm:h-20 md:h-24 lg:h-28 text-[#ffffff] fill-current"
+      viewBox="0 0 1440 120"
+      preserveAspectRatio="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      <!-- Fluid milk wave matching HeroSlider -->
+      <path
+        d="M0,65 C120,95 240,45 370,75 C500,105 640,40 780,72 C920,104 1060,42 1200,68 C1320,88 1390,55 1440,62 L1440,120 L0,120 Z"
+        fill="#ffffff"
+      ></path>
+    </svg>
+  </div>
 
-    <!-- Main Footer Columns (Exact Layout from Image 1 / shader-footer.framer.website) -->
-    <div class="lacti-container mt-12 sm:mt-20 lg:mt-24">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-8 items-start">
-        <!-- Left Column (Span 5): About & Social Square Buttons (>= 44x44px) -->
-        <div class="md:col-span-5 lg:col-span-5 space-y-6 select-text">
-          <div class="space-y-3 max-w-md">
-            <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
-              Sobre a Lactimonte
-            </h2>
-            <p class="text-sm sm:text-base text-[#000000] leading-relaxed font-normal">
-              Criamos laticínios tradicionais portugueses que preservam o sabor autêntico da região Saloia desde 1980 em Mafra. Do cuidado rigoroso com o leite nacional à arte de curar cada queijo e apurar o nosso requeijão, cada detalhe existe com propósito.
-            </p>
-            <p class="font-script text-2xl text-[#169f38] pt-1">
-              Queijaria Familiar · Montemuro, Mafra
-            </p>
-          </div>
+  <!-- Centered Transparent Brand Name Background Watermark ("LACTIMONTE") -->
+  <div
+    class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0"
+    aria-hidden="true"
+  >
+    <span
+      class="font-sans font-black uppercase tracking-[-0.035em] text-[#169f38]/[0.07] text-center whitespace-nowrap leading-none select-none transition-opacity duration-300"
+      style="font-size: clamp(4rem, 16vw, 18rem);"
+    >
+      LACTIMONTE
+    </span>
+  </div>
 
-          <!-- Social Media Buttons (44x44px minimum target, swap colors on hover, zero black background) -->
-          <div class="flex items-center gap-3 pt-1">
-            <a
-              href={COMPANY_INFO.social.facebook}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visitar Facebook da Lactimonte"
-              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] flex items-center justify-center hover:bg-[#ffffff] hover:text-[#169f38] transition-all duration-instant"
-            >
-              <Icon name="facebook" size={18} />
-            </a>
-            <a
-              href={COMPANY_INFO.social.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visitar Instagram da Lactimonte"
-              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] flex items-center justify-center hover:bg-[#ffffff] hover:text-[#169f38] transition-all duration-instant"
-            >
-              <Icon name="instagram" size={18} />
-            </a>
-            <a
-              href={COMPANY_INFO.social.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Visitar LinkedIn da Lactimonte"
-              class="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border-2 border-[#169f38] bg-[#169f38] text-[#ffffff] flex items-center justify-center hover:bg-[#ffffff] hover:text-[#169f38] transition-all duration-instant"
-            >
-              <Icon name="linkedin" size={18} />
-            </a>
-          </div>
-        </div>
-
-        <!-- Column 2 (Span 2): Sitemap -->
-        <div class="md:col-span-2 lg:col-span-2 space-y-3 select-text">
+  <div class="relative z-10 pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12">
+    <!-- Main Footer Columns Centered and Grouped Closer Together -->
+    <div class="lacti-container">
+      <div class="flex flex-col sm:flex-row justify-center items-center sm:items-start gap-8 sm:gap-10 md:gap-14 mx-auto">
+        <!-- Coluna 1: Lactimonte -->
+        <div class="w-auto min-w-[140px] space-y-3 select-text flex flex-col items-center sm:items-start text-center sm:text-left">
           <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
-            Mapa do Site
+            Lactimonte
           </h2>
-          <ul class="space-y-2.5 text-sm font-medium text-[#000000]">
+          <ul class="space-y-1 text-[#000000]">
             <li>
-              <a href="/a-lactimonte" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                A Lactimonte
+              <a href="/marca" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                marca
               </a>
             </li>
             <li>
-              <a href="/queijos" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Os Nossos Queijos
+              <a href="/queijos" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                queijos
               </a>
             </li>
             <li>
-              <a href="/receitas" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Receitas em Vídeo
+              <a href="/receitas" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                receitas
               </a>
             </li>
             <li>
-              <a href="/noticias" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Notícias & Prémios
+              <a href="/raizes" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                raízes
               </a>
             </li>
             <li>
-              <a href="/contactos" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Contactos
+              <a href="/mural" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                mural
               </a>
             </li>
           </ul>
         </div>
 
-        <!-- Column 3 (Span 2): Legal Pages & Quality -->
-        <div class="md:col-span-2 lg:col-span-2 space-y-3 select-text">
+        <!-- Coluna 2: Queijos -->
+        <div class="w-auto min-w-[140px] space-y-3 select-text flex flex-col items-center sm:items-start text-center sm:text-left">
           <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
-            Páginas Legais
+            Queijos
           </h2>
-          <ul class="space-y-2.5 text-sm font-medium text-[#000000]">
+          <ul class="space-y-1 text-[#000000]">
             <li>
-              <a href="/a-lactimonte#qualidade" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Qualidade e Segurança
+              <a href="/queijos#curados" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                curados
               </a>
             </li>
             <li>
-              <a href="/contactos#privacidade" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Política de Privacidade
+              <a href="/queijos#frescos" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                frescos
               </a>
             </li>
             <li>
-              <a href="/contactos#termos" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Termos e Condições
-              </a>
-            </li>
-            <li>
-              <a href="/contactos#litigios" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Resolução de Litígios
-              </a>
-            </li>
-            <li>
-              <a href="/contactos#cookies" class="inline-block py-1 hover:text-[#169f38] transition-colors duration-instant">
-                Política de Cookies
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.livroreclamacoes.pt/inicio"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 py-1 text-[#169f38] font-bold hover:underline"
-              >
-                <span>Livro de Reclamações</span>
-                <Icon name="arrow-up-right" size={14} />
+              <a href="/queijos#requeijao" class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block py-0.5">
+                requeijão
               </a>
             </li>
           </ul>
         </div>
 
-        <!-- Column 4 (Span 3): Contact us -->
-        <div class="md:col-span-3 lg:col-span-3 space-y-3 select-text">
+        <!-- Coluna 3: Contactos com Segue-nos e Ícones Verdes (Boxicons) em baixo -->
+        <div class="w-auto min-w-[200px] space-y-3 select-text flex flex-col items-center sm:items-start text-center sm:text-left">
           <h2 class="text-sm font-black uppercase tracking-wider text-[#169f38]">
-            Contacte-nos
+            Contactos
           </h2>
-          <ul class="space-y-2.5 text-sm text-[#000000]">
-            <li>
-              <a
-                href="/contactos"
-                class="inline-flex items-center gap-1.5 py-1 font-bold text-[#169f38] hover:underline"
-              >
-                <span>Falar com a Equipa Comercial</span>
-                <Icon name="arrow-up-right" size={14} />
-              </a>
-            </li>
+          <ul class="space-y-1.5 text-sm text-[#000000]">
             <li>
               <a
                 href={COMPANY_INFO.contacts.emailHref}
-                class="inline-block py-1 font-medium hover:text-[#169f38] transition-colors duration-instant"
+                class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block"
               >
                 {COMPANY_INFO.contacts.email}
               </a>
@@ -185,31 +129,102 @@ import { COMPANY_INFO } from '../../data/company';
             <li>
               <a
                 href={COMPANY_INFO.contacts.phoneFixedHref}
-                class="inline-block py-1 font-bold hover:text-[#169f38] transition-colors duration-instant"
+                class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block"
               >
                 {COMPANY_INFO.contacts.phoneFixed}
               </a>
-              <span class="block text-xs text-[#000000]">({COMPANY_INFO.contacts.phoneFixedNote})</span>
+              <span class="block text-[11px] text-[#000000] font-sans">({COMPANY_INFO.contacts.phoneFixedNote})</span>
             </li>
             <li>
               <a
                 href={COMPANY_INFO.contacts.phoneMobileHref}
-                class="inline-block py-1 font-bold hover:text-[#169f38] transition-colors duration-instant"
+                class="font-script text-2xl text-[#1e1e1e] hover:text-[#169f38] transition-colors duration-instant inline-block"
               >
                 {COMPANY_INFO.contacts.phoneMobile}
               </a>
-              <span class="block text-xs text-[#000000]">({COMPANY_INFO.contacts.phoneMobileNote})</span>
+              <span class="block text-[11px] text-[#000000] font-sans">({COMPANY_INFO.contacts.phoneMobileNote})</span>
             </li>
-            <li class="pt-1 text-xs text-[#000000] leading-relaxed">
+            <li class="pt-1 text-xs text-[#000000] leading-relaxed font-sans">
               {COMPANY_INFO.address.street}, {COMPANY_INFO.address.postalCode}<br />
               {COMPANY_INFO.address.locality} · {COMPANY_INFO.address.municipality}
             </li>
           </ul>
+
+          <!-- Segue-nos + Ícones Pretos com hover verde e elevação (Boxicons) -->
+          <div class="pt-4 flex flex-col items-center sm:items-start space-y-2.5">
+            <span class="text-xs font-black uppercase tracking-wider text-[#169f38]">
+              Segue-nos
+            </span>
+            <div class="flex items-center gap-3">
+              <!-- Facebook (bx:bxl-facebook) -->
+              <a
+                href={COMPANY_INFO.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visitar Facebook da Lactimonte"
+                class="text-[#000000] hover:text-[#169f38] hover:-translate-y-1 transition-all duration-200 inline-block p-0.5 cursor-pointer"
+              >
+                <Icon name="facebook" size={24} />
+              </a>
+              <!-- Instagram (bx:bxl-instagram) -->
+              <a
+                href={COMPANY_INFO.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visitar Instagram da Lactimonte"
+                class="text-[#000000] hover:text-[#169f38] hover:-translate-y-1 transition-all duration-200 inline-block p-0.5 cursor-pointer"
+              >
+                <Icon name="instagram" size={24} />
+              </a>
+              <!-- LinkedIn (bx:bxl-linkedin) -->
+              <a
+                href={COMPANY_INFO.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visitar LinkedIn da Lactimonte"
+                class="text-[#000000] hover:text-[#169f38] hover:-translate-y-1 transition-all duration-200 inline-block p-0.5 cursor-pointer"
+              >
+                <Icon name="linkedin" size={24} />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Bottom Copyright & Location Bar -->
-      <div class="mt-16 pt-6 border-t-2 border-[#169f38] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#000000] select-text">
+      <!-- Páginas Legais Horizontais em Cima da Linha Verde -->
+      <div class="mt-14 mb-2 flex flex-wrap items-center justify-center gap-x-3 sm:gap-x-4 gap-y-1.5 text-xs text-[#000000] text-center select-text">
+        <a href="/marca#qualidade" class="hover:text-[#169f38] transition-colors duration-instant">
+          Qualidade e Segurança
+        </a>
+        <span class="text-[#169f38]">•</span>
+        <a href="/contactos#privacidade" class="hover:text-[#169f38] transition-colors duration-instant">
+          Política de Privacidade
+        </a>
+        <span class="text-[#169f38]">•</span>
+        <a href="/contactos#termos" class="hover:text-[#169f38] transition-colors duration-instant">
+          Termos e Condições
+        </a>
+        <span class="text-[#169f38]">•</span>
+        <a href="/contactos#litigios" class="hover:text-[#169f38] transition-colors duration-instant">
+          Resolução de Litígios
+        </a>
+        <span class="text-[#169f38]">•</span>
+        <a href="/contactos#cookies" class="hover:text-[#169f38] transition-colors duration-instant">
+          Política de Cookies
+        </a>
+        <span class="text-[#169f38]">•</span>
+        <a
+          href="https://www.livroreclamacoes.pt/inicio"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hover:text-[#169f38] transition-colors duration-instant"
+        >
+          Livro de Reclamações
+        </a>
+      </div>
+
+      <!-- Linha Verde + Barra de Copyright -->
+      <div class="pt-4 border-t-2 border-[#169f38] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-medium text-[#000000] select-text">
         <p>© {new Date().getFullYear()} {COMPANY_INFO.legalName} Todos os direitos reservados.</p>
         <div class="flex items-center gap-4">
           <span class="inline-flex items-center gap-1.5">

@@ -1,0 +1,95 @@
+---
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+export interface Props {
+  items?: BreadcrumbItem[];
+  currentPath?: string;
+}
+
+const { items, currentPath = Astro.url.pathname } = Astro.props;
+
+function getDefaultBreadcrumbs(path: string): BreadcrumbItem[] {
+  const cleanPath = path.replace(/\/+$/, '') || '/';
+  if (cleanPath === '/') return [];
+
+  // O nome da breadcrumb é exatamente igual ao URL (apenas a raiz fica 'Home')
+  const segments = cleanPath.split('/').filter(Boolean);
+
+  const pathMap: Record<string, string> = {
+    'marca': 'marca',
+    'mar': 'marca',
+    'a-lactimonte': 'marca',
+    'queijos': 'queijos',
+    'receitas': 'receitas',
+    'raizes': 'raízes',
+    'mural': 'mural',
+    'noticias': 'mural',
+    'contactos': 'contactos',
+    'pesquisa': 'pesquisa',
+  };
+
+  const breadcrumbs: BreadcrumbItem[] = [{ label: 'Home', href: '/' }];
+
+  let accumulatedPath = '';
+  segments.forEach((seg, idx) => {
+    accumulatedPath += `/${seg}`;
+    const label = pathMap[seg] || seg.replace(/-/g, ' ');
+    const isLast = idx === segments.length - 1;
+    breadcrumbs.push({
+      label,
+      href: isLast ? undefined : accumulatedPath,
+    });
+  });
+
+  return breadcrumbs;
+}
+
+const breadcrumbItems = items && items.length > 0 ? items : getDefaultBreadcrumbs(currentPath);
+---
+
+{
+  breadcrumbItems.length > 0 && (
+    <nav aria-label="Breadcrumbs" class="py-1 select-text">
+      <ul class="flex items-center flex-wrap text-sm sm:text-base uppercase tracking-wider font-sans leading-none font-medium">
+        {breadcrumbItems.map((item, idx) => {
+          const isLast = idx === breadcrumbItems.length - 1;
+
+          return (
+            <li class="breadcrumb-item flex items-center">
+              {!isLast && item.href ? (
+                <a
+                  href={item.href}
+                  class="text-[#169f38]/60 hover:text-[#169f38] transition-colors duration-instant font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#169f38] rounded-sm"
+                >
+                  <span>{item.label}</span>
+                </a>
+              ) : (
+                <span
+                  aria-current="page"
+                  class="text-[#169f38] font-bold"
+                >
+                  {item.label}
+                </span>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+  )
+}
+
+<style>
+  .breadcrumb-item + .breadcrumb-item::before {
+    content: '>';
+    display: inline-block;
+    margin-inline: 0.625rem;
+    color: rgba(22, 159, 56, 0.45);
+    font-size: 0.875rem;
+    font-weight: 700;
+    user-select: none;
+  }
+</style>

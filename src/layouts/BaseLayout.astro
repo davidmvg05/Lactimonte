@@ -3,6 +3,7 @@ import '../styles/design-system.css';
 import Header from '../components/layout/Header.astro';
 import ShaderFooter from '../components/layout/ShaderFooter.astro';
 import SearchModal from '../components/ui/SearchModal.astro';
+import Breadcrumbs from '../components/ui/Breadcrumbs.astro';
 import { COMPANY_INFO } from '../data/company';
 
 export interface Props {
@@ -18,6 +19,7 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://lactimonte.com');
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
 
 const schemaOrg = {
   '@context': 'https://schema.org',
@@ -111,7 +113,19 @@ const safeSchemaJson = JSON.stringify(schemaOrg).replace(/</g, '\\u003c');
       Saltar para o conteúdo principal
     </a>
 
-    <Header />
+    <Header currentPath={Astro.url.pathname} />
+
+    {
+      !isHome && (
+        <section aria-label="Navegação estrutural" class="pt-6 sm:pt-8 pb-2 bg-[#ffffff]">
+          <div class="lacti-container">
+            <div class="-ml-1 sm:-ml-3">
+              <Breadcrumbs currentPath={Astro.url.pathname} />
+            </div>
+          </div>
+        </section>
+      )
+    }
 
     <main id="main-content" class="flex-grow">
       <slot />
