@@ -12,8 +12,16 @@ export interface Props {
 const { items, currentPath = Astro.url.pathname } = Astro.props;
 
 function getDefaultBreadcrumbs(path: string): BreadcrumbItem[] {
-  const cleanPath = path.replace(/\/+$/, '') || '/';
-  if (cleanPath === '/') return [];
+  const rawBase = import.meta.env.BASE_URL || '/';
+  const cleanBase = rawBase.replace(/\/+$/, '');
+
+  let relativePath = path;
+  if (cleanBase && relativePath.toLowerCase().startsWith(cleanBase.toLowerCase())) {
+    relativePath = relativePath.slice(cleanBase.length);
+  }
+
+  const cleanPath = relativePath.replace(/\/+$/, '') || '/';
+  if (cleanPath === '/' || cleanPath === '') return [];
 
   // O nome da breadcrumb é exatamente igual ao URL (apenas a raiz fica 'Home')
   const segments = cleanPath.split('/').filter(Boolean);
@@ -31,12 +39,13 @@ function getDefaultBreadcrumbs(path: string): BreadcrumbItem[] {
     'pesquisa': 'pesquisa',
   };
 
-  const breadcrumbs: BreadcrumbItem[] = [{ label: 'Home', href: '/' }];
+  const homeHref = cleanBase ? `${cleanBase}/` : '/';
+  const breadcrumbs: BreadcrumbItem[] = [{ label: 'Home', href: homeHref }];
 
-  let accumulatedPath = '';
+  let accumulatedPath = cleanBase;
   segments.forEach((seg, idx) => {
     accumulatedPath += `/${seg}`;
-    const label = pathMap[seg] || seg.replace(/-/g, ' ');
+    const label = pathMap[seg.toLowerCase()] || seg.replace(/-/g, ' ');
     const isLast = idx === segments.length - 1;
     breadcrumbs.push({
       label,
